@@ -18,8 +18,11 @@
 
 # C++
 
-- [Standard I/O]()
+- [Standard I/O](./cpp/standard_io.md)
 - [Object-Oriented Programming]()
+- [Copying Objects]()
+- [Linked List]()
+- [Pointer to Pointers]()
 - [Static Members and Friends]()
 - [Overloading Operators]()
 - [Aggregation and Composition]()
