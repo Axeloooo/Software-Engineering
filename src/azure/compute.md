@@ -1,12 +1,31 @@
 # Compute
 
+## Table of Contents
+
+- [Azure Virtual Machines](#azure-virtual-machines)
+- [Azure Virtual Machine Scale Sets](#azure-virtual-machine-scale-sets)
+- [Azure App Service](#azure-app-service)
+- [Azure Kubernetes Service (AKS)](#azure-kubernetes-service-aks)
+- [Azure Virtual Desktop](#azure-virtual-desktop)
+- [Azure Functions](#azure-functions)
+- [Azure Container Instances (ACI)](#azure-container-instances-aci)
+- [Azure Batch](#azure-batch)
+
 ## Azure Virtual Machines
 
 <div style="text-align: center;">
-  <img src="../images/azure/Icons/compute/10021-icon-service-Virtual-Machine.svg" alt="Azure Virtual Machine" style="width:150px; height:auto;" />
+  <img src="../images/azure/Icons/compute/10021-icon-service-Virtual-Machine.svg" alt="Azure Virtual Machines" style="width:150px; height:auto;" />
 </div>
 
-Azure Virtual Machines (VMs) provide scalable, on-demand computing resources with configurable options for CPU, memory, and storage. They support various operating systems, including Windows and Linux, and are suitable for applications requiring control over the operating environment. VMs are ideal for hosting applications that need to be migrated from on-premises environments without modification, running custom software, or supporting legacy applications. Users are responsible for managing the operating system, applications, and associated configurations.
+- **Purpose**: On-demand, scalable computing resources in the cloud.
+- **Key Capabilities**:
+  - Wide range of VM sizes, regions, and OS options (Windows, Linux).
+  - Support for custom images and templates.
+  - Integration with Virtual Networks, storage, and other Azure services.
+- **Typical Use Cases**:
+  - Lift-and-shift of existing applications to the cloud.
+  - Development and testing environments.
+  - Host custom software and workloads.
 
 ## Azure Virtual Machine Scale Sets
 
@@ -14,7 +33,15 @@ Azure Virtual Machines (VMs) provide scalable, on-demand computing resources wit
   <img src="../images/azure/Icons/compute/10034-icon-service-VM-Scale-Sets.svg" alt="Azure Virtual Machine Scale Sets" style="width:150px; height:auto;" />
 </div>
 
-Azure Virtual Machine Scale Sets enable the deployment and management of a set of identical VMs, allowing for automatic scaling based on demand. This service ensures high availability and is ideal for large-scale applications, big data processing, and containerized workloads. Scale sets integrate with Azure Load Balancer and Azure Application Gateway to distribute traffic efficiently. They support both stateful and stateless applications, providing flexibility in managing application state and scaling.
+- **Purpose**: Automatically scale virtual machines to handle demand changes.
+- **Key Capabilities**:
+  - Automatic VM provisioning and de-provisioning.
+  - Load balancing integrations.
+  - Uniform or flexible orchestration modes.
+- **Typical Use Cases**:
+  - Large-scale compute clusters.
+  - Stateless web tiers with variable traffic.
+  - Big data and containerized workloads.
 
 ## Azure App Service
 
@@ -22,7 +49,15 @@ Azure Virtual Machine Scale Sets enable the deployment and management of a set o
   <img src="../images/azure/Icons/compute/10035-icon-service-App-Services.svg" alt="Azure App Service" style="width:150px; height:auto;" />
 </div>
 
-Azure App Service is a fully managed platform for building, deploying, and scaling web apps, mobile app back ends, and RESTful APIs. It supports multiple programming languages, including .NET, Java, Node.js, and Python, and offers features like continuous integration and deployment, auto-scaling, and built-in security. App Service abstracts the underlying infrastructure, allowing developers to focus on application code and business logic. It's suitable for modern web applications and APIs that require a robust, scalable, and secure hosting environment.
+- **Purpose**: Fully managed platform for building, deploying, and scaling web apps and APIs.
+- **Key Capabilities**:
+  - Supports multiple languages and frameworks (e.g., .NET, Node.js, Python, Java).
+  - Continuous integration and deployment (CI/CD).
+  - Built-in autoscaling, monitoring, and security features.
+- **Typical Use Cases**:
+  - Enterprise web applications
+  - RESTful API hosting
+  - Minimal management overhead for web deployments
 
 ## Azure Kubernetes Service (AKS)
 
@@ -30,7 +65,15 @@ Azure App Service is a fully managed platform for building, deploying, and scali
   <img src="../images/azure/Icons/compute/10023-icon-service-Kubernetes-Services.svg" alt="Azure Kubernetes Service" style="width:150px; height:auto;" />
 </div>
 
-Azure Kubernetes Service (AKS) is a managed container orchestration service that simplifies the deployment, management, and scaling of containerized applications using Kubernetes. AKS handles critical tasks like health monitoring and maintenance, reducing the operational overhead for developers. It integrates seamlessly with Azure DevOps and other CI/CD tools, facilitating automated deployments and updates. AKS is ideal for complex applications that require microservices architecture, scalability, and efficient resource utilization.
+- **Purpose**: Managed Kubernetes service to run containerized applications at scale.
+- **Key Capabilities**:
+  - Automated provisioning and cluster management.
+  - Integration with Azure Container Registry (ACR) for container images.
+  - Autoscaling, rolling updates, and built-in monitoring.
+- **Typical Use Cases**:
+  - Microservices-based architectures.
+  - Container orchestration for development and production.
+  - Hybrid and multi-cloud strategies (with Azure Arc).
 
 ## Azure Virtual Desktop
 
@@ -38,7 +81,15 @@ Azure Kubernetes Service (AKS) is a managed container orchestration service that
   <img src="../images/azure/Icons/other/00327-icon-service-Azure-Virtual-Desktop.svg" alt="Azure Virtual Desktop" style="width:150px; height:auto;" />
 </div>
 
-Azure Virtual Desktop is a comprehensive desktop and application virtualization service running in the cloud. It enables users to access a full Windows 10 or Windows 11 desktop experience from any device, with built-in security and compliance features. Organizations can deploy and scale virtualized desktops and apps on Azure, providing remote work solutions and ensuring data remains secure within the corporate environment. Azure Virtual Desktop supports multi-session Windows 10, optimizations for Office 365, and support for Remote Desktop Services (RDS) environments.
+- **Purpose**: Provide Windows 10/11 desktops and apps in the cloud.
+- **Key Capabilities**:
+  - Multi-session Windows 10/11 environment.
+  - Optimizations for Microsoft 365 Apps.
+  - Integration with Azure Active Directory (Microsoft Entra ID).
+- **Typical Use Cases**:
+  - Remote work scenarios.
+  - Secure access to corporate desktops and applications.
+  - Disaster recovery for on-premises desktop environments.
 
 ## Azure Functions
 
@@ -46,7 +97,15 @@ Azure Virtual Desktop is a comprehensive desktop and application virtualization 
   <img src="../images/azure/Icons/compute/10029-icon-service-Function-Apps.svg" alt="Azure Functions" style="width:150px; height:auto;" />
 </div>
 
-Azure Functions is a serverless compute service that enables developers to run event-driven code without managing infrastructure. Function Apps can be triggered by various events, such as HTTP requests, timers, or messages from other Azure services. This service automatically scales to meet demand and charges only for the compute resources used during execution. It's ideal for scenarios like real-time data processing, scheduled tasks, and integrating with other services through event-driven architectures.
+- **Purpose**: Serverless compute platform for event-driven, on-demand code execution.
+- **Key Capabilities**:
+  - Pay-per-execution billing model (consumption plan).
+  - Triggers and bindings to integrate with other Azure services.
+  - Built-in scaling and managed infrastructure.
+- **Typical Use Cases**:
+  - Real-time file processing
+  - IoT data processing
+  - Webhooks and microservices
 
 ## Azure Container Instances (ACI)
 
@@ -54,7 +113,15 @@ Azure Functions is a serverless compute service that enables developers to run e
   <img src="../images/azure/Icons/compute/10104-icon-service-Container-Instances.svg" alt="Azure Container Instances" style="width:150px; height:auto;" />
 </div>
 
-Azure Container Instances provide a quick and straightforward way to run containers without managing underlying virtual machines or adopting higher-level services. ACI is ideal for scenarios that require isolated containers, such as simple applications, task automation, and build jobs. It supports both Linux and Windows containers and allows for specifying exact resource requirements, ensuring efficient utilization. ACI can be used for event-driven tasks and can integrate with other Azure services to form complex workflows.
+- **Purpose**: Run containers without managing servers or clusters.
+- **Key Capabilities**:
+  - Fast, isolated compute for containerized workloads.
+  - Per-second billing.
+  - Integrates with Virtual Networks for secure deployments.
+- **Typical Use Cases**:
+  - Batch processing
+  - Test and development containers
+  - Event-driven container workloads
 
 ## Azure Batch
 
@@ -62,4 +129,12 @@ Azure Container Instances provide a quick and straightforward way to run contain
   <img src="../images/azure/Icons/compute/10031-icon-service-Batch-Accounts.svg" alt="Azure Batch" style="width:150px; height:auto;" />
 </div>
 
-Azure Batch is a managed service designed for large-scale parallel and high-performance computing (HPC) applications. It enables the execution of compute-intensive tasks across a multitude of virtual machines, handling job scheduling, auto-scaling, and node management. Batch is well-suited for scenarios like rendering, simulations, and data processing, where tasks can be distributed and processed concurrently. Developers can define jobs and tasks, and Batch will manage the execution, scaling, and retries, simplifying the orchestration of complex workloads.
+- **Purpose**: Large-scale parallel and high-performance computing (HPC) in the cloud.
+- **Key Capabilities**:
+  - Automatically manage and scale compute nodes.
+  - Integration with Azure Storage for input/output data.
+  - Supports Docker containers and common HPC frameworks.
+- **Typical Use Cases**:
+  - Rendering 3D images or simulations
+  - Financial risk modeling
+  - Genomic and scientific research

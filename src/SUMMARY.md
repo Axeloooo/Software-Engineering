@@ -6,13 +6,27 @@
 
 # Microsoft Azure
 
-- [AI + Machine Learning]()
+- [AI + Machine Learning](./azure/ai_+_machine_learning.md)
 - [Compute](./azure/compute.md)
 - [Management and Governance](./azure/management_and_governance.md)
 - [Monitoring](./azure/monitoring.md)
 - [Network](./azure/network.md)
 - [Security](./azure/security.md)
 - [Storage](./azure/storage.md)
+
+---
+
+# Design Patterns
+
+- [Creational Patterns]()
+- [Structural Patterns]()
+- [Behavioral Patterns]()
+
+---
+
+# Data Structures and Algorithms
+
+- [Coming soon...]()
 
 ---
 
