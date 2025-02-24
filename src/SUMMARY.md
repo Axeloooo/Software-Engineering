@@ -1,6 +1,4 @@
-# Summary
-
-[Software Engineering Documentation](./README.md)
+[Software Engineering](./README.md)
 
 ---
 
@@ -33,7 +31,7 @@
 # C++
 
 - [Standard I/O](./cpp/standard_io.md)
-- [Object-Oriented Programming]()
+- [Object-Oriented Programming](./cpp/oop.md)
 - [Copying Objects]()
 - [Linked List]()
 - [Pointer to Pointers]()
