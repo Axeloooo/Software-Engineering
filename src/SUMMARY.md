@@ -1,6 +1,4 @@
-# Summary
-
-[Software Engineering Documentation](./README.md)
+[Software Engineering](./README.md)
 
 ---
 
@@ -33,9 +31,9 @@
 # C++
 
 - [Standard I/O](./cpp/standard_io.md)
-- [Object-Oriented Programming]()
-- [Copying Objects]()
-- [Linked List]()
+- [Object-Oriented Programming](./cpp/oop.md)
+- [Copying Objects](./cpp/copying_objects.md)
+- [Linked List](./cpp/linked_list.md)
 - [Pointer to Pointers]()
 - [Static Members and Friends]()
 - [Overloading Operators]()
@@ -49,7 +47,13 @@
 
 ---
 
-# C#
+# React
+
+- [Coming soon...]()
+
+---
+
+# .NET
 
 - [Coming soon...]()
 
