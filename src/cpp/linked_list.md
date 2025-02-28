@@ -65,12 +65,12 @@ struct Node {
 };
 
 class LinkedList {
-private:
-  Node* head;
+  private:
+    Node* head;
 
-public:
-  LinkedList();
-  ~LinkedList();
+  public:
+    LinkedList();
+    ~LinkedList();
 };
 #endif
 ```
@@ -119,15 +119,15 @@ struct Node {
 };
 
 class LinkedList {
-private:
-  Node* head;
+  private:
+    Node* head;
 
-public:
-  LinkedList();
-  ~LinkedList();
-  void insertAtHead(int value);
-  void insertAtTail(int value);
-  Node* insertAfterValue(int key, int value);
+  public:
+    LinkedList();
+    ~LinkedList();
+    void insertAtHead(int value);
+    void insertAtTail(int value);
+    Node* insertAfterValue(int key, int value);
 };
 #endif
 ```
@@ -211,16 +211,16 @@ struct Node {
 };
 
 class LinkedList {
-private:
-  Node* head;
+  private:
+    Node* head;
 
-public:
-  LinkedList();
-  ~LinkedList();
-  void insertAtHead(int value);
-  void insertAtTail(int value);
-  Node* insertAfterValue(int key, int value);
-  Node* deleteByValue(int value);
+  public:
+    LinkedList();
+    ~LinkedList();
+    void insertAtHead(int value);
+    void insertAtTail(int value);
+    Node* insertAfterValue(int key, int value);
+    Node* deleteByValue(int value);
 };
 #endif
 ```
@@ -338,17 +338,17 @@ struct Node {
 };
 
 class LinkedList {
-private:
-  Node* head;
+  private:
+    Node* head;
 
-public:
-  LinkedList();
-  ~LinkedList();
-  void insertAtHead(int value);
-  void insertAtTail(int value);
-  Node* insertAfterValue(int key, int value);
-  Node* deleteByValue(int value);
-  void traverse() const;
+  public:
+    LinkedList();
+    ~LinkedList();
+    void insertAtHead(int value);
+    void insertAtTail(int value);
+    Node* insertAfterValue(int key, int value);
+    Node* deleteByValue(int value);
+    void traverse() const;
 };
 #endif
 ```
@@ -475,18 +475,18 @@ struct Node {
 };
 
 class LinkedList {
-private:
-  Node* head;
+  private:
+    Node* head;
 
-public:
-  LinkedList();
-  ~LinkedList();
-  void insertAtHead(int value);
-  void insertAtTail(int value);
-  Node* insertAfterValue(int key, int value);
-  Node* deleteByValue(int value);
-  void traverse() const;
-  Node* search(int key) const;
+  public:
+    LinkedList();
+    ~LinkedList();
+    void insertAtHead(int value);
+    void insertAtTail(int value);
+    Node* insertAfterValue(int key, int value);
+    Node* deleteByValue(int value);
+    void traverse() const;
+    Node* search(int key) const;
 };
 #endif
 ```

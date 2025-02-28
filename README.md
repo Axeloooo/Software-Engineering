@@ -1,4 +1,4 @@
-# Software Engineering
+# Software Engineering Documentation
 
 [![Deploy](https://github.com/Axeloooo/mdbook/actions/workflows/deploy.yaml/badge.svg)](https://github.com/Axeloooo/mdbook/actions/workflows/deploy.yaml)
 [![Release](https://github.com/Axeloooo/mdbook/actions/workflows/release.yaml/badge.svg)](https://github.com/Axeloooo/mdbook/actions/workflows/release.yaml)
@@ -109,7 +109,6 @@ git commit -m "feat: Added chapter for this topic"
 
 ## Contributors
 
-- [Mariia Podgaietska](https://github.com/podgaietska)
 - [Axel Sanchez](https://github.com/Axeloooo)
 
 ## License
