@@ -9,8 +9,8 @@
 - [`this` Pointer](#this-pointer)
 - [Array of Objects](#array-of-objects)
 - [Dynamic Allocation and De-allocation of Memory](#dynamic-allocation-and-de-allocation-of-memory)
-- [Destructors](#destructors)
-- [Default Arguments](#default-arguments)
+- [Destructor](#destructor)
+- [Default Argument](#default-argument)
 - [Member Functions with Reference Return Type](#member-functions-with-reference-return-type)
 - [Member Functions with `const` Return Type](#member-functions-with-const-return-type)
 - [Inline Member Functions](#inline-member-functions)
@@ -47,40 +47,68 @@
 
 **Code Example**:
 
-```cpp
-#include <iostream>
-#include <string>
+`File: point.h`
 
-class Person {
+```cpp
+#ifndef POINT
+#define POINT
+#define SIZE 3
+
+class Point {
   private:
-    std::string name;
-    int age;
+    double x;
+    double y;
+    char label[SIZE];
 
   public:
-    void setName(std::string n) {
-        name = n;
-    }
-
-    void setAge(int a) {
-        age = a;
-    }
-
-    std::string getName() {
-        return name;
-    }
-
-    int getAge() {
-        return age;
-    }
+    Point();
+    Point(double a, double b);
+    void setX(double value);
+    void setY(double value);
+    void setLabel(const char* s);
+    double getX() const;
+    double getY() const;
+    void display();
 };
+#endif
+```
 
-int main() {
-  Person p;
-  p.setName("Alice");
-  p.setAge(30);
+`File: point.cpp`
 
-  std::cout << "Name: " << p.getName() << ", Age: " << p.getAge() << std::endl;
-  return 0;
+```cpp
+#include <iostream>
+#include <cstring>
+
+#include "point.h"
+
+Point::Point() : x(0), y(0) {}
+
+Point::Point(double a, double b) : x(a), y(b) {}
+
+void Point::setX(double value) {
+  x = value;
+}
+
+void Point::setY(double value) {
+  y = value;
+}
+
+void Point::setLabel(const char* s) {
+  std::strcpy(label, s);
+}
+
+double Point::getX() const {
+  return x;
+}
+
+double Point::getY() const {
+  return y;
+}
+
+void Point::display() {
+  std::cout << "Point label is: " << label;
+  std::cout << "x coordinate is: " << x;
+  std::cout << "y coordinate is: " << y << std::endl;
 }
 ```
 
@@ -93,21 +121,83 @@ int main() {
 
 **Code Example**:
 
+`File: point.h`
+
+```cpp
+#ifndef POINT
+#define POINT
+#define SIZE 3
+
+class Point {
+  private:
+    double x;
+    double y;
+    char label[SIZE];
+
+  public:
+    Point();
+    Point(double a, double b);
+    void setX(double value);
+    void setY(double value);
+    void set_label(const char* s);
+    double getX() const;
+    double getY() const;
+    void display();
+};
+#endif
+```
+
+`File: point.cpp`
+
 ```cpp
 #include <iostream>
 
-class Number {
-public:
-    int value;
-};
+#include "point.h"
+
+Point::Point() : x(0), y(0) {}
+
+Point::Point(double a, double b) : x(a), y(b) {}
+
+void Point::setX(double value) {
+  x = value;
+}
+
+void Point::setY(double value) {
+  y = value;
+}
+
+void Point::setLabel(const char* s) {
+  std::strcpy(label, s);
+}
+
+double Point::getX() const {
+  return x;
+}
+
+double Point::getY() const {
+  return y;
+}
+
+void Point::display() {
+  std::cout << "Point label is: " << label;
+  std::cout << "x coordinate is: " << x;
+  std::cout << "y coordinate is: " << y << std::endl;
+}
+
+void print(const Point* p, const Point& r) {
+  std::cout << p->getX();
+  std::cout << p->getY();
+
+
+  std::cout << r.getX();
+  std::cout << r.getY();
+}
 
 int main() {
-    Number num;
-    num.value = 10;
-
-    Number* ptr = &num;
-    std::cout << "Value via pointer: " << ptr->value << std::endl;
-    return 0;
+    Point a;
+    a.setX(120);
+    a.setY(200);
+    print(&a, a);
 }
 ```
 
@@ -121,33 +211,48 @@ int main() {
 
 **Code Example**:
 
-```cpp
-#include <iostream>
+`File: point.h`
 
-class Rectangle {
+```cpp
+#ifndef POINT
+#define POINT
+class Point {
   private:
-    int width;
-    int height;
+    double x;
+    double y;
 
   public:
-    // Default constructor
-    Rectangle() : width(0), height(0) {}
+    Point();
+    Point(double a, double b);
 
-    // Parameterized constructor
-    Rectangle(int w, int h) : width(w), height(h) {}
-
-    int area() const {
-      return width * height;
-    }
 };
+#endif
+```
+
+`File: point.cpp`
+
+```cpp
+#include "point.h"
+
+Point::Point() : x(0), y(0) {}
+
+// This is also possible. However the other method is preferred.
+// Point::Point() {
+//   x = 0;
+//   y = 0;
+// }
+
+Point::Point(double a, double b) : x(a), y(b) {}
+
+// This is also possible. However the other method is preferred.
+// Point::Point(double a, double b) {
+//   x = a;
+//   y = b;
+// }
 
 int main() {
-  Rectangle r1;               // Calls default constructor
-  Rectangle r2(3, 4);         // Calls parameterized constructor
-
-  std::cout << "r1 area: " << r1.area() << std::endl;
-  std::cout << "r2 area: " << r2.area() << std::endl;
-  return 0;
+    Point a;
+    Point b(6, 7);
 }
 ```
 
@@ -158,34 +263,38 @@ int main() {
 
 **Code Example**:
 
-```cpp
-#include <iostream>
+`File: counter.h`
 
+```cpp
+#ifndef COUNTER
+#define COUNTER
 class Counter {
   private:
-    int count;
+    int value;
 
   public:
-    Counter(int count) {
-      // Use 'this' to clarify which 'count' refers to the member variable
-      this->count = count;
-    }
-
-    Counter& increment() {
-      ++count;
-      return *this; // Return a reference to the current object
-    }
-
-    int getCount() const {
-      return count;
-    }
+    Counter();
+    void increment(int n);
 };
+#endif
+```
+
+`File counter.cpp`
+
+```cpp
+#include "counter.h"
+
+Counter::Counter() : value(0) {}
+
+void Counter::increment(int n) {
+  this->value += n;
+}
 
 int main() {
-  Counter c(5);
-  c.increment().increment();
-  std::cout << "Count: " << c.getCount() << std::endl;
-  return 0;
+  Counter x;
+  Counter y;
+  x.increment(5);
+  y.increment(6);
 }
 ```
 
@@ -196,27 +305,96 @@ int main() {
 
 **Code Example**:
 
+`File: car.h`
+
 ```cpp
+#ifndef CAR
+#define CAR
+#define SIZE 20
+
+class Car {
+  private:
+    char make[SIZE];
+    int year;
+    double price;
+
+  public:
+    Car();
+    Car(const char* m, int y, double p);
+    const char* getMake() const;
+    void setMake(const char* m);
+    int getYear() const;
+    void setYear(int y);
+    double getPrice() const;
+    void setPrice(double p);
+};
+#endif
+```
+
+`File car.cpp`
+
+```cpp
+#include <cstring>
 #include <iostream>
 
-class Box {
-  private:
-    int length;
-  public:
-    Box() : length(0) {}
-    Box(int l) : length(l) {}
-    const int getLength() const;
-};
+#include "car.h"
 
-int main() {
-  Box boxes[3] = { Box(1), Box(2), Box(3) };
-
-  for(int i = 0; i < 3; i++) {
-    std::cout << "Box " << i << " length: " << boxes[i].getLength << std::endl;
+Car::Car() : year(0), price(0) {
+  for (int j = 0; j < SIZE; j++) {
+    this->make[j] = "\0";
   }
-  return 0;
 }
 
+Car::Car(const char* m, int y, double p) : year(y), price(p) {
+  assert(strlen(m) < SIZE);
+  strcpy(this->make, m);
+}
+
+const char* Car::getMake() const {
+  return this->make;
+}
+
+void Car::setMake(const char* m) {
+  assert(strlen(m) < SIZE);
+  strcpy(this->make, m);
+}
+
+int Car::getYear() const {
+  return this->year;
+}
+
+void Car::setYear(int y) {
+  this->year = y;
+}
+
+double Car::getPrice() const {
+  return this->price;
+}
+
+void Car::setPrice(double p) {
+  this->price = p;
+}
+
+void displayAll(Car x[], int n) {
+  for (int j = 0; j < n; j++) {
+    std::cout << x[j].getMake();
+  }
+}
+
+void swap(Car *x, Car *y) {
+  Car temp;
+  temp = *x;
+  *x = *y;
+  *y = temp;
+}
+
+int main() {
+  Car x[3];
+  x[0].setMake("Honda");
+  x[1].setMake("Ford");
+  displayAll(x, 2);
+  swap(&x[0], &x[1])
+}
 ```
 
 ## Dynamic Allocation and De-allocation of Memory
@@ -227,40 +405,162 @@ int main() {
 
 **Code Example**:
 
-```cpp
-#include <iostream>
+`File: car.h`
 
-class Sample {
-public:
-    int data;
-    Sample(int d) : data(d) {
-        std::cout << "Constructor called. Data = " << data << std::endl;
-    }
-    ~Sample() {
-        std::cout << "Destructor called. Data = " << data << std::endl;
-    }
+```cpp
+#ifndef CAR
+#define CAR
+#define SIZE 20
+
+class Car {
+  private:
+    char make[SIZE];
+    int year;
+    double price;
+
+  public:
+    Car();
+    Car(const char* m, int y, double p);
+    const char* getMake() const;
+    void setMake(const char* m);
+    int getYear() const;
+    void setYear(int y);
+    double getPrice() const;
+    void setPrice(double p);
 };
+#endif
+```
+
+`File car.cpp`
+
+```cpp
+#include <cstring>
+
+#include "car.h"
+
+Car::Car() : year(0), price(0) {
+  for (int j = 0; j < SIZE; j++) {
+    this->make[j] = "\0";
+  }
+}
+
+Car::Car(const char* m, int y, double p) : year(y), price(p) {
+  assert(strlen(m) < SIZE);
+  strcpy(this->make, m);
+}
+
+const char* Car::getMake() const {
+  return this->make;
+}
+
+void Car::setMake(const char* m) {
+  assert(strlen(m) < SIZE);
+  strcpy(this->make, m);
+}
+
+int Car::getYear() const {
+  return this->year;
+}
+
+void Car::setYear(int y) {
+  this->year = y;
+}
+
+double Car::getPrice() const {
+  return this->price;
+}
+
+void Car::setPrice(double p) {
+  this->price = p;
+}
 
 int main() {
-    // Single object allocation
-    Sample *obj = new Sample(10);
-    delete obj;
+  int *array;
+  array = new int[2];
+  array[0] = 79;
+  array[1] = 99;
+  delete[] array;
 
-    // Array allocation
-    Sample *arr = new Sample[3]{ Sample(1), Sample(2), Sample(3) };
-    delete[] arr;
-
-    return 0;
+  Car *x;
+  Car *y;
+  x = new Car;
+  y = new Car[3];
+  delete x;
+  delete[] y;
 }
 ```
 
 ## Destructor
 
 - **Definition**: A special member function called when an object goes out of scope or is deleted.
-- **Syntax**: `~ClassName() { /_ ... _/ }`
+- **Syntax**: `~ClassName()`
 - **Purpose**: Clean up resources, close files, release memory.
 
 **Code Example**:
+
+`File: person.h`
+
+```cpp
+#ifndef PERON
+#define PERSON
+class Person {
+  private:
+    int age;
+    char* name;
+
+  public:
+    Person(const char* n, int a);
+    ~Person();
+    const char* getName() const;
+    void setName(const char* n);
+    int getAge() const;
+    void setAge(int a);
+};
+#endif
+```
+
+`File person.cpp`
+
+```cpp
+#include <string.h>
+#include <iostream>
+
+#include "person.h"
+
+Person::Person(const char* n, int a) : age(a) {
+  this->name = new char[strlen(n) + 1];
+  assert(this->name != 0);
+  strcpy(this->name, m);
+}
+
+Person::~Person() {
+  delete[] this->name;
+  this->name = NULL;
+}
+
+const char* Person::getName() const {
+  return this->name;
+}
+
+void Person::setName(const char* n) {
+  assert(strlen(n) <= strlen(this->name));
+  strcpy(this->name, n);
+}
+
+int Person::getAge() const {
+  return this->age;
+}
+
+void Person::setAge(int a) {
+  this->age = y;
+}
+
+int main() {
+  Person x("Alice", 14);
+  std::cout << x.getName();
+  std::cout << x.getAge();
+}
+```
 
 ## Default Argument
 
@@ -269,26 +569,73 @@ int main() {
 
 **Code Example**:
 
+`File: person.h`
+
 ```cpp
+#ifndef PERON
+#define PERSON
+class Person {
+  private:
+    int age;
+    char* name;
+
+  public:
+    Person(const char* n, int a);
+    ~Person();
+    const char* getName() const;
+    void setName(const char* n);
+    int getAge() const;
+    void setAge(int a);
+};
+#endif
+```
+
+`File person.cpp`
+
+```cpp
+#include <string.h>
 #include <iostream>
 
-class Math {
-public:
-    // Default argument: 'power = 2'
-    int power(int base, int power = 2) {
-        int result = 1;
-        for (int i = 0; i < power; i++) {
-            result *= base;
-        }
-        return result;
-    }
-};
+#include "person.h"
+
+Person::Person(const char* n = NULL, int a = 0) {
+  this->age = a;
+  this->name = new char[strlen(n) + 1];
+  assert(this->name != 0);
+  strcpy(this->name, m);
+}
+
+Person::~Person() {
+  delete[] this->name;
+  this->name = NULL;
+}
+
+const char* Person::getName() const {
+  return this->name;
+}
+
+void Person::setName(const char* n) {
+  assert(strlen(n) <= strlen(this->name));
+  strcpy(this->name, n);
+}
+
+int Person::getAge() const {
+  return this->age;
+}
+
+void Person::setAge(int a) {
+  this->age = a;
+}
 
 int main() {
-    Math m;
-    std::cout << m.power(3) << std::endl;    // 3^2 = 9
-    std::cout << m.power(3, 3) << std::endl; // 3^3 = 27
-    return 0;
+  Person x();
+
+  Person y("Alice");
+  std::cout << y.getName();
+
+  Person z("John", 18)
+  std::cout << z.getName();
+  std::cout << z.getAge();
 }
 ```
 
@@ -299,27 +646,80 @@ int main() {
 
 **Code Example**:
 
+`File: mystring.h`
+
 ```cpp
+#ifndef MYSTRING
+#define MYSTRING
+class MyString {
+  private:
+    int length;
+    char* storageM;
+
+  public:
+    MyString(const char* s);
+    ~MyString();
+    const char& at(int i) const;
+    char& at(int i);
+    const char* getStorageM() const;
+    void setStorageM(const char* s);
+    int getLength() const;
+    void setLength(int l);
+};
+#endif
+```
+
+`File mystring.cpp`
+
+```cpp
+#include <string.h>
 #include <iostream>
 
-class SampleRef {
-private:
-    int value;
+#include "mystring.h"
 
-public:
-    SampleRef(int v) : value(v) {}
+MyString::MyString(const char* s) {
+  this->length = (int) strlen(s);
+  this->storageM = new char[strlen(s) + 1];
+  assert(this->storageM != 0);
+  strcpy(this->storageM, s);
+}
 
-    int& getValueRef() {
-        return value; // Return reference to 'value'
-    }
-};
+MyString::~MyString() {
+  delete[] this->storageM;
+  this->storageM = NULL;
+}
+
+const char* MyString::getStorageM() const {
+  return this->storageM;
+}
+
+void MyString::setStorageM(const char* s) {
+  assert(strlen(s) <= strlen(this->storageM));
+  strcpy(this->storageM, n);
+}
+
+int MyString::getLength() const {
+  return this->length;
+}
+
+void MyString::setLength(int l) {
+  this->length = l;
+}
+
+const char& MyString::at(int i) const {
+  assert(i >= 0 && i < this->length);
+  return storageM[i];
+}
+
+char& MyString::at(int i) {
+  assert(i > 0 && i < this->length);
+  return storageM[i];
+}
 
 int main() {
-    SampleRef sr(10);
-    int &refVal = sr.getValueRef();
-    refVal = 50; // This will change sr's internal 'value' to 50
-    std::cout << "Updated value: " << sr.getValueRef() << std::endl;
-    return 0;
+  MyString x("Hello World!");
+  std::cout << x.at(0);
+  std::cout << x.at(6);
 }
 ```
 
@@ -330,61 +730,110 @@ int main() {
 
 **Code Example**:
 
+`File: student.h`
+
 ```cpp
-#include <iostream>
+#ifndef STUDENT
+#define STUDENT
+class Student {
+  private:
+    int idM;
+    char nameM[50];
 
-class SampleConst {
-private:
-    int data;
-
-public:
-    SampleConst(int d) : data(d) {}
-
-    // Return type is 'const int&'
-    const int& getData() const {
-        return data;
-    }
+  public:
+    Student();
+    Student(const char* name, const int id);
+    char* getNameMPointer() const;
+    const char* getNameMConstPointer() const;
+    void setNameM(const char* n);
 };
+#endif
+```
+
+`File student.cpp`
+
+```cpp
+#include <string.h>
+
+#include "student.h"
+
+Student::Student() {
+  strcpy(this->nameM, "None");
+  this->idM = 0;
+}
+
+Student::Student(const char* name, const int id) {
+  strcpy(this->nameM, name);
+  this->idM = id;
+}
+
+char* Student::getNameMPointer() const {
+  return this->nameM;
+}
+
+const char* Student::getNameMConstPointer() const {
+  return this->nameM;
+}
+
+void Student::setNameM(const char* n) {
+  assert(strlen(n) <= (int) strlen(this->nameM));
+  strcpy(this->name, n);
+}
 
 int main() {
-    SampleConst sc(100);
-    // Attempting to modify sc.getData() directly would cause a compile error.
-    std::cout << "Data: " << sc.getData() << std::endl;
-    return 0;
+  char name[] = "Jane";
+  Student s(name, 123456);
+
+  char* bad = s.getNameMPointer();
+  bad[0] = "P"; // s.nameM is now "Pane"
+
+  const char* good = s.getNameMConstPointer();
+  good[0] = "P"; // invalid
 }
 ```
 
 ## Inline Member Function
 
-- **Definition**: A function declared with `inline` keyword, suggesting the compiler to replace the function call with the function body (optimization hint).
+- **Definition**: Inlining can be done implicitly or explicitly. A function declared with `inline` keyword, suggesting the compiler to replace the function call with the function body (optimization hint).
 - **Usage**: Often used for small, frequently called functions.
 
 **Code Example**:
 
+`File: counter.h`
+
 ```cpp
-#include <iostream>
+#ifndef COUNTER
+#define COUNTER
+class Counter {
+  private:
+    int value;
 
-class InlineExample {
-private:
-    int count;
+  public:
+    Counter();
 
-public:
-    InlineExample() : count(0) {}
-
-    inline void increment() {
-        ++count;
+    // implicit inline
+    void increment(int n) {
+      value += n;
     }
 
-    inline int getCount() const {
-        return count;
+    // explicit inline
+    inline void decrement(int n) {
+      value -= n;
     }
 };
+#endif
+```
+
+`File counter.cpp`
+
+```cpp
+#include "counter.h"
+
+Counter::Counter() : value(0) {}
 
 int main() {
-    InlineExample ie;
-    ie.increment();
-    ie.increment();
-    std::cout << "Count: " << ie.getCount() << std::endl;
-    return 0;
+  Counter x;
+  x.increment(5);
+  x.decrement(6);
 }
 ```
