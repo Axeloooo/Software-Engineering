@@ -14,15 +14,12 @@
 
 A **linked list** is a dynamic data structure where each element (commonly called a _node_) contains data and a pointer (or reference) to the next node in the sequence. Unlike arrays, linked lists do not require contiguous memory space, and their size can grow or shrink at runtime with relative ease.
 
-**Key Advantages**:
-
-- Dynamic size allocation.
-- Easy insertion/deletion at the beginning or middle of the list.
-
-**Key Disadvantages**:
-
-- Random access is not possible (traversal is sequential).
-- Extra memory overhead for storing pointers.
+- **Key Advantages**:
+  - Dynamic size allocation.
+  - Easy insertion/deletion at the beginning or middle of the list.
+- **Key Disadvantages**:
+  - Random access is not possible (traversal is sequential).
+  - Extra memory overhead for storing pointers.
 
 ---
 
@@ -52,16 +49,16 @@ struct Node {
 
 **Code Example**:
 
-FFile: `linkedlist.h`
+File: `linkedlist.h`
 
 ```cpp
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef LINKEDLIST
+#define LINKEDLIST
 
 struct Node {
-    int data;
-    Node* next;
-    Node(int value, Node* nextNode = nullptr) : data(value), next(nextNode) {}
+  int data;
+  Node* next;
+  Node(int value, Node* nextNode = nullptr) : data(value), next(nextNode) {}
 };
 
 class LinkedList {
@@ -79,6 +76,8 @@ File: `linkedlist.cpp`
 
 ```cpp
 #include <iostream>
+
+#include "linkedlist.h"
 
 LinkedList::LinkedList() : head(nullptr) {}
 
@@ -109,8 +108,8 @@ Insertion in a linked list can occur in multiple places:
 File: `linkedlist.h`
 
 ```cpp
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef LINKEDLIST
+#define LINKEDLIST
 
 struct Node {
   int data;
@@ -136,6 +135,8 @@ File: `linkedlist.cpp`
 
 ```cpp
 #include <iostream>
+
+#include "linkedlist.h"
 
 LinkedList::LinkedList() : head(nullptr) {}
 
@@ -201,8 +202,8 @@ Deletion can also occur in multiple scenarios:
 File: `linkedlist.h`
 
 ```cpp
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef LINKEDLIST
+#define LINKEDLIST
 
 struct Node {
   int data;
@@ -229,6 +230,8 @@ File: `linkedlist.cpp`
 
 ```cpp
 #include <iostream>
+
+#include "linkedlist.h"
 
 LinkedList::LinkedList() : head(nullptr) {}
 
@@ -328,8 +331,8 @@ Traversing a linked list means visiting each node from the `head` to the last no
 File: `linkedlist.h`
 
 ```cpp
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef LINKEDLIST
+#define LINKEDLIST
 
 struct Node {
   int data;
@@ -357,6 +360,8 @@ File: `linkedlist.cpp`
 
 ```cpp
 #include <iostream>
+
+#include "linkedlist.h"
 
 LinkedList::LinkedList() : head(nullptr) {}
 
@@ -465,8 +470,8 @@ Searching involves traversing the list to find a node that matches a given value
 File: `linkedlist.h`
 
 ```cpp
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef LINKEDLIST
+#define LINKEDLIST
 
 struct Node {
   int data;
@@ -496,6 +501,8 @@ File: `linkedlist.cpp`
 ```cpp
 #include <iostream>
 
+#include "linkedlist.h"
+ßß
 LinkedList::LinkedList() : head(nullptr) {}
 
 LinkedList::~LinkedList() {
