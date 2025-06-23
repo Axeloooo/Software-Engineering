@@ -36,7 +36,7 @@ The following programs should be installed:
 $ cargo install mdbook
 ```
 
-23. Clone the repository
+3. Clone the repository
 
 ```bash
 $ git clone git@github.com:Axeloooo/mdbook.git
