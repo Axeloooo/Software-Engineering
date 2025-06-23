@@ -28,54 +28,44 @@ The following programs should be installed:
 
 ## Quick Start
 
-1. Clone the repository
+1. Install ![Rust](https://www.rust-lang.org/tools/install)
+
+2. Install mdbook
+
+```bash
+$ cargo install mdbook
+```
+
+23. Clone the repository
 
 ```bash
 $ git clone git@github.com:Axeloooo/mdbook.git
 ```
 
-2. Change directory to the project folder
+4. Change directory to the project folder
 
 ```bash
 $ cd mdbook
 ```
 
-3. Install mdbook
+5. Run the mdbook
 
 ```bash
-$ make install
-```
-
-4. Run the mdbook
-
-```bash
-$ make run
+$ cargo serve --open
 ```
 
 ## Other Commands
 
-- Install mdbook
-
-```bash
-$ make install
-```
-
 - Uninstall mdbook
 
 ```bash
-$ make uninstall
+$ cargo uninstall mdbook
 ```
 
 - Build the book
 
 ```bash
-$ make build
-```
-
-- Clean the generated files
-
-```bash
-$ make clean
+$ mdbook build
 ```
 
 ## Git Workflow
