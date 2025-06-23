@@ -1,5 +1,7 @@
 # Storage
 
+---
+
 ## Table of Contents
 
 - [Azure Disks](#azure-disks)
@@ -9,6 +11,8 @@
 - [Azure Tables](#azure-tables)
 - [Azure Data Box](#azure-data-box)
 - [Azure Data Lake Storage](#azure-data-lake-storage)
+
+---
 
 ## Azure Disks
 
@@ -23,6 +27,8 @@
 - **Typical Use Cases**:
   - VM operating system and data disks.
   - High-performance storage for I/O-intensive workloads.
+
+---
 
 ## Azure Blob Containers
 
@@ -39,6 +45,8 @@
   - Media content delivery.
   - Backup and disaster recovery.
 
+---
+
 ## Azure File Shares
 
 <div style="text-align: center;">
@@ -52,6 +60,8 @@
 - **Typical Use Cases**:
   - Lift-and-shift legacy applications that use file shares.
   - Centralized file storage and collaboration.
+
+---
 
 ## Azure Queues
 
@@ -67,6 +77,8 @@
   - Microservices communication.
   - Asynchronous task processing.
 
+---
+
 ## Azure Tables
 
 <div style="text-align: center;">
@@ -81,6 +93,8 @@
   - IoT data ingestion.
   - Storing user profiles or session data.
 
+---
+
 ## Azure Data Box
 
 <div style="text-align: center;">
@@ -94,6 +108,8 @@
 - **Typical Use Cases**:
   - One-time data migration or bulk data import.
   - Offline data transfer when network bandwidth is limited.
+
+---
 
 ## Azure Data Lake Storage
 

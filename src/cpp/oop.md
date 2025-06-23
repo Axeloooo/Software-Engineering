@@ -1,5 +1,7 @@
 # Object-Oriented Programming
 
+---
+
 ## Table of Contents
 
 - [Principles of OOP](#principles-of-oop)
@@ -14,6 +16,8 @@
 - [Member Functions with Reference Return Type](#member-functions-with-reference-return-type)
 - [Member Functions with `const` Return Type](#member-functions-with-const-return-type)
 - [Inline Member Functions](#inline-member-functions)
+
+---
 
 ## Principles of OOP
 
@@ -36,6 +40,8 @@
 
    - Exposing only essential features and hiding internal details.
    - Simplifies complexity by providing high-level interfaces.
+
+---
 
 ## Class Implementation
 
@@ -111,6 +117,8 @@ void Point::display() {
   std::cout << "y coordinate is: " << y << std::endl;
 }
 ```
+
+---
 
 ## Pointer to Objects
 
@@ -201,6 +209,8 @@ int main() {
 }
 ```
 
+---
+
 ## Constructor
 
 - **Purpose**: Initialize objects upon creation.
@@ -256,6 +266,8 @@ int main() {
 }
 ```
 
+---
+
 ## `this` Pointer
 
 - **Definition**: An implicit pointer to the current object.
@@ -297,6 +309,8 @@ int main() {
   y.increment(6);
 }
 ```
+
+---
 
 ## Array of Objects
 
@@ -397,6 +411,8 @@ int main() {
 }
 ```
 
+---
+
 ## Dynamic Allocation and De-allocation of Memory
 
 - `new`: Allocates memory on the heap.
@@ -490,6 +506,8 @@ int main() {
 }
 ```
 
+---
+
 ## Destructor
 
 - **Definition**: A special member function called when an object goes out of scope or is deleted.
@@ -561,6 +579,8 @@ int main() {
   std::cout << x.getAge();
 }
 ```
+
+---
 
 ## Default Argument
 
@@ -638,6 +658,8 @@ int main() {
   std::cout << z.getAge();
 }
 ```
+
+---
 
 ## Member Functions with Reference Return Type
 
@@ -723,6 +745,8 @@ int main() {
 }
 ```
 
+---
+
 ## Member Functions with `const` Return Type
 
 - **Usage**: Return a constant reference or constant value to prevent modification.
@@ -791,6 +815,8 @@ int main() {
   good[0] = "P"; // invalid
 }
 ```
+
+---
 
 ## Inline Member Function
 

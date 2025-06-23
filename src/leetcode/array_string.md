@@ -1,9 +1,74 @@
 # Array / String
 
+---
+
 ## Table of Contents
 
+- [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array)
 - [27. Remove Element](#27-remove-element)
 - [88. Merge Sorted Array](#88-merge-sorted-array)
+- [169. Majority Element](#169-majority-element)
+
+---
+
+## 26. Remove Duplicates from Sorted Array
+
+- **LeetCode Link:** [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
+- **Difficulty:** Easy
+- **Topic(s):** Array, Two Pointers
+
+### 🧠 Problem Statement
+
+> Given an integer array `nums` sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in `nums`.
+>
+> Consider the number of unique elements of `nums` to be `k`, to get accepted, you need to do the following things:
+>
+> - Change the array `nums` such that the first k elements of `nums` contain the unique elements in the order they were present in `nums` initially. The remaining elements of `nums` are not important as well as the size of `nums`.
+> - Return `k`.
+
+### 🧩 Approach
+
+Use the **two-pointer technique**:
+
+- `i`: slow pointer, tracks the position of the last unique element.
+- `j`: fast pointer, scans the array.
+
+Steps:
+
+1. Initialize `i = 0`.
+2. Iterate `j` from 1 to end of array.
+3. If `nums[j] != nums[i]`, it’s a new unique element:
+   - Increment `i`
+   - Copy `nums[j]` to `nums[i]`
+4. After the loop, the first `i + 1` elements are the unique values.
+
+### 💡 Solution
+
+```python
+def removeDuplicates(self, nums: List[int]) -> int:
+    """
+    Remove duplicates from a sorted array in-place and return the new length.
+
+    Args:
+        nums (List[int]): The input sorted array.
+
+    Returns:
+        int: The new length of the array after removing duplicates.
+    """
+    i = 0
+
+    for j in range(1, len(nums)):
+        if nums[j] != nums[i]:
+            i += 1
+            nums[i] = nums[j]
+
+    return i + 1
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(1)`
 
 ---
 
@@ -127,3 +192,61 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
 - Space Complexity: `O(1)`
 
 ---
+
+## 169. Majority Element
+
+- **LeetCode Link:** [Majority Element](https://leetcode.com/problems/majority-element/)
+- **Difficulty:** Easy
+- **Topic(s):** Array, Hash Table, Divide and Conquer, Counting
+
+### 🧠 Problem Statement
+
+> Given an array `nums` of size `n`, return the majority element.
+>
+> The majority element is the element that appears more than `⌊n / 2⌋` times. You may assume that the majority element always exists in the array.
+
+### 🧩 Approach
+
+Boyer-Moore Voting Algorithm:
+
+1. Initialize a `count = 0` and `candidate = None`.
+2. Iterate through the array:
+   - If `count == 0`, set `candidate = current element`
+   - If `current element == candidate`, increment `count`
+   - Else, decrement `count`
+3. At the end, `candidate` is the majority element.
+
+This works because the majority element appears more than all others combined.
+
+### 💡 Solution
+
+```python
+def majorityElement(self, nums: List[int]) -> int:
+    """
+    Find the majority element in an array using Boyer-Moore Voting Algorithm.
+
+    Args:
+        nums (List[int]): The input array.
+
+    Returns:
+        int: The majority element.
+    """
+    count = 0
+    candidate = 0
+
+    for num in nums:
+        if count == 0:
+            candidate = num
+
+        if num == candidate:
+            count += 1
+        else:
+            count -= 1
+
+    return candidate
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(1)`

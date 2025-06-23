@@ -1,10 +1,14 @@
 # Security
 
+---
+
 ## Table of Contents
 
 - [Microsoft Entra ID](#microsoft-entra-id)
 - [Multi-Factor Authentication (MFA)](#multi-factor-authentication-mfa)
 - [Microsoft Defender for Cloud](#microsoft-defender-for-cloud)
+
+---
 
 ## Microsoft Entra ID
 
@@ -21,6 +25,8 @@
   - Enterprise security with conditional access policies.
   - User provisioning and lifecycle management.
 
+---
+
 ## Multi-Factor Authentication (MFA)
 
 <div style="text-align: center;">
@@ -34,6 +40,8 @@
 - **Typical Use Cases**:
   - Securing remote workforce.
   - Protecting privileged accounts.
+
+---
 
 ## Microsoft Defender for Cloud
 

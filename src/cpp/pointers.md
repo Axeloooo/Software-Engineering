@@ -1,11 +1,15 @@
 # Pointers
 
+---
+
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Pointer to Pointer](#pointer-to-pointer)
 - [Array of Pointer](#array-of-pointer)
 - [Argument of `main` Function](#arguments-of-main-function)
+
+---
 
 ## Introduction
 
@@ -48,6 +52,8 @@ File: `main.cpp`
 int y = *ptr;
 ```
 
+---
+
 ## Pointer to Pointer
 
 - A **pointer to pointer** is a pointer that stores the address of another pointer rather than storing the address of a variable directly.
@@ -81,6 +87,8 @@ int main() {
 }
 ```
 
+---
+
 ## Array of Pointer
 
 An **array of pointers** is simply an array whose elements are pointer variables.
@@ -105,6 +113,8 @@ int main(int argc, char **argv) {
   std::cout << *(p+1) << std::endl; // *(p+1) is a pointer to "KLM"
 }
 ```
+
+---
 
 ## Arguments of `main` Function
 

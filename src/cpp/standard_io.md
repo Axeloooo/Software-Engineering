@@ -1,11 +1,15 @@
 # Standard I/O
 
+---
+
 ## Table of Contents
 
 - [I/O Stream](#io-stream)
 - [Namespace](#namespace)
 - [String](#string)
 - [Buffer](#buffer)
+
+---
 
 ## I/O Stream
 
@@ -32,6 +36,8 @@ int main() {
 }
 ```
 
+---
+
 ## Namespace
 
 - `namespace`: Used to group related classes, functions, variables.
@@ -56,6 +62,8 @@ int main() {
   return 0;
 }
 ```
+
+---
 
 ## String
 
@@ -84,6 +92,8 @@ int main() {
   return 0;
 }
 ```
+
+---
 
 ## Buffer
 
