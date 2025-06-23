@@ -1,5 +1,7 @@
 # Linked List
 
+---
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -9,6 +11,8 @@
 - [Delete Operation](#delete-operation)
 - [Traverse Operation](#traverse-operation)
 - [Search Operation](#search-operation)
+
+---
 
 ## Introduction
 
@@ -41,6 +45,8 @@ struct Node {
   Node(int value, Node* nextNode = nullptr) : data(value), next(nextNode) {}
 };
 ```
+
+---
 
 ## Create Operation
 
@@ -94,6 +100,8 @@ int main() {
   LinkedList myList;
 }
 ```
+
+---
 
 ## Insert Operation
 
@@ -188,6 +196,8 @@ int main() {
   myList.insertAfterValue(5, 7);
 }
 ```
+
+---
 
 ## Delete Operation
 
@@ -318,6 +328,8 @@ int main() {
   }
 }
 ```
+
+---
 
 ## Traverse Operation
 
@@ -461,6 +473,8 @@ int main() {
 }
 ```
 
+---
+
 ## Search Operation
 
 Searching involves traversing the list to find a node that matches a given value. If found, you can return a pointer to that node or a boolean indicating success.
@@ -502,7 +516,7 @@ File: `linkedlist.cpp`
 #include <iostream>
 
 #include "linkedlist.h"
-ßß
+
 LinkedList::LinkedList() : head(nullptr) {}
 
 LinkedList::~LinkedList() {

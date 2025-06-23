@@ -7,7 +7,6 @@ Software Engineering is a comprehensive collection of notes, tutorials, and refe
 
 ## Documentation
 
-- [Setup](#setup)
 - [Quick Start](#quick-start)
 - [Other Commands](#other-commands)
 - [Git Workflow](#git-workflow)
@@ -16,66 +15,46 @@ Software Engineering is a comprehensive collection of notes, tutorials, and refe
 - [Contributors](#contributors)
 - [License](#license)
 
-## Setup
-
-> [!IMPORTANT]
->
-> If you are using Windows or Linux, you need to install the following programs using the package manager of your operating system. The following instructions use Homebrew, which is a package manager for Mac OS.
-
-The following programs should be installed:
-
-- [Rust](https://www.rust-lang.org/tools/install)
-
 ## Quick Start
 
-1. Clone the repository
+1. Install [Rust](https://www.rust-lang.org/tools/install)
+
+2. Install mdbook
+
+```bash
+$ cargo install mdbook
+```
+
+3. Clone the repository
 
 ```bash
 $ git clone git@github.com:Axeloooo/mdbook.git
 ```
 
-2. Change directory to the project folder
+4. Change directory to the project folder
 
 ```bash
 $ cd mdbook
 ```
 
-3. Install mdbook
+5. Run the mdbook
 
 ```bash
-$ make install
-```
-
-4. Run the mdbook
-
-```bash
-$ make run
+$ cargo serve --open
 ```
 
 ## Other Commands
 
-- Install mdbook
-
-```bash
-$ make install
-```
-
 - Uninstall mdbook
 
 ```bash
-$ make uninstall
+$ cargo uninstall mdbook
 ```
 
 - Build the book
 
 ```bash
-$ make build
-```
-
-- Clean the generated files
-
-```bash
-$ make clean
+$ mdbook build
 ```
 
 ## Git Workflow
@@ -113,4 +92,4 @@ git commit -m "feat: Added chapter for this topic"
 
 ## License
 
-[MIT](https://opensource.org/licenses/MIT)
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)

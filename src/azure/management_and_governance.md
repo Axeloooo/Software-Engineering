@@ -1,5 +1,7 @@
 # Management and Governance
 
+---
+
 ## Table of Contents
 
 - [Azure Subscriptions](#azure-subscriptions)
@@ -12,6 +14,8 @@
 - [Azure Resource Manager (ARM) Templates](#azure-resource-manager-arm-templates)
 - [Azure Purview](#azure-purview)
 - [Azure Advisor](#azure-advisor)
+
+---
 
 ## Azure Subscriptions
 
@@ -28,6 +32,8 @@
   - Organizing workloads by department or project.
   - Enforcing budgetary constraints and spending thresholds.
 
+---
+
 ## Azure Management Groups
 
 <div style="text-align: center;">
@@ -41,6 +47,8 @@
 - **Typical Use Cases**:
   - Enterprise-wide compliance policies
   - Consistent resource governance
+
+---
 
 ## Azure Policy
 
@@ -56,6 +64,8 @@
   - Regulatory compliance (e.g., ISO, PCI).
   - Resource standardization and cost control.
 
+---
+
 ## Azure Blueprints
 
 <div style="text-align: center;">
@@ -69,6 +79,8 @@
 - **Typical Use Cases**:
   - Enterprise environment setup
   - Standardized development/test/production deployments
+
+---
 
 ## Azure Resource Groups
 
@@ -84,6 +96,8 @@
   - Grouping related resources for an application.
   - Easier deployment and deletion of entire stacks.
 
+---
+
 ## Azure Tags
 
 <div style="text-align: center;">
@@ -98,6 +112,8 @@
   - Cost management and chargeback.
   - Resource discovery and governance.
 
+---
+
 ## Azure Arc
 
 <div style="text-align: center;">
@@ -111,6 +127,8 @@
 - **Typical Use Cases**:
   - Hybrid cloud strategies
   - Central management across diverse environments
+
+---
 
 ## Azure Resource Manager (ARM) Templates
 
@@ -127,6 +145,8 @@
   - Automated deployments with CI/CD.
   - Version-controlled infrastructure configurations.
 
+---
+
 ## Azure Purview
 
 <div style="text-align: center;">
@@ -142,6 +162,8 @@
   - Regulatory compliance (e.g., GDPR).
   - Centralized data governance and discovery.
   - Enterprise-wide data cataloging.
+
+---
 
 ## Azure Advisor
 

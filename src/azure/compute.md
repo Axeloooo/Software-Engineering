@@ -1,5 +1,7 @@
 # Compute
 
+---
+
 ## Table of Contents
 
 - [Azure Virtual Machines](#azure-virtual-machines)
@@ -10,6 +12,8 @@
 - [Azure Functions](#azure-functions)
 - [Azure Container Instances (ACI)](#azure-container-instances-aci)
 - [Azure Batch](#azure-batch)
+
+---
 
 ## Azure Virtual Machines
 
@@ -27,6 +31,8 @@
   - Development and testing environments.
   - Host custom software and workloads.
 
+---
+
 ## Azure Virtual Machine Scale Sets
 
 <div style="text-align: center;">
@@ -42,6 +48,8 @@
   - Large-scale compute clusters.
   - Stateless web tiers with variable traffic.
   - Big data and containerized workloads.
+
+---
 
 ## Azure App Service
 
@@ -59,6 +67,8 @@
   - RESTful API hosting
   - Minimal management overhead for web deployments
 
+---
+
 ## Azure Kubernetes Service (AKS)
 
 <div style="text-align: center;">
@@ -74,6 +84,8 @@
   - Microservices-based architectures.
   - Container orchestration for development and production.
   - Hybrid and multi-cloud strategies (with Azure Arc).
+
+---
 
 ## Azure Virtual Desktop
 
@@ -91,6 +103,8 @@
   - Secure access to corporate desktops and applications.
   - Disaster recovery for on-premises desktop environments.
 
+---
+
 ## Azure Functions
 
 <div style="text-align: center;">
@@ -107,6 +121,8 @@
   - IoT data processing
   - Webhooks and microservices
 
+---
+
 ## Azure Container Instances (ACI)
 
 <div style="text-align: center;">
@@ -122,6 +138,8 @@
   - Batch processing
   - Test and development containers
   - Event-driven container workloads
+
+---
 
 ## Azure Batch
 

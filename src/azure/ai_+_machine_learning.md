@@ -1,5 +1,7 @@
 # AI + Machine Learning
 
+---
+
 ## Table of Contents
 
 - [Azure Machine Learning](#azure-machine-learning)
@@ -7,6 +9,8 @@
 - [Azure AI Foundry](#azure-ai-foundry)
 - [Azure OpenAI Service](#azure-openai-service)
 - [Azure AI Search](#azure-ai-search)
+
+---
 
 ## Azure Machine Learning
 
@@ -24,6 +28,8 @@
   - Fraud detection
   - Recommendation systems
 
+---
+
 ## Azure AI Services
 
 <div style="text-align: center;">
@@ -38,6 +44,8 @@
   - Chatbots and virtual assistants
   - Document processing and OCR
   - Audio/video transcription
+
+---
 
 ## Azure AI Foundry
 
@@ -55,6 +63,8 @@
   - Rapid AI prototyping
   - Automated CI/CD for AI projects
 
+---
+
 ## Azure OpenAI Service
 
 <div style="text-align: center;">
@@ -70,6 +80,8 @@
   - Chatbots with contextual awareness
   - Intelligent document analysis
   - Code completion or generation
+
+---
 
 ## Azure AI Search
 

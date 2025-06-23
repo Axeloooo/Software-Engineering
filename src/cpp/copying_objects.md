@@ -1,9 +1,13 @@
 # Copying Objects
 
+---
+
 ## Table of Contents
 
 - [Copy Constructor](#copy-constructor)
 - [Overloading Assignment Operator](#overloading-assignment-operator)
+
+---
 
 ## Copy Constructor
 
@@ -93,6 +97,8 @@ int main() {
   MyString s2 = s1;
 }
 ```
+
+---
 
 ## Overloading Assignment Operator
 

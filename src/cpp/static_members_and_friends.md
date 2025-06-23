@@ -1,11 +1,15 @@
 # Static Members and Friends
 
+---
+
 ## Table of Contents
 
 - [Static Data Members](#static-data-members)
 - [Static Member Functions](#static-member-functions)
 - [Friend Functions](#friend-functions)
 - [Friend Classes](#friend-classes)
+
+---
 
 ## Static Data Members
 
@@ -48,6 +52,8 @@ int main() {
   Counter c1;
 }
 ```
+
+---
 
 ## Static Member Functions
 
@@ -104,6 +110,8 @@ int main() {
 }
 ```
 
+---
+
 ## Friend Functions
 
 - **Definition**: A friend function is a non-member function that has access to the private and protected members of a class.
@@ -150,6 +158,8 @@ int main() {
   std::cout << "Volume: " << getVolume(box) << std::endl;
 }
 ```
+
+---
 
 ## Friend Classes
 
