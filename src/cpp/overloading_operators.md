@@ -2,17 +2,20 @@
 
 ## Table of Contents
 
-- [Overloading +](#overloading-)
-- [Overloading +=](#overloading-)
-- [Overloading <<](#overloading--)
-- [Overloading >>](#overloading--)
-- [Overloading []](#overloading--)
-- [Overloading ++](#overloading--)
-- [Overloading --](#overloading--)
+- [Overloading `+`](#overloading-)
+- [Overloading `+=`](#overloading-)
+- [Overloading `<<`](#overloading-)
+- [Overloading `>>`](#overloading-)
+- [Overloading `[]`](#overloading-)
+- [Overloading `++`](#overloading-)
+- [Overloading `--`](#overloading-)
 
 ---
 
-## Overloading +
+## Overloading `+`
+
+Concatenate two `String` objects and return the result as a **temporary**.  
+The left-hand and right-hand operands remain unchanged.
 
 File `string.h`:
 
@@ -34,11 +37,12 @@ File `string.cpp`:
 String String::operator +(const String& s) {
     String tmp;
     tmp.length_ = length_ + s.length_;
-    delete [] tmp.storage_;
     tmp.storage_ = new char[tmp.length_ + 1];
-    strcpy(tmp.storage_, storage_);
-    strcat(tmp.storage_, s.storage_);
-    return temp;
+
+    std::strcpy(tmp.storage_, storage_);
+    std::strcat(tmp.storage_, s.storage_);
+
+    return tmp;
 }
 ```
 
@@ -56,7 +60,9 @@ int main() {
 
 ---
 
-## Overloading +=
+## Overloading `+=`
+
+Modify the current object **in place** by appending another `String`.
 
 File `string.h`:
 
@@ -78,10 +84,12 @@ File `string.cpp`:
 String& String::operator +=(const String& s) {
     length_ += s.length_;
     char* new_storage = new char[length_ + 1];
-    assert(new_storage !+ 0);
-    strcpy(new_storage, storage_);
-    strcat(new_storage, s.storage_);
-    delete [] storage_;
+    assert(new_storage != nullptr);
+
+    std::strcpy(new_storage, storage_);
+    std::strcat(new_storage, s.storage_);
+
+    delete[] storage_;
     storage_ = new_storage;
     return *this;
 }
@@ -100,7 +108,9 @@ int main() {
 
 ---
 
-## Overloading <<
+## Overloading `<<`
+
+Stream the `String` to an output stream.
 
 File `string.h`:
 
@@ -109,7 +119,7 @@ class String {
     public:
         ...
         // declare as friend to allow access to private members
-        osttream& operator << (ostream& os, String& s);
+        friend std::ostream& operator<<(std::ostream& os, const String& s);
 
     private:
         char* storage_;
@@ -120,7 +130,7 @@ class String {
 File `string.cpp`:
 
 ```cpp
-ostream& operator <<(ostream& os, String& s) {
+std::ostream& operator<<(std::ostream& os, const String& s) {
     return os << s.storage_;
 }
 ```
@@ -138,7 +148,9 @@ int main() {
 
 ---
 
-## Overloading >>
+## Overloading `>>`
+
+Read characters from an input stream into a `String`.
 
 File `string.h`:
 
@@ -147,7 +159,7 @@ class String {
     public:
         ...
         // declare as friend to allow access to private members
-        isttream& operator >> (istream& is, String& s);
+        friend std::istream& operator>>(std::istream& is, String& s);
 
     private:
         char* storage_;
@@ -158,7 +170,7 @@ class String {
 File `string.cpp`:
 
 ```cpp
-istream& operator >>(istream& is, String& s) {
+std::istream& operator>>(std::istream& is, String& s) {
     return is >> s.storage_;
 }
 ```
@@ -176,7 +188,9 @@ int main() {
 
 ---
 
-## Overloading []
+## Overloading `[]`
+
+Provide direct (bounds-checked) character access.
 
 File `string.h`:
 
@@ -184,8 +198,7 @@ File `string.h`:
 class String {
     public:
         ...
-        // declare as friend to allow access to private members
-        char& operator [](int index);
+        char& operator[](int index);
 
     private:
         char* storage_;
@@ -196,7 +209,7 @@ class String {
 File `string.cpp`:
 
 ```cpp
-char& String::operator [](int index) {
+char& String::operator[](int index) {
     assert(index >= 0 && index < length_);
     return storage_[index];
 }
@@ -214,7 +227,9 @@ int main() {
 
 ---
 
-## Overloading ++
+## Overloading `++`
+
+Increment the first character; prefix returns the **new** value, postfix the **old**.
 
 File `string.h`:
 
@@ -222,8 +237,8 @@ File `string.h`:
 class String {
     public:
         ...
-        char operator ++(); // prefix increment
-        char operator ++(int); // postfix increment
+        char operator++();     // prefix
+        char operator++(int);  // postfix
 
     private:
         char* storage_;
@@ -234,14 +249,14 @@ class String {
 File `string.cpp`:
 
 ```cpp
-char String::operator ++() {
-    return storage_[0];
+char String::operator++() {
+    return ++storage_[0];        // mutate then return
 }
 
-char String::operator ++(int) {
-    char temp = storage_[0];
+char String::operator++(int) {
+    char tmp = storage_[0];
     storage_[0]++;
-    return temp;
+    return tmp;                 // return original value
 }
 ```
 
@@ -258,7 +273,9 @@ int main() {
 
 ---
 
-## Overloading --
+## Overloading `--`
+
+Decrement the first character; mirrors the semantics of `++`.
 
 File `string.h`:
 
@@ -266,8 +283,8 @@ File `string.h`:
 class String {
     public:
         ...
-        char operator --(); // prefix decrement
-        char operator --(int); // postfix decrement
+        char operator--();     // prefix
+        char operator--(int);  // postfix
 
     private:
         char* storage_;
@@ -278,14 +295,14 @@ class String {
 File `string.cpp`:
 
 ```cpp
-char String::operator --() {
-    return storage_[0];
+char String::operator--() {
+    return --storage_[0];
 }
 
-char String::operator --(int) {
-    char tmp = *storage_
-    storage_--;
-    return tmp;
+char String::operator--(int) {
+    char tmp = storage_[0];
+    storage_[0]--;
+    return tmnp;
 }
 ```
 
