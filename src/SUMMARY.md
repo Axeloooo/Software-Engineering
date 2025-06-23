@@ -53,7 +53,7 @@
 - [Linked List](./cpp/linked_list.md)
 - [Pointers](./cpp/pointers.md)
 - [Static Members and Friends](./cpp/static_members_and_friends.md)
-- [Overloading Operators]()
+- [Overloading Operators](./cpp/overloading_operators.md)
 - [Aggregation and Composition]()
 - [Inheritance and Derivation]()
 - [Polymorphism]()
