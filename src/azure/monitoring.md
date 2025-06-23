@@ -1,9 +1,13 @@
 # Monitoring
 
+---
+
 ## Table of Contents
 
 - [Azure Monitor](#azure-monitor)
 - [Azure Service Health](#azure-service-health)
+
+---
 
 ### Azure Monitor
 
@@ -20,6 +24,8 @@
   - Infrastructure and application performance monitoring.
   - Log analytics for troubleshooting.
   - Proactive alerting and incident management.
+
+---
 
 ### Azure Service Health
 

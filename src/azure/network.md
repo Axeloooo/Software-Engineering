@@ -1,5 +1,7 @@
 # Network
 
+---
+
 ## Table of Contents
 
 - [Azure VNet](#azure-vnet)
@@ -15,6 +17,8 @@
 - [Azure Front Door](#azure-front-door)
 - [Azure Private Link](#azure-private-link)
 - [Azure Bastion](#azure-bastion)
+
+---
 
 ## Azure VNet
 
@@ -32,6 +36,8 @@
   - Extend on-premises networks to the cloud.
   - Control inbound and outbound traffic routing.
 
+---
+
 ## Azure Subnets
 
 <div style="text-align: center;">
@@ -45,6 +51,8 @@
 - **Typical Use Cases**:
   - Micro-segmentation of workloads.
   - Separation of front-end, application, and database tiers.
+
+---
 
 ## Azure Network Interface (NIC)
 
@@ -60,6 +68,8 @@
   - Assigning multiple IP addresses to different subnets.
   - Multi-homing scenarios.
 
+---
+
 ## Azure Network Security Groups (NSG)
 
 <div style="text-align: center;">
@@ -73,6 +83,8 @@
 - **Typical Use Cases**:
   - Restricting access to specific ports or protocols.
   - Filtering traffic at scale for multi-tier applications.
+
+---
 
 ## Azure Virtual Network Peering
 
@@ -88,6 +100,8 @@
   - Merging networks across different regions or subscriptions.
   - Multi-team or multi-environment connectivity.
 
+---
+
 ## Azure DNS
 
 <div style="text-align: center;">
@@ -101,6 +115,8 @@
 - **Typical Use Cases**:
   - Custom domain mapping for public-facing apps.
   - Private DNS zones for internal name resolution.
+
+---
 
 ## Azure ExpressRoute
 
@@ -116,6 +132,8 @@
   - High-throughput data replication.
   - Enterprise-scale hybrid connections.
 
+---
+
 ## Azure Virtual Network Gateways
 
 <div style="text-align: center;">
@@ -129,6 +147,8 @@
 - **Typical Use Cases**:
   - Secure VPN tunnels to on-premises resources.
   - Hybrid cloud scenarios.
+
+---
 
 ## Azure Load Balancer
 
@@ -144,6 +164,8 @@
   - Balancing web server workloads.
   - Ensuring high availability for backend services.
 
+---
+
 ## Azure Application Gateway
 
 <div style="text-align: center;">
@@ -157,6 +179,8 @@
 - **Typical Use Cases**:
   - Secure, scalable web application hosting.
   - Advanced traffic routing rules for microservices.
+
+---
 
 ## Azure Front Door
 
@@ -172,6 +196,8 @@
   - Distributing traffic across multiple regions.
   - Accelerated content delivery with edge POPs.
 
+---
+
 ## Azure Private Link
 
 <div style="text-align: center;">
@@ -185,6 +211,8 @@
 - **Typical Use Cases**:
   - High-security networks with restricted internet access.
   - Compliance with strict data governance requirements.
+
+---
 
 ## Azure Bastion
 

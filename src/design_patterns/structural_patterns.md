@@ -1,5 +1,7 @@
 # Structural Patterns
 
+---
+
 ## Table of Contents
 
 - [Adapter](#adapter)
@@ -8,6 +10,10 @@
 
 ## Adapter
 
+---
+
 ## Bridge
+
+---
 
 ## Decorator

@@ -1,5 +1,7 @@
 # Overloading Operators
 
+---
+
 ## Table of Contents
 
 - [Overloading `+`](#overloading-)

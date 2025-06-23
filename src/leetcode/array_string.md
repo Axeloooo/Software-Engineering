@@ -1,5 +1,7 @@
 # Array / String
 
+---
+
 ## Table of Contents
 
 - [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array)
