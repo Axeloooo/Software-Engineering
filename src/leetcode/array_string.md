@@ -4,10 +4,181 @@
 
 ## Table of Contents
 
+- [13. Roman to Integer](#13-roman-to-integer)
+- [14. Longest Common Prefix](#14-longest-common-prefix)
 - [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array)
 - [27. Remove Element](#27-remove-element)
+- [58. Length of Last Word](#58-length-of-last-word)
 - [88. Merge Sorted Array](#88-merge-sorted-array)
+- [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
 - [169. Majority Element](#169-majority-element)
+
+---
+
+## 13. Roman to Integer
+
+- **LeetCode Link:** [Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
+- **Difficulty:** Easy
+- **Topic(s):** Hash Table, String, Math
+
+### 🧠 Problem Statement
+
+> Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `C`, `D` and `M`.
+>
+> ```txt
+> Symbol Value
+> I 1
+> V 5
+> X 10
+> L 50
+> C 100
+> D 500
+> M 1000
+> ```
+>
+> For example, `2` is written as `II` in Roman numeral, just two ones added together. `12` is written as `XII`, which is simply `X + II`. The number `27` is written as `XXVII`, which is `XX + V + II`.
+>
+> Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not `IIII`. Instead, the number four is written as `IV`. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as `IX`. There are six instances where subtraction is used:
+>
+> - `I` can be placed before `V` (5) and `X` (10) to make 4 and 9.
+> - `X` can be placed before `L` (50) and `C` (100) to make 40 and 90.
+> - `C` can be placed before `D` (500) and `M` (1000) to make 400 and 900.
+>
+> Given a roman numeral, convert it to an integer.
+>
+> Example 1:
+>
+> ```txt
+> Input: s = "III"
+> Output: 3
+> Explanation: III = 3.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: s = "LVIII"
+> Output: 58
+> Explanation: L = 50, V= 5, III = 3.
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: s = "MCMXCIV"
+> Output: 1994
+> Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+> ```
+
+### 🧩 Approach
+
+1. Create a mapping of Roman numeral symbols to their integer values.
+2. Initialize a result variable to `0`.
+3. Iterate through the string:
+   - If the current symbol is less than the next symbol, subtract its value from the result.
+   - Otherwise, add its value to the result.
+4. Return the result.
+
+### 💡 Solution
+
+```python
+def romanToInt(self, s: str) -> int:
+    """
+    Convert a Roman numeral to an integer.
+
+    Args:
+        s (str): The Roman numeral string.
+
+    Returns:
+        int: The integer representation of the Roman numeral.
+    """
+    romans: Dict[str, int] = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+    }
+    res: int = 0
+    for i in range(len(s)):
+        if i + 1 < len(s) and romans[s[i]] < romans[s[i + 1]]:
+            res -= romans[s[i]]
+        else:
+            res += romans[s[i]]
+    return res
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(1)`
+
+---
+
+## 14. Longest Common Prefix
+
+- **LeetCode Link:** [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
+- **Difficulty:** Easy
+- **Topic(s):** String, Trie
+
+### 🧠 Problem Statement
+
+> Write a function to find the longest common prefix string amongst an array of strings.
+>
+> If there is no common prefix, return an empty string `""`.
+>
+> Example 1:
+>
+> ```txt
+> Input: strs = ["flower","flow","flight"]
+> Output: "fl"
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: strs = ["dog","racecar","car"]
+> Output: ""
+> Explanation: There is no common prefix among the input strings.
+> ```
+
+### 🧩 Approach
+
+1. Initialize the result as an empty string.
+2. Iterate through the characters of the first string.
+3. For each character, check if it matches the corresponding character in all other strings.
+4. If a mismatch is found or if the end of any string is reached, return the result.
+5. If all characters match, append the character to the result.
+6. Return the result after checking all characters of the first string.
+
+### 💡 Solution
+
+```python
+def longestCommonPrefix(self, strs: List[str]) -> str:
+    """
+    Find the longest common prefix among an array of strings.
+
+    Args:
+        strs (List[str]): The list of strings.
+
+    Returns:
+        str: The longest common prefix.
+    """
+    res: str = ""
+    for i in range(len(strs[0])):
+        for s in strs:
+            if i == len(s) or s[i] != strs[0][i]:
+                return res
+        res += strs[0][i]
+    return res
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n * m)`
+- Space Complexity: `O(1)`
 
 ---
 
@@ -25,6 +196,24 @@
 >
 > - Change the array `nums` such that the first k elements of `nums` contain the unique elements in the order they were present in `nums` initially. The remaining elements of `nums` are not important as well as the size of `nums`.
 > - Return `k`.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums = [1,1,2]
+> Output: 2, nums = [1,2,_]
+> Explanation: Your function should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+> It does not matter what you leave beyond the returned k (hence they are underscores).
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums = [0,0,1,1,1,2,2,3,3,4]
+> Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+> Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+> It does not matter what you leave beyond the returned k (hence they are underscores).
+> ```
 
 ### 🧩 Approach
 
@@ -55,7 +244,7 @@ def removeDuplicates(self, nums: List[int]) -> int:
     Returns:
         int: The new length of the array after removing duplicates.
     """
-    i = 0
+    i: int = 0
 
     for j in range(1, len(nums)):
         if nums[j] != nums[i]:
@@ -86,6 +275,25 @@ def removeDuplicates(self, nums: List[int]) -> int:
 >
 > - Change the array `nums` such that the first `k` elements of `nums` contain the elements which are not equal to `val`. The remaining elements of `nums` are not important as well as the size of nums.
 > - Return `k`.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums = [3,2,2,3], val = 3
+> Output: 2, nums = [2,2,_,_]
+> Explanation: Your function should return k = 2, with the first two elements of nums being 2.
+> It does not matter what you leave beyond the returned k (hence they are underscores).
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums = [0,1,2,2,3,0,4,2], val = 2
+> Output: 5, nums = [0,1,4,0,3,_,_,_]
+> Explanation: Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.
+> Note that the five elements can be returned in any order.
+> It does not matter what you leave beyond the returned k (hence they are underscores).
+> ```
 
 ### 🧩 Approach
 
@@ -129,11 +337,76 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 ---
 
+## 58. Length of Last Word
+
+- **LeetCode Link:** [Length of Last Word](https://leetcode.com/problems/length-of-last-word/)
+- **Difficulty:** Easy
+- **Topic(s):** String, String Manipulation
+
+### 🧠 Problem Statement
+
+> Given a string `s` consisting of words and spaces, return the length of the last word in the string.
+>
+> A word is a maximal substring consisting of non-space characters only.
+>
+> Example 1:
+>
+> ```txt
+> Input: s = "Hello World"
+> Output: 5
+> Explanation: The last word is "World" with length 5.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: s = "   fly me   to   the moon  "
+> Output: 4
+> Explanation: The last word is "moon" with length 4.
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: s = "luffy is still joyboy"
+> Output: 6
+> Explanation: The last word is "joyboy" with length 6.
+> ```
+
+### 🧩 Approach
+
+1. Split the string `s` into words using the `split()` method, which automatically handles multiple spaces.
+2. Return the length of the last word in the list of words.
+
+### 💡 Solution
+
+```python
+def lengthOfLastWord(self, s: str) -> int:
+    """
+    Calculate the length of the last word in a string.
+
+    Args:
+        s (str): The input string.
+
+    Returns:
+        int: The length of the last word.
+    """
+    words: List[str] = s.split()
+    return len(words[-1])
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
+
+---
+
 ## 88. Merge Sorted Array
 
 - **LeetCode Link:** [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
 - **Difficulty:** Easy
-- **Topic(s):** Array, Two Pointers
+- **Topic(s):** Array, Two Pointers, Sorting
 
 ### 🧠 Problem Statement
 
@@ -142,6 +415,34 @@ def removeElement(self, nums: List[int], val: int) -> int:
 > Merge `nums1` and `nums2` into a single array sorted in non-decreasing order.
 >
 > The final sorted array should not be returned by the function, but instead be stored inside the array `nums1`. To accommodate this, `nums1` has a length of `m + n`, where the first `m` elements denote the elements that should be merged, and the last `n` elements are set to `0` and should be ignored. `nums2` has a length of `n`.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+> Output: [1,2,2,3,5,6]
+> Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+> The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums1 = [1], m = 1, nums2 = [], n = 0
+> Output: [1]
+> Explanation: The arrays we are merging are [1] and [].
+> The result of the merge is [1].
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+> Output: [1]
+> Explanation: The arrays we are merging are [] and [1].
+> The result of the merge is [1].
+> Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
+> ```
 
 ### 🧩 Approach
 
@@ -171,9 +472,9 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
     Returns:
         None: The result is stored in `nums1`.
     """
-    midx = m - 1
-    nidx = n - 1
-    right = m + n - 1
+    midx: int = m - 1
+    nidx: int = n - 1
+    right: int = m + n - 1
 
     while nidx >= 0:
         if midx >= 0 and nums1[midx] > nums2[nidx]:
@@ -193,6 +494,81 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
 
 ---
 
+## 121. Best Time to Buy and Sell Stock
+
+- **LeetCode Link:** [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- **Difficulty:** Easy
+- **Topic(s):** Array, Dynamic Programming
+
+### 🧠 Problem Statement
+
+> You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day.
+>
+> You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+>
+> Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.
+>
+> Example 1:
+>
+> ```txt
+> Input: prices = [7,1,5,3,6,4]
+> Output: 5
+> Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+> Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: prices = [7,6,4,3,1]
+> Output: 0
+> Explanation: In this case, no transactions are done and the max profit = 0.
+> ```
+
+### 🧩 Approach
+
+Dynamic programming approach:
+
+1. Initialize `profit` to `0` and `lowest` to the first price.
+2. Iterate through the prices:
+
+   - For each price, calculate the potential profit by subtracting `lowest` from the current price.
+   - Update `profit` if the calculated profit is greater than the current `profit`.
+   - Update `lowest` to be the minimum of the current price and `lowest`.
+
+3. Return the `profit`.
+
+This approach ensures that we always consider the lowest price seen so far, allowing us to calculate the maximum profit efficiently.
+
+### 💡 Solution
+
+```python
+def maxProfit(self, prices: List[int]) -> int:
+    """
+    Calculate the maximum profit from a single buy and sell transaction.
+
+    Args:
+        prices (List[int]): The list of stock prices.
+
+    Returns:
+        int: The maximum profit achievable, or 0 if no profit can be made.
+    """
+    profit: int = 0
+    lowest: int = prices[0]
+
+    for price in prices:
+        profit = max(profit, price - lowest)
+        lowest = min(lowest, price)
+    return profit
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(1)`
+
+---
+
 ## 169. Majority Element
 
 - **LeetCode Link:** [Majority Element](https://leetcode.com/problems/majority-element/)
@@ -204,6 +580,20 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
 > Given an array `nums` of size `n`, return the majority element.
 >
 > The majority element is the element that appears more than `⌊n / 2⌋` times. You may assume that the majority element always exists in the array.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums = [3,2,3]
+> Output: 3
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums = [2,2,1,1,1,2,2]
+> Output: 2
+> ```
 
 ### 🧩 Approach
 
@@ -231,8 +621,8 @@ def majorityElement(self, nums: List[int]) -> int:
     Returns:
         int: The majority element.
     """
-    count = 0
-    candidate = 0
+    count: int = 0
+    candidate: int = 0
 
     for num in nums:
         if count == 0:
@@ -250,3 +640,5 @@ def majorityElement(self, nums: List[int]) -> int:
 
 - Time Complexity: `O(n)`
 - Space Complexity: `O(1)`
+
+---
