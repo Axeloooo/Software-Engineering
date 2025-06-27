@@ -32,7 +32,7 @@
 - [Intervals]()
 - [Stack]()
 - [Linked List]()
-- [Binary Tree]()
+- [Binary Tree](./leetcode/binary_tree.md)
 - [Graph]()
 - [Trie]()
 - [Backtracking]()
