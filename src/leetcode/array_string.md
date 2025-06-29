@@ -7,6 +7,7 @@
 - [13. Roman to Integer](#13-roman-to-integer)
 - [14. Longest Common Prefix](#14-longest-common-prefix)
 - [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array)
+- [28. Find the Index of the First Occurrence in a String](#28-find-the-index-of-the-first-occurrence-in-a-string)
 - [27. Remove Element](#27-remove-element)
 - [58. Length of Last Word](#58-length-of-last-word)
 - [88. Merge Sorted Array](#88-merge-sorted-array)
@@ -82,32 +83,33 @@
 ### 💡 Solution
 
 ```python
-def romanToInt(self, s: str) -> int:
-    """
-    Convert a Roman numeral to an integer.
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        """
+        Convert a Roman numeral to an integer.
 
-    Args:
-        s (str): The Roman numeral string.
+        Args:
+            s (str): The Roman numeral string.
 
-    Returns:
-        int: The integer representation of the Roman numeral.
-    """
-    romans: Dict[str, int] = {
-            "I": 1,
-            "V": 5,
-            "X": 10,
-            "L": 50,
-            "C": 100,
-            "D": 500,
-            "M": 1000
-    }
-    res: int = 0
-    for i in range(len(s)):
-        if i + 1 < len(s) and romans[s[i]] < romans[s[i + 1]]:
-            res -= romans[s[i]]
-        else:
-            res += romans[s[i]]
-    return res
+        Returns:
+            int: The integer representation of the Roman numeral.
+        """
+        romans: Dict[str, int] = {
+                "I": 1,
+                "V": 5,
+                "X": 10,
+                "L": 50,
+                "C": 100,
+                "D": 500,
+                "M": 1000
+        }
+        res: int = 0
+        for i in range(len(s)):
+            if i + 1 < len(s) and romans[s[i]] < romans[s[i + 1]]:
+                res -= romans[s[i]]
+            else:
+                res += romans[s[i]]
+        return res
 ```
 
 ### 🧮 Complexity Analysis
@@ -156,23 +158,24 @@ def romanToInt(self, s: str) -> int:
 ### 💡 Solution
 
 ```python
-def longestCommonPrefix(self, strs: List[str]) -> str:
-    """
-    Find the longest common prefix among an array of strings.
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        """
+        Find the longest common prefix among an array of strings.
 
-    Args:
-        strs (List[str]): The list of strings.
+        Args:
+            strs (List[str]): The list of strings.
 
-    Returns:
-        str: The longest common prefix.
-    """
-    res: str = ""
-    for i in range(len(strs[0])):
-        for s in strs:
-            if i == len(s) or s[i] != strs[0][i]:
-                return res
-        res += strs[0][i]
-    return res
+        Returns:
+            str: The longest common prefix.
+        """
+        res: str = ""
+        for i in range(len(strs[0])):
+            for s in strs:
+                if i == len(s) or s[i] != strs[0][i]:
+                    return res
+            res += strs[0][i]
+        return res
 ```
 
 ### 🧮 Complexity Analysis
@@ -234,24 +237,25 @@ Steps:
 ### 💡 Solution
 
 ```python
-def removeDuplicates(self, nums: List[int]) -> int:
-    """
-    Remove duplicates from a sorted array in-place and return the new length.
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        """
+        Remove duplicates from a sorted array in-place and return the new length.
 
-    Args:
-        nums (List[int]): The input sorted array.
+        Args:
+            nums (List[int]): The input sorted array.
 
-    Returns:
-        int: The new length of the array after removing duplicates.
-    """
-    i: int = 0
+        Returns:
+            int: The new length of the array after removing duplicates.
+        """
+        i: int = 0
 
-    for j in range(1, len(nums)):
-        if nums[j] != nums[i]:
-            i += 1
-            nums[i] = nums[j]
+        for j in range(1, len(nums)):
+            if nums[j] != nums[i]:
+                i += 1
+                nums[i] = nums[j]
 
-    return i + 1
+        return i + 1
 ```
 
 ### 🧮 Complexity Analysis
@@ -311,28 +315,93 @@ Steps:
 ### 💡 Solution
 
 ```python
-def removeElement(self, nums: List[int], val: int) -> int:
-    """
-    Remove all occurrences of `val` in `nums` in-place and return the new length.
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        """
+        Remove all occurrences of `val` in `nums` in-place and return the new length.
 
-    Args:
-        nums (List[int]): The input array.
-        val (int): The value to be removed.
+        Args:
+            nums (List[int]): The input array.
+            val (int): The value to be removed.
 
-    Returns:
-        int: The new length of the array after removal.
-    """
-    k: int = 0
-    for i in range(len(nums)):
-        if nums[i] != val:
-            nums[k] = nums[i]
-            k += 1
-    return k
+        Returns:
+            int: The new length of the array after removal.
+        """
+        k: int = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[k] = nums[i]
+                k += 1
+        return k
 ```
 
 ### 🧮 Complexity Analysis
 
 - Time Complexity: `O(n)`
+- Space Complexity: `O(1)`
+
+---
+
+## 28. Find the Index of the First Occurrence in a String
+
+- **LeetCode Link:** [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
+- **Difficulty:** Easy
+- **Topic(s):** Two Pointers, String, String Matching
+
+### 🧠 Problem Statement
+
+> Given two strings `needle` and `haystack`, return the index of the first occurrence of `needle` in `haystack`, or `-1` if `needle` is not part of `haystack`.
+>
+> Example 1:
+>
+> ```txt
+> Input: haystack = "sadbutsad", needle = "sad"
+> Output: 0
+> Explanation: "sad" occurs at index 0 and 6.
+> The first occurrence is at index 0, so we return 0.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: haystack = "leetcode", needle = "leeto"
+> Output: -1
+> Explanation: "leeto" did not occur in "leetcode", so we return -1.
+> ```
+
+### 🧩 Approach
+
+Use a simple **sliding window** approach:
+
+1. Iterate through `haystack` with a window of size equal to the length of `needle`.
+2. For each position, check if the substring matches `needle`.
+3. If a match is found, return the starting index.
+4. If no match is found after checking all possible positions, return `-1`.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        """
+        Find the index of the first occurrence of `needle` in `haystack`.
+
+        Args:
+            haystack (str): The string to search in.
+            needle (str): The substring to search for.
+
+        Returns:
+            int: The index of the first occurrence of `needle` in `haystack`, or -1 if not found.
+        """
+        for i in range(len(haystack) + 1 - len(needle)):
+            if haystack[i: i + len(needle)] == needle:
+                return i
+        return -1
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n * m)`
 - Space Complexity: `O(1)`
 
 ---
@@ -381,18 +450,19 @@ def removeElement(self, nums: List[int], val: int) -> int:
 ### 💡 Solution
 
 ```python
-def lengthOfLastWord(self, s: str) -> int:
-    """
-    Calculate the length of the last word in a string.
+class Solution:
+    def lengthOfLastWord(self, s: str) -> int:
+        """
+        Calculate the length of the last word in a string.
 
-    Args:
-        s (str): The input string.
+        Args:
+            s (str): The input string.
 
-    Returns:
-        int: The length of the last word.
-    """
-    words: List[str] = s.split()
-    return len(words[-1])
+        Returns:
+            int: The length of the last word.
+        """
+        words: List[str] = s.split()
+        return len(words[-1])
 ```
 
 ### 🧮 Complexity Analysis
@@ -459,32 +529,33 @@ Repeat until `nidx` reaches 0 (no need to worry about `midx`, since the rest are
 ### 💡 Solution
 
 ```python
-def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-    """
-    Merge two sorted arrays `nums1` and `nums2` into `nums1` in-place.
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Merge two sorted arrays `nums1` and `nums2` into `nums1` in-place.
 
-    Args:
-        nums1 (List[int]): The first sorted array with enough space to hold the elements of `nums2`.
-        m (int): The number of elements in `nums1`.
-        nums2 (List[int]): The second sorted array.
-        n (int): The number of elements in `nums2`.
+        Args:
+            nums1 (List[int]): The first sorted array with enough space to hold the elements of `nums2`.
+            m (int): The number of elements in `nums1`.
+            nums2 (List[int]): The second sorted array.
+            n (int): The number of elements in `nums2`.
 
-    Returns:
-        None: The result is stored in `nums1`.
-    """
-    midx: int = m - 1
-    nidx: int = n - 1
-    right: int = m + n - 1
+        Returns:
+            None: The result is stored in `nums1`.
+        """
+        midx: int = m - 1
+        nidx: int = n - 1
+        right: int = m + n - 1
 
-    while nidx >= 0:
-        if midx >= 0 and nums1[midx] > nums2[nidx]:
-            nums1[right] = nums1[midx]
-            midx -= 1
-        else:
-            nums1[right] = nums2[nidx]
-            nidx -= 1
+        while nidx >= 0:
+            if midx >= 0 and nums1[midx] > nums2[nidx]:
+                nums1[right] = nums1[midx]
+                midx -= 1
+            else:
+                nums1[right] = nums2[nidx]
+                nidx -= 1
 
-        right -= 1
+            right -= 1
 ```
 
 ### 🧮 Complexity Analysis
@@ -543,23 +614,24 @@ This approach ensures that we always consider the lowest price seen so far, allo
 ### 💡 Solution
 
 ```python
-def maxProfit(self, prices: List[int]) -> int:
-    """
-    Calculate the maximum profit from a single buy and sell transaction.
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        """
+        Calculate the maximum profit from a single buy and sell transaction.
 
-    Args:
-        prices (List[int]): The list of stock prices.
+        Args:
+            prices (List[int]): The list of stock prices.
 
-    Returns:
-        int: The maximum profit achievable, or 0 if no profit can be made.
-    """
-    profit: int = 0
-    lowest: int = prices[0]
+        Returns:
+            int: The maximum profit achievable, or 0 if no profit can be made.
+        """
+        profit: int = 0
+        lowest: int = prices[0]
 
-    for price in prices:
-        profit = max(profit, price - lowest)
-        lowest = min(lowest, price)
-    return profit
+        for price in prices:
+            profit = max(profit, price - lowest)
+            lowest = min(lowest, price)
+        return profit
 ```
 
 ### 🧮 Complexity Analysis
@@ -611,29 +683,30 @@ This works because the majority element appears more than all others combined.
 ### 💡 Solution
 
 ```python
-def majorityElement(self, nums: List[int]) -> int:
-    """
-    Find the majority element in an array using Boyer-Moore Voting Algorithm.
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        """
+        Find the majority element in an array using Boyer-Moore Voting Algorithm.
 
-    Args:
-        nums (List[int]): The input array.
+        Args:
+            nums (List[int]): The input array.
 
-    Returns:
-        int: The majority element.
-    """
-    count: int = 0
-    candidate: int = 0
+        Returns:
+            int: The majority element.
+        """
+        count: int = 0
+        candidate: int = 0
 
-    for num in nums:
-        if count == 0:
-            candidate = num
+        for num in nums:
+            if count == 0:
+                candidate = num
 
-        if num == candidate:
-            count += 1
-        else:
-            count -= 1
+            if num == candidate:
+                count += 1
+            else:
+                count -= 1
 
-    return candidate
+        return candidate
 ```
 
 ### 🧮 Complexity Analysis
