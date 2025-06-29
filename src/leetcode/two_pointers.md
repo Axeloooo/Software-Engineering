@@ -104,7 +104,7 @@ class Solution:
 
 ### 🧮 Complexity Analysis
 
-- TIme Complexity: `O(n)`
+- Time Complexity: `O(n)`
 - Space Complexity: `O(1)`
 
 ---
