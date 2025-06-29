@@ -48,7 +48,7 @@
 
 ### 🧩 Approach
 
-Use the **Tow Pointers** approach:
+Use the **Two Pointers** approach:
 
 1. Initialize two pointers, `l` at the start and `r` at the end of the string.
 2. Move the left pointer `l` to the right until it points to an alphanumeric character.
