@@ -4,7 +4,88 @@
 
 ## Table of Contents
 
+- [1. Two Sum](#1-two-sum)
 - [383 Ransom Note](#383-ransom-note)
+
+---
+
+## 1. Two Sum
+
+- **LeetCode Link:** [Two Sum](https://leetcode.com/problems/two-sum/)
+- **Difficulty:** Easy
+- **Topics:** Array, Hash Table
+
+### 🧠 Problem Statement
+
+> Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.
+>
+> You may assume that each input would have exactly one solution, and you may not use the same element twice.
+>
+> You can return the answer in any order.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums = [2,7,11,15], target = 9
+> Output: [0,1]
+> Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums = [3,2,4], target = 6
+> Output: [1,2]
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: nums = [3,3], target = 6
+> Output: [0,1]
+> ```
+
+### 🧩 Approach
+
+1. Create a hashmap (dictionary) to store the indices of the numbers in `nums`.
+2. Iterate through the `nums` array:
+   - For each number, calculate the complement (`target - nums[i]`).
+   - Check if the complement exists in the hashmap:
+     - If it does, return the current index and the index of the complement.
+     - If it doesn't, add the current number and its index to the hashmap.
+3. If no solution is found, return an empty list (though the problem guarantees a solution).
+
+### 💡 Solution
+
+```python
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        """
+        Find indices of two numbers in nums that add up to target.
+
+        Args:
+            nums (List[int]): List of integers.
+            target (int): Target sum.
+
+        Returns:
+            List[int]: Indices of the two numbers that add up to target.
+        """
+        h: Dict[int, int] = {}
+
+        for i in range(len(nums)):
+            h[nums[i]] = i
+
+        for i in range(len(nums)):
+            y: int = target - nums[i]
+
+            if y in h and h[y] != i:
+                return [i, h[y]]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
 
 ---
 
@@ -85,7 +166,7 @@ class Solution:
 
 ### 🧮 Complexity Analysis
 
-- **Time Complexity:** O(n + m)
-- **Space Complexity:** O(n)
+- Time Complexity: `O(n + m)`
+- Space Complexity: `O(n)`
 
 ---
