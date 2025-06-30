@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [125. Valid Palindrome](#125-valid-palindrome)
+- [392, Is Subsequence](#392-is-subsequence)
 
 ---
 
@@ -73,7 +74,8 @@ class Solution:
         Returns:
             bool: True if the string is a palindrome, False otherwise.
         """
-        l, r = 0, len(s) - 1
+        l: int = 0
+        r: int = len(s) - 1
 
         while l < r:
             while l < r and not self.isalnum(s[l]):
@@ -83,6 +85,7 @@ class Solution:
             if s[l].lower() != s[r].lower():
                 return False
             l, r = l + 1, r - 1
+
         return True
 
     def isalnum(self, c: str):
@@ -105,6 +108,76 @@ class Solution:
 ### 🧮 Complexity Analysis
 
 - TIme Complexity: `O(n)`
+- Space Complexity: `O(1)`
+
+---
+
+## 392, Is Subsequence
+
+- **LeetCode Link:** [Is Subsequence](https://leetcode.com/problems/is-subsequence/)
+- **Difficulty:** Easy
+- **Topics:** String, Two Pointers
+
+### 🧠 Problem Statement
+
+> Given two strings `s` and `t`, return `true` if `s` is a subsequence of `t`, or `false` otherwise.
+>
+> A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., `"ace"` is a subsequence of `"abcde"` while `"aec"` is not).
+>
+> Example 1:
+>
+> ```txt
+> Input: s = "abc", t = "ahbgdc"
+> Output: true
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: s = "axc", t = "ahbgdc"
+> Output: false
+> ```
+
+### 🧩 Approach
+
+Use the **Two Pointers** approach:
+
+1. Initialize two pointers, `i` for string `s` and `j` for string `t`.
+2. Iterate through both strings:
+   - If the characters at `s[i]` and `t[j]` match, move the pointer `i` to the next character in `s`.
+   - Always move the pointer `j` to the next character in `t`.
+3. If the pointer `i` reaches the end of `s`, it means all characters of `s` were found in `t` in order, so return `True`.
+4. If the loop ends and `i` has not reached the end of `s`, return `False`.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        """
+        Check if string `s` is a subsequence of string `t`.
+
+        Args:
+            s (str): The string to check as a subsequence.
+            t (str): The string in which to check for the subsequence.
+
+        Returns:
+            bool: True if `s` is a subsequence of `t`, False otherwise.
+        """
+        i: int = 0
+        j: int = 0
+
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                i += 1
+            j += 1
+
+        return True if i == len(s) else False
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
 - Space Complexity: `O(1)`
 
 ---
