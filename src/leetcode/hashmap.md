@@ -89,7 +89,7 @@ class Solution:
 
 ---
 
-## 383 Ransom Note
+## 383. Ransom Note
 
 - **LeetCode Link:** [Ransom Note](https://leetcode.com/problems/ransom-note/)
 - **Difficulty:** Easy

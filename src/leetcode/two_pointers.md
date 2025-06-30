@@ -5,7 +5,7 @@
 ## Table of Contents
 
 - [125. Valid Palindrome](#125-valid-palindrome)
-- [392, Is Subsequence](#392-is-subsequence)
+- [392. Is Subsequence](#392-is-subsequence)
 
 ---
 
@@ -112,7 +112,7 @@ class Solution:
 
 ---
 
-## 392, Is Subsequence
+## 392. Is Subsequence
 
 - **LeetCode Link:** [Is Subsequence](https://leetcode.com/problems/is-subsequence/)
 - **Difficulty:** Easy
