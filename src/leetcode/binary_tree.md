@@ -43,6 +43,8 @@
 ### 💡 Solution
 
 ```python
+from typing import Optional
+
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         """

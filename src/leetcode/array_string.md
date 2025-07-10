@@ -83,6 +83,8 @@
 ### 💡 Solution
 
 ```python
+from typing import Dict
+
 class Solution:
     def romanToInt(self, s: str) -> int:
         """
@@ -158,6 +160,8 @@ class Solution:
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         """
@@ -237,6 +241,8 @@ Steps:
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         """
@@ -315,6 +321,8 @@ Steps:
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
         """
@@ -450,6 +458,8 @@ class Solution:
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def lengthOfLastWord(self, s: str) -> int:
         """
@@ -529,6 +539,8 @@ Repeat until `nidx` reaches 0 (no need to worry about `midx`, since the rest are
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         """
@@ -614,6 +626,8 @@ This approach ensures that we always consider the lowest price seen so far, allo
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         """
@@ -683,6 +697,8 @@ This works because the majority element appears more than all others combined.
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         """

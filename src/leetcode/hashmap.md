@@ -62,6 +62,8 @@
 ### 💡 Solution
 
 ```python
+from typing import List, Dict
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         """
@@ -145,6 +147,8 @@ Use a hashset to track seen numbers:
 ### 💡 Solution
 
 ```python
+from typing import Set
+
 class Solution:
     def isHappy(self, n: int) -> bool:
         """
@@ -161,23 +165,23 @@ class Solution:
 
         while cur not in seen:
             seen.add(cur)
-            summ: int = 0
+            total: int = 0
 
             for digit in cur:
                 digit = int(digit)
-                summ += digit**2
+                total += digit**2
 
-            if summ == 1:
+            if total == 1:
                 return True
 
-            cur = str(summ)
+            cur = str(total)
 
         return False
 ```
 
 ### 🧮 Complexity Analysis
 
-- Time Complexity: `O(log n)` because the number of digits in `n` decreases logarithmically as we sum the squares of its digits.
+- Time Complexity: `O(log n)`
 - Space Complexity: `O(log n)`
 
 ---
@@ -246,6 +250,8 @@ Use hashmaps:
 ### 💡 Solution
 
 ```python
+from typing import Dict
+
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
         """
@@ -303,7 +309,7 @@ class Solution:
 > ```txt
 > Input: s = "rat", t = "car"
 >
-> Output: false`
+> Output: false
 > ```
 
 ### 🧩 Approach
@@ -322,6 +328,8 @@ Use hashmaps:
 ### 💡 Solution
 
 ```python
+from typing import Dict
+
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         """
@@ -334,8 +342,7 @@ class Solution:
         Returns:
             bool: True if s and t are anagrams, False otherwise.
         """
-        from collections import defaultdict
-        from typing import Dict
+
         if len(s) != len(t):
             return False
 
@@ -426,6 +433,8 @@ Use hashmaps:
 ### 💡 Solution
 
 ```python
+from typing import List, Dict
+
 class Solution:
     def wordPattern(self, pattern: str, s: str) -> bool:
         """
@@ -510,6 +519,8 @@ class Solution:
 ### 💡 Solution
 
 ```python
+from typing import Dict
+
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
         """
