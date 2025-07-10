@@ -241,7 +241,7 @@ class Solution:
 Use hashmaps:
 
 1. Split the string `s` into words.
-2. CHeck if the length of `words` matches the length of `pattern`. If not, return `False`.
+2. Check if the length of `words` matches the length of `pattern`. If not, return `False`.
 3. Create two hashmaps:
    - `map_pw`: Maps characters in `pattern` to words in `s`.
    - `map_wp`: Maps words in `s` to characters in `pattern`.
