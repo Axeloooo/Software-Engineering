@@ -5,6 +5,8 @@
 ## Table of Contents
 
 - [1. Two Sum](#1-two-sum)
+- [205. Isomorphic Strings](#205-isomorphic-strings)
+- [290. Word Pattern](#290-word-pattern)
 - [383 Ransom Note](#383-ransom-note)
 
 ---
@@ -80,6 +82,209 @@ class Solution:
 
             if y in h and h[y] != i:
                 return [i, h[y]]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
+
+---
+
+## 205. Isomorphic Strings
+
+- **LeetCode Link:** [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/)
+- **Difficulty:** Easy
+- **Topics:** Hash Table, String
+
+### 🧠 Problem Statement
+
+> Given two strings `s` and `t`, determine if they are isomorphic.
+>
+> Two strings `s` and `t` are isomorphic if the characters in `s` can be replaced to get `t`.
+>
+> All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+>
+> Example 1:
+>
+> ```txt
+> Input: s = "egg", t = "add"
+>
+> Output: true
+>
+> Explanation:
+>
+> The strings s and t can be made identical by:
+>
+> Mapping 'e' to 'a'.
+> Mapping 'g' to 'd'.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: s = "foo", t = "bar"
+>
+> Output: false
+>
+> Explanation:
+>
+> The strings s and t can not be made identical as 'o' needs to be mapped to both 'a' and 'r'.
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: s = "paper", t = "title"
+>
+> Output: true
+> ```
+
+### 🧩 Approach
+
+Use hashmaps:
+
+1. Create two hashmaps (dictionaries) to map characters from `s` to `t` and from `t` to `s`.
+2. Iterate through the characters of both strings simultaneously:
+   - For each character pair `(c1, c2)` from `s` and `t`:
+     - Check if `c1` is already mapped to a different character than `c2` or if `c2` is already mapped to a different character than `c1`.
+     - If either condition is true, return `False`.
+     - Otherwise, update the mappings for `c1` to `c2` and `c2` to `c1`.
+3. If all character pairs are processed without conflicts, return `True`.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        """
+        Check if two strings s and t are isomorphic.
+
+        Args:
+            s (str): First string.
+            t (str): Second string.
+
+        Returns:
+            bool: True if s and t are isomorphic, False otherwise.
+        """
+        map_st: Dict[str, str] = {}
+        map_ts: Dict[str, str] = {}
+
+        for c1, c2 in zip(s, t):
+            if (c1 in map_st and map_st[c1] != c2) or (
+                c2 in map_ts and map_ts[c2] != c1
+            ):
+                return False
+
+            map_st[c1] = c2
+            map_ts[c2] = c1
+
+        return True
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
+
+---
+
+## 290. Word Pattern
+
+- **LeetCode Link:** [Word Pattern](https://leetcode.com/problems/word-pattern/)
+- **Difficulty:** Easy
+- **Topics:** Hash Table, String
+
+### 🧠 Problem Statement
+
+> Given a `pattern` and a string `s`, find if `s` follows the same pattern.
+>
+> Here follow means a full match, such that there is a bijection between a letter in `pattern` and a non-empty word in `s`. Specifically:
+>
+> Each letter in `pattern` maps to exactly one unique word in `s`.
+> Each unique word in `s` maps to exactly one letter in `pattern`.
+> No two letters map to the same word, and no two words map to the same letter.
+>
+> Example 1:
+>
+> ```txt
+> Input: pattern = "abba", s = "dog cat cat dog"
+>
+> Output: true
+>
+> Explanation:
+>
+> The bijection can be established as:
+>
+> 'a' maps to "dog".
+> 'b' maps to "cat".
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: pattern = "abba", s = "dog cat cat fish"
+>
+> Output: false
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: pattern = "aaaa", s = "dog cat cat dog"
+>
+> Output: false
+> ```
+
+### 🧩 Approach
+
+Use hashmaps:
+
+1. Split the string `s` into words.
+2. Check if the length of `words` matches the length of `pattern`. If not, return `False`.
+3. Create two hashmaps:
+   - `map_pw`: Maps characters in `pattern` to words in `s`.
+   - `map_wp`: Maps words in `s` to characters in `pattern`.
+4. Iterate through the characters in `pattern` and the corresponding words in `s`:
+   - For each character `c1` in `pattern` and word `c2`
+     - Check if `c1` is already mapped to a different word than `c2` or if `c2` is already mapped to a different character than `c1`.
+     - If either condition is true, return `False`.
+     - Otherwise, update the mappings for `c1` to `c2` and `c2` to `c1`.
+5. If all character-word pairs are processed without conflicts, return `True`.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        """
+        Check if the string s follows the same pattern as the given pattern.
+
+        Args:
+            pattern (str): The pattern string.
+            s (str): The string to check against the pattern.
+
+        Returns:
+            bool: True if s follows the pattern, False otherwise.
+        """
+        words: List[str] = s.split()
+
+        map_pw: Dict[str, str] = {}
+        map_wp: Dict[str, str] = {}
+
+        if len(words) != len(pattern):
+            return False
+
+        for c1, c2 in zip(pattern, words):
+            if (c1 in map_pw and map_pw[c1] != c2) or (
+                c2 in map_wp and map_wp[c2] != c1
+            ):
+                return False
+
+            map_pw[c1] = c2
+            map_wp[c2] = c1
+
+        return True
 ```
 
 ### 🧮 Complexity Analysis
