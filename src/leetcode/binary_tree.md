@@ -43,20 +43,23 @@
 ### 💡 Solution
 
 ```python
-def maxDepth(self, root: Optional[TreeNode]) -> int:
-    """
-    Calculate the maximum depth of a binary tree.
+from typing import Optional
 
-    Args:
-        root (Optional[TreeNode]): The root node of the binary tree.
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        """
+        Calculate the maximum depth of a binary tree.
 
-    Returns:
-        int: The maximum depth of the binary tree.
-    """
-    if not root:
-        return 0
+        Args:
+            root (Optional[TreeNode]): The root node of the binary tree.
 
-    return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        Returns:
+            int: The maximum depth of the binary tree.
+        """
+        if not root:
+            return 0
+
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 ```
 
 ### 🧮 Complexity Analysis
