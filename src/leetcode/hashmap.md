@@ -5,7 +5,9 @@
 ## Table of Contents
 
 - [1. Two Sum](#1-two-sum)
+- [202. Happy Number](#202-happy-number)
 - [205. Isomorphic Strings](#205-isomorphic-strings)
+- [242. Valid Anagram](#242-valid-anagram)
 - [290. Word Pattern](#290-word-pattern)
 - [383 Ransom Note](#383-ransom-note)
 
@@ -88,6 +90,95 @@ class Solution:
 
 - Time Complexity: `O(n)`
 - Space Complexity: `O(n)`
+
+---
+
+## 202. Happy Number
+
+- **LeetCode Link:** [Happy Number](https://leetcode.com/problems/happy-number/)
+- **Difficulty:** Easy
+- **Topics:** Hash Table, Math, Two Pointers
+
+### 🧠 Problem Statement
+
+> Write an algorithm to determine if a number `n` is happy.
+>
+> A happy number is a number defined by the following process:
+>
+> Starting with any positive integer, replace the number by the sum of the squares of its digits.
+> Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+> Those numbers for which this process ends in 1 are happy.
+> Return `true` if `n` is a happy number, and `false` if not.
+>
+> Example 1:
+>
+> ```txt
+> Input: n = 19
+> Output: true
+> Explanation:
+> 12 + 92 = 82
+> 82 + 22 = 68
+> 62 + 82 = 100
+> 12 + 02 + 02 = 1
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: n = 2
+> Output: false
+> ```
+
+### 🧩 Approach
+
+Use a hashset to track seen numbers:
+
+1. Initialize an empty set to keep track of numbers that have been seen.
+2. Convert the number `n` to a string to easily access its digits.
+3. While the current number is not in the seen set:
+   - Add the current number to the seen set.
+   - Calculate the sum of the squares of its digits.
+   - If the sum equals 1, return `True`.
+   - Update the current number to this new sum.
+4. If the current number is already in the seen set, return `False` (indicating a cycle).
+
+### 💡 Solution
+
+```python
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        """
+        Determine if a number n is a happy number.
+
+        Args:
+            n (int): The number to check.
+
+        Returns:
+            bool: True if n is a happy number, False otherwise.
+        """
+        seen: Set[str] = set()
+        cur: str = str(n)
+
+        while cur not in seen:
+            seen.add(cur)
+            summ: int = 0
+
+            for digit in cur:
+                digit = int(digit)
+                summ += digit**2
+
+            if summ == 1:
+                return True
+
+            cur = str(summ)
+
+        return False
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(log n)` because the number of digits in `n` decreases logarithmically as we sum the squares of its digits.
+- Space Complexity: `O(log n)`
 
 ---
 
@@ -178,6 +269,86 @@ class Solution:
 
             map_st[c1] = c2
             map_ts[c2] = c1
+
+        return True
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
+
+---
+
+## 242. Valid Anagram
+
+- **LeetCode Link:** [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+- **Difficulty:** Easy
+- **Topics:** Hash Table, String, Sorting
+
+### 🧠 Problem Statement
+
+> Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.
+>
+> Example 1:
+>
+> ```txt
+> Input: s = "anagram", t = "nagaram"
+>
+> Output: true
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: s = "rat", t = "car"
+>
+> Output: false`
+> ```
+
+### 🧩 Approach
+
+Use hashmaps:
+
+1. Check if the lengths of `s` and `t` are equal. If not, return `False`.
+2. Create two hashmaps (dictionaries) to count the occurrences of each character in `s` and `t`.
+3. Iterate through the characters in both strings:
+   - For each character in `s`, increment its count in `s_counter`.
+   - For each character in `t`, increment its count in `t_counter`.
+4. Compare the two hashmaps:
+   - If they are equal, return `True`.
+   - If they differ, return `False`.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        """
+        Check if two strings s and t are anagrams of each other.
+
+        Args:
+            s (str): First string.
+            t (str): Second string.
+
+        Returns:
+            bool: True if s and t are anagrams, False otherwise.
+        """
+        from collections import defaultdict
+        from typing import Dict
+        if len(s) != len(t):
+            return False
+
+        s_counter: Dict[str, int] = {}
+        t_counter: Dict[str, int] = {}
+
+        for i in range(len(s)):
+            s_counter[s[i]] = 1 + s_counter.get(s[i], 0)
+            t_counter[t[i]] = 1 + t_counter.get(t[i], 0)
+
+        for c in s_counter:
+            if s_counter[c] != t_counter.get(c, 0):
+                return False
 
         return True
 ```
