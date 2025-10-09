@@ -68,26 +68,6 @@ from typing import Optional
 
 
 class Solution:
-    def balanced(self, p: Optional[TreeNode], q: Optional[TreeNode]):
-        """
-        Helper function to determine if two binary trees are the same.
-        Args:
-            p (Optional[TreeNode]): The root node of the first binary tree.
-            q (Optional[TreeNode]): The root node of the second binary tree.
-        Returns:
-            bool: True if the two binary trees are the same, False otherwise.
-        """
-        if not p and not q:
-            return True
-
-        if (p and not q) or (q and not p):
-            return False
-
-        if p.val != q.val:
-            return False
-
-        return self.balanced(p.left, q.left) and self.balanced(p.right, q.right)
-
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         """
         Determine if two binary trees are the same.
@@ -99,7 +79,27 @@ class Solution:
         Returns:
             bool: True if the two binary trees are the same, False otherwise.
         """
-        return self.balanced(p, q)
+        def balanced(p: Optional[TreeNode], q: Optional[TreeNode]):
+            """
+            Helper function to determine if two binary trees are the same.
+            Args:
+                p (Optional[TreeNode]): The root node of the first binary tree.
+                q (Optional[TreeNode]): The root node of the second binary tree.
+            Returns:
+                bool: True if the two binary trees are the same, False otherwise.
+            """
+            if not p and not q:
+                return True
+
+            if (p and not q) or (q and not p):
+                return False
+
+            if p.val != q.val:
+                return False
+
+            return balanced(p.left, q.left) and balanced(p.right, q.right)
+
+        return balanced(p, q)
 ```
 
 ### 🧮 Complexity Analysis
@@ -157,28 +157,6 @@ from typing import Optional
 #         self.right = right
 
 class Solution:
-    def same(self, root1: Optional[TreeNode], root2: Optional[TreeNode]):
-        """
-        Helper function to determine if a binary tree is symmetric.
-
-        Args:
-            root1 (Optional[TreeNode]): The root node of the first subtree.
-            root2 (Optional[TreeNode]): The root node of the second subtree.
-
-        Returns:
-            bool: True if the binary tree is symmetric, False otherwise.
-        """
-        if not root1 and not root2:
-            return True
-
-        if not root1 or not root2:
-            return False
-
-        if root1.val != root2.val:
-            return False
-
-        return self.same(root1.left, root2.right) and self.same(root1.right, root2.left)
-
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         """
         Determine if a binary tree is symmetric.
@@ -189,7 +167,29 @@ class Solution:
         Returns:
             bool: True if the binary tree is symmetric, False otherwise.
         """
-        return self.same(root, root)
+        def same(root1: Optional[TreeNode], root2: Optional[TreeNode]):
+            """
+            Helper function to determine if a binary tree is symmetric.
+
+            Args:
+                root1 (Optional[TreeNode]): The root node of the first subtree.
+                root2 (Optional[TreeNode]): The root node of the second subtree.
+
+            Returns:
+                bool: True if the binary tree is symmetric, False otherwise.
+            """
+            if not root1 and not root2:
+                return True
+
+            if not root1 or not root2:
+                return False
+
+            if root1.val != root2.val:
+                return False
+
+            return same(root1.left, root2.right) and same(root1.right, root2.left)
+
+        return same(root, root)
 ```
 
 ### 🧮 Complexity Analysis
@@ -259,6 +259,108 @@ class Solution:
             return 0
 
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(h)`
+
+---
+
+## 112. Path Sum
+
+- **LeetCode Link:** [Path Sum](https://leetcode.com/problems/path-sum/)
+- **Difficulty:** Easy
+- **Topic(s):** Binary Tree, Depth-First Search, Breadth-First Search
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> Given the `root` of a binary tree and an integer `targetSum`, return `true` if the tree has a root-to-leaf path such that adding up all the values along the path equals `targetSum`.
+>
+> A leaf is a node with no children.
+>
+> Example 1:
+>
+> ```txt
+> Input: root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22
+> Output: true
+> Explanation: The root-to-leaf path with the target sum is shown.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: root = [1,2,3], targetSum = 5
+> Output: false
+> Explanation: There are two root-to-leaf paths in the tree:
+> (1 --> 2): The sum is 3.
+> (1 --> 3): The sum is 4.
+> There is no root-to-leaf path with sum = 5.
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: root = [], targetSum = 0
+> Output: false
+> Explanation: Since the tree is empty, there are no root-to-leaf paths.
+> ```
+
+### 🧩 Approach
+
+- DFS (Depth-First Search):
+  - Recursively traverse the tree, keeping track of the current sum.
+  - If a leaf node is reached, check if the current sum equals the target sum.
+  - Return `true` if a valid path is found, otherwise return `false`.
+
+### 💡 Solution
+
+```python
+from typing import Optional
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        """
+        Determine if the binary tree has a root-to-leaf path with the given sum.
+
+        Args:
+            root (Optional[TreeNode]): The root node of the binary tree.
+            targetSum (int): The target sum to check for.
+
+        Returns:
+            bool: True if the binary tree has a root-to-leaf path with the given sum, False otherwise.
+        """
+        def hasSum(root: Optional[TreeNode], cur_sum: int) -> bool:
+            """
+            Helper function to determine if the binary tree has a root-to-leaf path with the given sum.
+
+            Args:
+                root (Optional[TreeNode]): The current node of the binary tree.
+                cur_sum (int): The current sum of the path.
+
+            Returns:
+                bool: True if the binary tree has a root-to-leaf path with the given sum, False otherwise.
+            """
+            if not root:
+                return False
+
+            cur_sum += root.val
+
+            if not root.left and not root.right:
+                return cur_sum == targetSum
+
+            return hasSum(root.left, cur_sum) or hasSum(root.right, cur_sum)
+
+        return hasSum(root, 0)
 ```
 
 ### 🧮 Complexity Analysis
