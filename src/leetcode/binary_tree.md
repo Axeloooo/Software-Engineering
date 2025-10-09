@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [100. Same Tree](#100-same-tree)
+- [101. Symmetric Tree](#101-symmetric-tree)
 - [104. Maximum Depth of Binary Tree](#104-maximum-depth-of-binary-tree)
 - [226. Invert Binary Tree](#226-invert-binary-tree)
 
@@ -99,6 +100,96 @@ class Solution:
             bool: True if the two binary trees are the same, False otherwise.
         """
         return self.balanced(p, q)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n + m)`
+- Space Complexity: `O(h_p + h_q)`
+
+---
+
+## 101. Symmetric Tree
+
+- **LeetCode Link:** [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
+- **Difficulty:** Easy
+- **Topic(s):** Binary Tree, Depth-First Search, Breadth-First Search
+- **Company:** Apple
+
+### 🧠 Problem Statement
+
+> Given the `root` of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+>
+> Example 1:
+>
+> ```txt
+> Input: root = [1,2,2,3,4,4,3]
+> Output: true
+> ```
+>
+> Example 2:
+>
+> ```txt
+>
+> Input: root = [1,2,2,null,3,null,3]
+> Output: false
+> ```
+
+### 🧩 Approach
+
+- DFS (Depth-First Search):
+  - Recursively compare the left and right subtrees.
+  - If both nodes are `None`, they are symmetric.
+  - If one node is `None` and the other is not, they are not symmetric.
+  - If the values of the nodes are different, they are not symmetric.
+  - Recursively check the left subtree of one tree with the right subtree of the other tree and vice versa.
+
+### 💡 Solution
+
+```python
+from typing import Optional
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def same(self, root1: Optional[TreeNode], root2: Optional[TreeNode]):
+        """
+        Helper function to determine if a binary tree is symmetric.
+
+        Args:
+            root1 (Optional[TreeNode]): The root node of the first subtree.
+            root2 (Optional[TreeNode]): The root node of the second subtree.
+
+        Returns:
+            bool: True if the binary tree is symmetric, False otherwise.
+        """
+        if not root1 and not root2:
+            return True
+
+        if not root1 or not root2:
+            return False
+
+        if root1.val != root2.val:
+            return False
+
+        return self.same(root1.left, root2.right) and self.same(root1.right, root2.left)
+
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        """
+        Determine if a binary tree is symmetric.
+
+        Args:
+            root (Optional[TreeNode]): The root node of the binary tree.
+
+        Returns:
+            bool: True if the binary tree is symmetric, False otherwise.
+        """
+        return self.same(root, root)
 ```
 
 ### 🧮 Complexity Analysis
