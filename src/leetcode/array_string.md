@@ -21,6 +21,7 @@
 - **LeetCode Link:** [Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
 - **Difficulty:** Easy
 - **Topic(s):** Hash Table, String, Math
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -126,6 +127,7 @@ class Solution:
 - **LeetCode Link:** [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
 - **Difficulty:** Easy
 - **Topic(s):** String, Trie
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -194,6 +196,7 @@ class Solution:
 - **LeetCode Link:** [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Two Pointers
+- **Company:** Microsoft
 
 ### 🧠 Problem Statement
 
@@ -276,6 +279,7 @@ class Solution:
 - **LeetCode Link:** [Remove Element](https://leetcode.com/problems/remove-element/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Two Pointers
+- **Company:** Apple
 
 ### 🧠 Problem Statement
 
@@ -355,6 +359,7 @@ class Solution:
 - **LeetCode Link:** [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
 - **Difficulty:** Easy
 - **Topic(s):** Two Pointers, String, String Matching
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -419,6 +424,7 @@ class Solution:
 - **LeetCode Link:** [Length of Last Word](https://leetcode.com/problems/length-of-last-word/)
 - **Difficulty:** Easy
 - **Topic(s):** String, String Manipulation
+- **Company:** Amazon
 
 ### 🧠 Problem Statement
 
@@ -487,6 +493,7 @@ class Solution:
 - **LeetCode Link:** [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Two Pointers, Sorting
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -582,6 +589,7 @@ class Solution:
 - **LeetCode Link:** [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Dynamic Programming
+- **Company:** Amazon
 
 ### 🧠 Problem Statement
 
@@ -660,6 +668,7 @@ class Solution:
 - **LeetCode Link:** [Majority Element](https://leetcode.com/problems/majority-element/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Hash Table, Divide and Conquer, Counting
+- **Company:** Apple
 
 ### 🧠 Problem Statement
 

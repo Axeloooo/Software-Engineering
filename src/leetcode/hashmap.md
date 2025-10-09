@@ -19,6 +19,7 @@
 - **LeetCode Link:** [Two Sum](https://leetcode.com/problems/two-sum/)
 - **Difficulty:** Easy
 - **Topics:** Array, Hash Table
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -101,6 +102,7 @@ class Solution:
 - **LeetCode Link:** [Happy Number](https://leetcode.com/problems/happy-number/)
 - **Difficulty:** Easy
 - **Topics:** Hash Table, Math, Two Pointers
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -192,6 +194,7 @@ class Solution:
 - **LeetCode Link:** [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/)
 - **Difficulty:** Easy
 - **Topics:** Hash Table, String
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -292,6 +295,7 @@ class Solution:
 - **LeetCode Link:** [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)
 - **Difficulty:** Easy
 - **Topics:** Array, Hash Table
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -367,6 +371,7 @@ class Solution:
 - **LeetCode Link:** [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
 - **Difficulty:** Easy
 - **Topics:** Hash Table, String, Sorting
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -447,6 +452,7 @@ class Solution:
 - **LeetCode Link:** [Word Pattern](https://leetcode.com/problems/word-pattern/)
 - **Difficulty:** Easy
 - **Topics:** Hash Table, String
+- **Company:** Amazon
 
 ### 🧠 Problem Statement
 
@@ -554,6 +560,7 @@ class Solution:
 - **LeetCode Link:** [Ransom Note](https://leetcode.com/problems/ransom-note/)
 - **Difficulty:** Easy
 - **Topics:** Hash Table, String, Counting
+- **Company:** Adobe
 
 ### 🧠 Problem Statement
 

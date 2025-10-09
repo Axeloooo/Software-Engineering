@@ -14,6 +14,7 @@
 - **LeetCode Link:** [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
 - **Difficulty:** Easy
 - **Topics:** Linked List, Recursion
+- **Company:** Microsoft
 
 ### 🧠 Problem Statement
 
@@ -108,6 +109,7 @@ class Solution:
 - **LeetCode Link:** [Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 - **Difficulty:** Easy
 - **Topics:** Linked List, Two Pointers
+- **Company:** Microsoft
 
 ### 🧠 Problem Statement
 

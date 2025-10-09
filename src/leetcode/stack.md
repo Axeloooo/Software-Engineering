@@ -13,6 +13,7 @@
 - **LeetCode Link:** [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
 - **Difficulty:** Easy
 - **Topics:** String, Stack
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 

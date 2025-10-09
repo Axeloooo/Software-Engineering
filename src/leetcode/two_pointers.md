@@ -14,6 +14,7 @@
 - **LeetCode Link:** [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
 - **Difficulty:** Easy
 - **Topics:** String, Two Pointers
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -117,6 +118,7 @@ class Solution:
 - **LeetCode Link:** [Is Subsequence](https://leetcode.com/problems/is-subsequence/)
 - **Difficulty:** Easy
 - **Topics:** String, Two Pointers
+- **Company:** Uber
 
 ### 🧠 Problem Statement
 
