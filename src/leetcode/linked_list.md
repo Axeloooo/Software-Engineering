@@ -4,7 +4,90 @@
 
 ## Table of Contents
 
+- [21. Merge Two Sorted Lists](#21-merge-two-sorted-lists)
 - [141. Linked List Cycle](#141-linked-list-cycle)
+
+---
+
+## 21. Merge Two Sorted Lists
+
+- **LeetCode Link:** [Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+- **Difficulty:** Easy
+- **Topics:** Linked List, Recursion
+
+### 🧠 Problem Statement
+
+> You are given the heads of two sorted linked lists `list1` and `list2`.
+>
+> Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
+>
+> Return the head of the merged linked list.
+>
+> Example 1:
+>
+> ```txt
+> Input: list1 = [1,2,4], list2 = [1,3,4]
+> Output: [1,1,2,3,4,4]
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: list1 = [], list2 = []
+> Output: []
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: list1 = [], list2 = [0]
+> Output: [0]
+> ```
+
+### 🧩 Approach
+
+To merge two sorted linked lists, we can use a two-pointer technique to traverse both lists and build a new sorted list. Here are the steps:
+
+1. **Initialization**: Create a dummy node to serve as the starting point of the merged list. This helps simplify edge cases. Also, create a pointer `cur` that will point to the current node in the merged list.
+2. **Traversal**: Use a while loop to traverse both linked lists until we reach the end of one of them. In each iteration, compare the values of the current nodes of both lists:
+   - If the value of the current node in `list1` is less than that in `list2`, append the node from `list1` to the merged list and move the pointer in `list1` to the next node.
+   - Otherwise, append the node from `list2` to the merged list and move the pointer in `list2` to the next node.
+3. **Appending Remaining Nodes**: After the loop, one of the lists may still have remaining nodes. Since both lists are sorted, we can simply append the remaining nodes to the end of the merged list.
+4. **Return Result**: Finally, return the merged list starting from the node next to the dummy node.
+
+### 💡 Solution
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy: ListNode = ListNode()
+        cur: ListNode = dummy
+
+        while list1 and list2:
+            if list1.val < list2.val:
+                cur.next = list1
+                cur = list1
+                list1 = list1.next
+            else:
+                cur.next = list2
+                cur = list2
+                list2 = list2.next
+
+        cur.next = list1 if list1 else list2
+
+        return dummy.next
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(1)`
 
 ---
 
