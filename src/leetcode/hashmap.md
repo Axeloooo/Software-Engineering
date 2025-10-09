@@ -7,6 +7,7 @@
 - [1. Two Sum](#1-two-sum)
 - [202. Happy Number](#202-happy-number)
 - [205. Isomorphic Strings](#205-isomorphic-strings)
+- [219. Contains Duplicate II](#219-contains-duplicate-ii)
 - [242. Valid Anagram](#242-valid-anagram)
 - [290. Word Pattern](#290-word-pattern)
 - [383 Ransom Note](#383-ransom-note)
@@ -286,6 +287,81 @@ class Solution:
 
 ---
 
+## 219. Contains Duplicate II
+
+- **LeetCode Link:** [Contains Duplicate II](https://leetcode.com/problems/contains-duplicate-ii/)
+- **Difficulty:** Easy
+- **Topics:** Array, Hash Table
+
+### 🧠 Problem Statement
+
+> Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums = [1,2,3,1], k = 3
+> Output: true
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums = [1,0,1,1], k = 1
+> Output: true
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: nums = [1,2,3,1,2,3], k = 2
+> Output: false
+> ```
+
+### 🧩 Approach
+
+Use a hashmap to track the last seen index of each number:
+
+1. Create an empty hashmap (dictionary) to store the last seen index of each number.
+2. Iterate through the array with both index and value:
+   - For each number, check if it exists in the hashmap:
+     - If it does, check if the absolute difference between the current index and the last seen index is less than or equal to `k`. If true, return `True`.
+   - Update the hashmap with the current index for the number.
+3. If no such pair is found, return `False`.
+
+### 💡 Solution
+
+```python
+from typing import Dict
+
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        """
+        Check if there are two distinct indices i and j such that nums[i] == nums[j] and abs(i - j) <= k.
+
+        Args:
+            nums (List[int]): List of integers.
+            k (int): Maximum allowed index difference.
+        Returns:
+            bool: True if such indices exist, False otherwise.
+        """
+        hset: Dict[int, int] = {}
+
+        for i, num in enumerate(nums):
+            if num in hset and abs(i - hset[num]) <= k:
+                return True
+            hset[num] = i
+
+        return False
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
+
+---
+
 ## 242. Valid Anagram
 
 - **LeetCode Link:** [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
@@ -342,7 +418,6 @@ class Solution:
         Returns:
             bool: True if s and t are anagrams, False otherwise.
         """
-
         if len(s) != len(t):
             return False
 
