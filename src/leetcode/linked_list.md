@@ -58,6 +58,8 @@ To merge two sorted linked lists, we can use a two-pointer technique to traverse
 ### 💡 Solution
 
 ```python
+from typing import Optional
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -66,6 +68,16 @@ To merge two sorted linked lists, we can use a two-pointer technique to traverse
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        Merge two sorted linked lists into one sorted linked list.
+
+        Args:
+            list1 (Optional[ListNode]): The head of the first sorted linked list.
+            list2 (Optional[ListNode]): The head of the second sorted linked list.
+
+        Returns:
+            Optional[ListNode]: The head of the merged sorted linked list.
+        """
         dummy: ListNode = ListNode()
         cur: ListNode = dummy
 
@@ -141,6 +153,8 @@ To determine if a linked list has a cycle, we can use the Floyd's Cycle-Finding 
 ### 💡 Solution
 
 ```python
+from typing import Optional
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
@@ -149,6 +163,15 @@ To determine if a linked list has a cycle, we can use the Floyd's Cycle-Finding 
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
+        """
+        Determine if the linked list has a cycle.
+
+        Args:
+            head (Optional[ListNode]): The head of the linked list.
+
+        Returns:
+            bool: True if there is a cycle, False otherwise.
+        """
         dummy: ListNode = ListNode()
         dummy.next = head
         slow: ListNode = dummy

@@ -67,6 +67,15 @@ To solve the problem of summarizing ranges in a sorted unique integer array, we 
 ```python
 class Solution:
     def summaryRanges(self, nums: List[int]) -> List[str]:
+        """
+        Summarize ranges in a sorted unique integer array.
+
+        Args:
+            nums (List[int]): A sorted unique integer array.
+
+        Returns:
+            List[str]: A list of summarized ranges.
+        """
         ans: List[str] = []
         i: int = 0
 

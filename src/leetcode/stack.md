@@ -79,6 +79,15 @@ from typing import Dict
 
 class Solution:
     def isValid(self, s: str) -> bool:
+        """
+        Determine if the input string of parentheses is valid.
+
+        Args:
+            s (str): The input string containing parentheses.
+
+        Returns:
+            bool: True if the string is valid, False otherwise.
+        """
         hashmap: Dict[str, str] = {")": "(", "]": "[", "}": "{"}
         stack: str = []
 

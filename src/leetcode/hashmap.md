@@ -336,6 +336,15 @@ from typing import Dict
 
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        """
+        Check if there are two distinct indices i and j such that nums[i] == nums[j] and abs(i - j) <= k.
+
+        Args:
+            nums (List[int]): List of integers.
+            k (int): Maximum allowed index difference.
+        Returns:
+            bool: True if such indices exist, False otherwise.
+        """
         hset: Dict[int, int] = {}
 
         for i, num in enumerate(nums):
@@ -409,7 +418,6 @@ class Solution:
         Returns:
             bool: True if s and t are anagrams, False otherwise.
         """
-
         if len(s) != len(t):
             return False
 
