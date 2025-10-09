@@ -7,6 +7,7 @@
 - [100. Same Tree](#100-same-tree)
 - [101. Symmetric Tree](#101-symmetric-tree)
 - [104. Maximum Depth of Binary Tree](#104-maximum-depth-of-binary-tree)
+- [112. Path Sum](#112-path-sum)
 - [226. Invert Binary Tree](#226-invert-binary-tree)
 
 ---
