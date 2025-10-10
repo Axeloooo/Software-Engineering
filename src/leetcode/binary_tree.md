@@ -8,6 +8,7 @@
 - [101. Symmetric Tree](#101-symmetric-tree)
 - [104. Maximum Depth of Binary Tree](#104-maximum-depth-of-binary-tree)
 - [112. Path Sum](#112-path-sum)
+- [222. Count Complete Tree Nodes](#222-count-complete-tree-nodes)
 - [226. Invert Binary Tree](#226-invert-binary-tree)
 
 ---
@@ -362,6 +363,86 @@ class Solution:
             return hasSum(root.left, cur_sum) or hasSum(root.right, cur_sum)
 
         return hasSum(root, 0)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(h)`
+
+---
+
+## 222. Count Complete Tree Nodes
+
+- **LeetCode Link:** [Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)
+- **Difficulty:** Medium
+- **Topic(s):** Binary Tree, Depth-First Search, Breadth-First Search
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+222. Count Complete Tree Nodes
+
+> Given the `root` of a complete binary tree, return the number of the nodes in the tree.
+>
+> According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between `1` and `2^h` nodes inclusive at the last level `h`.
+>
+> Design an algorithm that runs in less than `O(n)` time complexity.
+>
+> Example 1:
+>
+> ```txt
+> Input: root = [1,2,3,4,5,6]
+> Output: 6
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: root = []
+> Output: 0
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: root = [1]
+> Output: 1
+> ```
+
+### 🧩 Approach
+
+- DFS (Depth-First Search):
+  - Recursively count the nodes in the left and right subtrees.
+  - The total number of nodes is `1 + count of left subtree + count of right subtree`.
+
+### 💡 Solution
+
+```python
+from typing import Optional
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        """
+        Count the number of nodes in a complete binary tree.
+
+        Args:
+            root (Optional[TreeNode]): The root node of the complete binary tree.
+
+        Returns:
+            int: The number of nodes in the complete binary tree.
+        """
+        if not root:
+            return 0
+
+        return 1 + self.countNodes(root.left) + self.countNodes(root.right)
 ```
 
 ### 🧮 Complexity Analysis
