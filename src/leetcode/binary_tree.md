@@ -603,7 +603,7 @@ class Solution:
         return min_distance[0]
 ```
 
-### 🧮 Complexity Analysi
+### 🧮 Complexity Analysis
 
 - Time Complexity: `O(n)`
 - Space Complexity: `O(h)`
