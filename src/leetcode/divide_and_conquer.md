@@ -37,10 +37,15 @@
 
 ### 🧩 Approach
 
+1. **Understanding Height-Balanced BST**: A height-balanced binary search tree (BST) is defined as a binary tree in which the depth of the two subtrees of every node never differs by more than one. This ensures that the tree remains balanced, leading to efficient operations.
+2. **Choosing the Root**: To maintain balance, we can choose the middle element of the sorted array as the root of the BST. This divides the array into two halves, which will form the left and right subtrees.
+3. **Recursive Construction**: We can recursively apply the same logic to the left and right halves of the array to construct the left and right subtrees. The base case for the recursion will be when the left index exceeds the right index, at which point we return `None`.
+4. **Implementation**: We will implement a helper function that takes the left and right indices of the current subarray and constructs the BST recursively.
+
 ### 💡 Solution
 
 ```python
-from typing import Optional
+from typing import Optional, List
 
 # Definition for a binary tree node.
 # class TreeNode:
