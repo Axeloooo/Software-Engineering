@@ -529,6 +529,7 @@ class Solution:
 - Time Complexity: `O(n)`
 - Space Complexity: `O(h)`
 
+---
 ## 530. Minimum Absolute Difference in BST
 
 - **LeetCode Link:** [Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)
