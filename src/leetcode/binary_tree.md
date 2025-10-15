@@ -11,6 +11,7 @@
 - [222. Count Complete Tree Nodes](#222-count-complete-tree-nodes)
 - [226. Invert Binary Tree](#226-invert-binary-tree)
 - [530. Minimum Absolute Difference in BST](#530-minimum-absolute-difference-in-bst)
+- [637. Average of Levels in Binary Tree](#637-average-of-levels-in-binary-tree)
 
 ---
 
@@ -597,3 +598,92 @@ class Solution:
 
 - Time Complexity: `O(n)`
 - Space Complexity: `O(h)`
+
+---
+
+## 637. Average of Levels in Binary Tree
+
+- **LeetCode Link:** [Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/)
+- **Difficulty:** Easy
+- **Topic(s):** Binary Tree, Breadth-First Search
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given the `root` of a binary tree, return the average value of the nodes on each level in the form of an array. Answers within `10^-5` of the actual answer will be accepted.
+>
+> Example 1:
+>
+> ```txt
+> Input: root = [3,9,20,null,null,15,7]
+> Output: [3.00000,14.50000,11.00000]
+> Explanation: The average value of nodes on level 0 is 3, on level 1 is 14.5, and on level 2 is 11.
+> Hence return [3, 14.5, 11].
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: root = [3,9,20,15,7]
+> Output: [3.00000,14.50000,11.00000]
+> ```
+
+### 🧩 Approach
+
+- BFS (Breadth-First Search):
+  - Use a queue to traverse the tree level by level.
+  - For each level, calculate the sum of the node values and the number of nodes.
+  - Compute the average for each level and store it in a result list.
+
+### 💡 Solution
+
+```python
+from typing import Optional, Deque, List
+from collections import deque
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        """
+        Calculate the average value of nodes on each level of a binary tree.
+
+        Args:
+            root (Optional[TreeNode]): The root node of the binary tree.
+
+        Returns:
+            List[float]: A list of average values for each level of the binary tree.
+        """
+        avgs: List[float] = []
+        q: Dequeue[TreeNode] = deque()
+        q.append(root)
+
+        while q:
+            avg = 0
+            n: int = len(q)
+            for _ in range(n):
+                node: Optional[TreeNode] = q.popleft()
+                avg += node.val
+
+                if node.left:
+                    q.append(node.left)
+
+                if node.right:
+                    q.append(node.right)
+
+            avg /= n
+            avgs.append(avg)
+
+        return avgs
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
