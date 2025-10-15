@@ -10,6 +10,7 @@
 - [112. Path Sum](#112-path-sum)
 - [222. Count Complete Tree Nodes](#222-count-complete-tree-nodes)
 - [226. Invert Binary Tree](#226-invert-binary-tree)
+- [530. Minimum Absolute Difference in BST](#530-minimum-absolute-difference-in-bst)
 
 ---
 
@@ -381,7 +382,6 @@ class Solution:
 
 ### 🧠 Problem Statement
 
-
 > Given the `root` of a complete binary tree, return the number of the nodes in the tree.
 >
 > According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between `1` and `2^h` nodes inclusive at the last level `h`.
@@ -524,6 +524,76 @@ class Solution:
 ```
 
 ### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(h)`
+
+## 530. Minimum Absolute Difference in BST
+
+- **LeetCode Link:** [Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)
+- **Difficulty:** Easy
+- **Topic(s):** Binary Search Tree, Depth-First Search, Inorder Traversal
+- **Company:** Meta
+
+### 🧠 Problem Statement
+
+> Given the `root` of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.
+>
+> Example 1:
+>
+> ```txt
+> Input: root = [4,2,6,1,3]
+> Output: 1
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: root = [1,0,48,null,null,12,49]
+> Output: 1
+> ```
+
+### 🧩 Approach
+
+- Inorder Traversal:
+  - Perform an inorder traversal of the BST to get the node values in sorted order.
+  - Keep track of the previous node value and calculate the minimum difference between the current and previous node values.
+
+### 💡 Solution
+
+```python
+from typing import Optional, List
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        min_distance: List[int] = [float("inf")]
+        prev: List[int] = [None]
+
+        def dfs(node: Optional[TreeNode]):
+            if not node:
+                return None
+
+            dfs(node.left)
+
+            if prev[0] is not None:
+                min_distance[0] = min(min_distance[0], node.val - prev[0])
+
+            prev[0] = node.val
+
+            dfs(node.right)
+
+        dfs(root)
+        return min_distance[0]
+```
+
+### 🧮 Complexity Analysi
 
 - Time Complexity: `O(n)`
 - Space Complexity: `O(h)`
