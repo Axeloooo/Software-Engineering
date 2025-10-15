@@ -574,6 +574,15 @@ from typing import Optional, List
 
 class Solution:
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        """
+        Find the minimum absolute difference between values of any two different nodes in a BST.
+
+        Args:
+            root (Optional[TreeNode]): The root node of the binary search tree.
+
+        Returns:
+            int: The minimum absolute difference between values of any two different nodes in the BST.
+        """
         min_distance: List[int] = [float("inf")]
         prev: List[int] = [None]
 
