@@ -530,6 +530,7 @@ class Solution:
 - Space Complexity: `O(h)`
 
 ---
+
 ## 530. Minimum Absolute Difference in BST
 
 - **LeetCode Link:** [Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)
@@ -671,7 +672,7 @@ class Solution:
             List[float]: A list of average values for each level of the binary tree.
         """
         avgs: List[float] = []
-        q: Dequeue[TreeNode] = deque()
+        q: Deque[TreeNode] = deque()
         q.append(root)
 
         while q:
