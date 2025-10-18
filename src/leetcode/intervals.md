@@ -13,6 +13,7 @@
 - **LeetCode Link:** [Summary Ranges](https://leetcode.com/problems/summary-ranges/)
 - **Difficulty:** Easy
 - **Topics:** Array
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
