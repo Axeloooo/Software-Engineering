@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [67. Add Binary](#67-add-binary)
+- [136. Single Number](#136-single-number)
 - [190. Reverse Bits](#190-reverse-bits)
 - [191. Number of 1 Bits](#191-number-of-1-bits)
 
@@ -75,6 +76,70 @@ class Solution:
 ### 🧮 Complexity Analysis
 
 - Time Complexity: `O(a + b)`
+- Space Complexity: `O(1)`
+
+---
+
+# 136. Single Number
+
+- **LeetCode Link:** [Single Number](https://leetcode.com/problems/single-number/)
+- **Difficulty:** Easy
+- **Topic(s):** Bit Manipulation
+- **Company:** Adobe
+
+### 🧠 Problem Statement
+
+> Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one.
+>
+> You must implement a solution with a linear runtime complexity and use only constant extra space.
+>
+> Example 1:
+>
+> ```txt
+> Input: nums = [2,2,1]
+>
+> Output: 1
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nums = [4,1,2,1,2]
+>
+> Output: 4
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: nums = [1]
+>
+> Output: 1
+> ```
+
+### 🧩 Approach
+
+1. Initialize a result variable to 0.
+2. Iterate through each number in the array and perform a bitwise XOR operation between the result variable and the current number.
+3. Since XORing a number with itself results in 0 and XORing a number with 0 results in the number itself, all the numbers that appear twice will cancel each other out, leaving only the single number.
+4. Return the result variable.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res: int = 0
+
+        for x in nums:
+            res ^= x
+
+        return res
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
 - Space Complexity: `O(1)`
 
 ---
