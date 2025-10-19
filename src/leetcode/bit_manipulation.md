@@ -6,6 +6,7 @@
 
 - [67. Add Binary](#67-add-binary)
 - [190. Reverse Bits](#190-reverse-bits)
+- [191. Number of 1 Bits](#191-number-of-1-bits)
 
 ---
 
@@ -155,6 +156,90 @@ class Solution:
 ### 🧮 Complexity Analysis
 
 - Time Complexity: `O(1)`
+- Space Complexity: `O(1)`
+
+---
+
+# 191. Number of 1 Bits
+
+- **LeetCode Link:** [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/)
+- **Difficulty:** Easy
+- **Topic(s):** Bit Manipulation
+- **Company:** Meta
+
+### 🧠 Problem Statement
+
+> Given a positive integer `n`, write a function that returns the number of set bits in its binary representation (also known as the Hamming weight).
+>
+> Example 1:
+>
+> ```txt
+> Input: n = 11
+>
+> Output: 3
+>
+> Explanation:
+>
+> The input binary string 1011 has a total of three set bits.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: n = 128
+>
+> Output: 1
+>
+> Explanation:
+>
+> The input binary string 10000000 has a total of one set bit.
+> ```
+>
+> Example 3:
+>
+> ```txt
+> Input: n = 2147483645
+>
+> Output: 30
+>
+> Explanation:
+>
+> The input binary string 1111111111111111111111111111101 has a total of thirty set bits.
+> ```
+
+### 🧩 Approach
+
+1. Initialize a counter to zero.
+2. Use a while loop to iterate until `n` becomes zero.
+3. In each iteration, increment the counter and update `n` by performing the operation `n = n & (n - 1)`, which removes the lowest set bit from `n`.
+4. Return the counter as the result.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        """
+        Counts the number of set bits (1-bits) in the binary representation of a given integer.
+
+        Args:
+            n (int): A positive integer.
+
+        Returns:
+            int: The number of set bits in the binary representation of n.
+        """
+        ans: int = 0
+
+        while n != 0:
+            ans += 1
+            n = n & (n - 1)
+
+        return ans
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(k)`, where `k` is the number of set bits in `n`.
 - Space Complexity: `O(1)`
 
 ---
