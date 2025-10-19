@@ -4,7 +4,8 @@
 
 ## Table of Contents
 
-- [67. Add Binary](./67.add_binary.md)
+- [67. Add Binary](#67-add-binary)
+- [190. Reverse Bits](#190-reverse-bits)
 
 ---
 
@@ -45,6 +46,8 @@ To add two binary strings using bit manipulation, we can follow these steps:
    - Repeat until `b` becomes zero.
 3. Convert the final result back to a binary string and return it.
 
+### 💡 Solution
+
 ```python
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
@@ -71,6 +74,87 @@ class Solution:
 ### 🧮 Complexity Analysis
 
 - Time Complexity: `O(a + b)`
+- Space Complexity: `O(1)`
+
+---
+
+# 190. Reverse Bits
+
+- **LeetCode Link:** [Reverse Bits](https://leetcode.com/problems/reverse-bits/)
+- **Difficulty:** Easy
+- **Topic(s):** Bit Manipulation
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Reverse bits of a given 32 bits signed integer.
+>
+> Example 1:
+>
+> ```txt
+> Input: n = 43261596
+>
+> Output: 964176192
+> ```
+>
+> Explanation:
+>
+> | Integer   | Binary                           |
+> | --------- | -------------------------------- |
+> | 43261596  | 00000010100101000001111010011100 |
+> | 964176192 | 00111001011110000010100101000000 |
+>
+> Example 2:
+>
+> ```txt
+> Input: n = 2147483644
+>
+> Output: 1073741822
+> ```
+>
+> Explanation:
+>
+> | Integer    | Binary                           |
+> | ---------- | -------------------------------- |
+> | 2147483644 | 01111111111111111111111111111100 |
+> | 1073741822 | 00111111111111111111111111111110 |
+
+### 🧩 Approach
+
+To reverse the bits of a 32-bit unsigned integer, we can use the following approach:
+
+1. Initialize a result variable to 0.
+2. Iterate through each bit position from 0 to 31.
+3. For each bit position, extract the bit from the original number using a right shift and bitwise AND operation.
+4. Set the corresponding bit in the result variable using a left shift and bitwise OR operation.
+5. Return the result variable.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        """
+        Reverses the bits of a given 32-bit unsigned integer.
+
+        Args:
+            n (int): A 32-bit unsigned integer.
+
+        Returns:
+            int: The integer resulting from reversing the bits of n.
+        """
+        res: int = 0
+
+        for i in range(32):
+            bit: int = (n >> i) & 1
+            res = res | (bit << (31 - i))
+
+        return res
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(1)`
 - Space Complexity: `O(1)`
 
 ---
