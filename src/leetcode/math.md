@@ -6,6 +6,7 @@
 
 - [9. Palindrome Number](#9-palindrome-number)
 - [66. Plus One](#66-plus-one)
+- [69. Sqrt(x)](#69-sqrtx)
 
 ---
 
@@ -163,4 +164,84 @@ class Solution:
 ### 🧮 Complexity Analysis
 
 - Time Complexity: `O(n)`
+- Space Complexity: `O(1)`
+
+---
+
+## 69. Sqrt(x)
+
+- **LeetCode Link:** [Sqrt(x)](https://leetcode.com/problems/sqrtx/)
+- **Difficulty:** Easy
+- **Topic(s):** Math, Binary Search
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer. The returned integer should be non-negative as well.
+>
+> You must not use any built-in exponent function or operator.
+>
+> For example, do not use `pow(x, 0.5)` in c++ or `x ** 0.5` in python.
+>
+> Example 1:
+>
+> ```txt
+> Input: x = 4
+> Output: 2
+> Explanation: The square root of 4 is 2, so we return 2.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: x = 8
+> Output: 2
+> Explanation: The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.
+> ```
+
+### 🧩 Approach
+
+1. Initialize two pointers: `L` set to 0 and `R` set to `x`.
+2. While `L` is less than or equal to `R`:
+   - Calculate the midpoint `M` as the average of `L` and `R`.
+   - If `M * M` is equal to `x`, return `M`.
+   - If `M * M` is less than `x`, update `L` to `M + 1`.
+   - If `M * M` is greater than `x`, update `R` to `M - 1`.
+3. If no exact square root is found, return `R`.
+
+### 💡 Solution
+
+```python
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        """
+        Compute the integer square root of a non-negative integer x.
+
+        Args:
+            x (int): The non-negative integer.
+
+        Returns:
+            int: The integer square root of x.
+        """
+        L: int = 1
+        R: int = x
+
+        while L <= R:
+            M = (L + R) // 2
+            M_squared = M * M
+
+            if M_squared == x:
+                return M
+
+            if M_squared < x:
+                L = M + 1
+            else:
+                R = M - 1
+
+        return R
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(log n)`
 - Space Complexity: `O(1)`
