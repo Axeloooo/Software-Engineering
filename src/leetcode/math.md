@@ -64,13 +64,17 @@ class Solution:
         Returns:
             bool: True if x is a palindrome, False otherwise.
         """
-        return str(x) == str(x)[::-1]
+        if x < 0:
+            return False
+
+        s: str = str(x)
+        return s == s[::-1]
 ```
 
 ### 🧮 Complexity Analysis
 
 - Time Complexity: `O(n)`
-- Space Complexity: `O(1)`
+- Space Complexity: `O(n)`
 
 ---
 
@@ -130,6 +134,8 @@ class Solution:
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
         """
@@ -223,7 +229,7 @@ class Solution:
         Returns:
             int: The integer square root of x.
         """
-        L: int = 1
+        L: int = 0
         R: int = x
 
         while L <= R:
