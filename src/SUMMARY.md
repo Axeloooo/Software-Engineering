@@ -41,6 +41,7 @@
 - [Binary Search](./leetcode/binary_search.md)
 - [Heap]()
 - [Bit Manipulation](./leetcode/bit_manipulation.md)
+- [Math](./leetcode/math.md)
 - [Dynamic Programming]()
 
 ---
