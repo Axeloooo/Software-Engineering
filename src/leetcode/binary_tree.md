@@ -10,6 +10,7 @@
 - [112. Path Sum](#112-path-sum)
 - [222. Count Complete Tree Nodes](#222-count-complete-tree-nodes)
 - [226. Invert Binary Tree](#226-invert-binary-tree)
+- [257. Binary Tree Paths](#257-binary-tree-paths)
 - [530. Minimum Absolute Difference in BST](#530-minimum-absolute-difference-in-bst)
 - [637. Average of Levels in Binary Tree](#637-average-of-levels-in-binary-tree)
 
@@ -522,6 +523,92 @@ class Solution:
         self.invertTree(root.right)
 
         return root
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(h)`
+
+---
+
+## 257. Binary Tree Paths
+
+- **LeetCode Link:** [Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/)
+- **Difficulty:** Easy
+- **Topic(s):** Binary Tree, Depth-First Search, Backtracking
+- **Company:** Capital One
+
+### 🧠 Problem Statement
+
+> Given the `root` of a binary tree, return all root-to-leaf paths in any order.
+>
+> A leaf is a node with no children.
+>
+> Example 1:
+>
+> ```txt
+> Input: root = [1,2,3,null,5]
+> Output: ["1->2->5","1->3"]
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: root = [1]
+> Output: ["1"]
+> ```
+
+### 🧩 Approach
+
+1. Use Depth-First Search (DFS) to traverse the tree.
+2. Maintain the current path as a string.
+3. When a leaf node is reached, add the current path to the result list.
+4. Call the DFS function recursively for left and right children.
+
+### 💡 Solution
+
+```python
+from typing import Optional, List
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        """
+        Find all root-to-leaf paths in a binary tree.
+
+        Args:
+            root (Optional[TreeNode]): The root node of the binary tree.
+
+        Returns:
+            List[str]: A list of strings representing all root-to-leaf paths.
+        """
+        def dfs(root: Optional[TreeNode], path: str) -> None:
+            """
+            Helper function to perform DFS and find all root-to-leaf paths.
+
+            Args:
+                root (Optional[TreeNode]): The current node of the binary tree.
+                path (str): The current path from the root to the current node.
+            """
+            if root:
+                path += str(root.val)
+                if not root.left and not root.right:
+                    paths.append(path)
+                else:
+                    path += "->"
+                    dfs(root.left, path)
+                    dfs(root.right, path)
+
+        paths: List[str] = []
+        dfs(root, "")
+        return paths
 ```
 
 ### 🧮 Complexity Analysis
