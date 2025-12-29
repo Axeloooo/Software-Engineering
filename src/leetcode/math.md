@@ -303,7 +303,7 @@ class Solution:
 1. Initialize a result counter `res` to 0.
 2. While both `num1` and `num2` are greater than 0:
    - Add the integer division of `num1` by `num2` to `res`.
-   - Update `num1` to be the remainder of `num1` divided by ``num2`.
+   - Update `num1` to be the remainder of `num1` divided by `num2`.
    - Swap `num1` and `num2`.
 3. Return the result counter `res`.
 
