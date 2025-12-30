@@ -13,6 +13,7 @@
 - [88. Merge Sorted Array](#88-merge-sorted-array)
 - [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
 - [169. Majority Element](#169-majority-element)
+- [2043. Simple Bank System](#2043-simple-bank-system)
 
 ---
 
@@ -740,3 +741,133 @@ class Solution:
 - Space Complexity: `O(1)`
 
 ---
+
+## 2043. Simple Bank System
+
+- **LeetCode Link:** [Simple Bank System](https://leetcode.com/problems/simple-bank-system/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Array
+- **Company:** Capital One
+
+### 🧠 Problem Statement
+
+You have been tasked with writing a program for a popular bank that will automate all its incoming transactions (transfer, deposit, and withdraw). The bank has `n` accounts numbered from `1` to `n`. The initial balance of each account is stored in a 0-indexed integer array `balance`, with the `(i + 1)th` account having an initial balance of `balance[i]`.
+
+Execute all the valid transactions. A transaction is valid if:
+
+- The given account number(s) are between `1` and `n`, and
+- The amount of money withdrawn or transferred from is less than or equal to the balance of the account.
+
+Implement the `Bank` class:
+
+- `Bank(long[] balance)` Initializes the object with the 0-indexed integer array balance.
+- `boolean transfer(int account1, int account2, long money)` Transfers `money` dollars from the account numbered `account1` to the account numbered `account2`. Return `true` if the transaction was successful, `false` otherwise.
+- `boolean deposit(int account, long money)` Deposit `money` dollars into the account numbered `account`. Return `true` if the transaction was successful, `false` otherwise.
+- `boolean withdraw(int account, long money)` Withdraw `money` dollars from the account numbered `account`. Return `true` if the transaction was successful, `false` otherwise.
+
+Example 1:
+
+```txt
+Input
+["Bank", "withdraw", "transfer", "deposit", "transfer", "withdraw"]
+[[[10, 100, 20, 50, 30]], [3, 10], [5, 1, 20], [5, 20], [3, 4, 15], [10, 50]]
+Output
+[null, true, true, true, false, false]
+
+Explanation
+Bank bank = new Bank([10, 100, 20, 50, 30]);
+bank.withdraw(3, 10);    // return true, account 3 has a balance of $20, so it is valid to withdraw $10.
+                         // Account 3 has $20 - $10 = $10.
+bank.transfer(5, 1, 20); // return true, account 5 has a balance of $30, so it is valid to transfer $20.
+                         // Account 5 has $30 - $20 = $10, and account 1 has $10 + $20 = $30.
+bank.deposit(5, 20);     // return true, it is valid to deposit $20 to account 5.
+                         // Account 5 has $10 + $20 = $30.
+bank.transfer(3, 4, 15); // return false, the current balance of account 3 is $10,
+                         // so it is invalid to transfer $15 from it.
+bank.withdraw(10, 50);   // return false, it is invalid because account 10 does not exist.
+```
+
+### 🧩 Approach
+
+1. Initialize the `Bank` class with the given balances.
+2. Implement the `transfer` method to check for valid accounts and sufficient balance before transferring money.
+3. Implement the `deposit` method to add money to the specified account if valid.
+4. Implement the `withdraw` method to deduct money from the specified account if valid.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class Bank:
+
+    def __init__(self, balance: List[int]):
+        """
+        Initialize the Bank with the given balances.
+
+        Args:
+            balance (List[int]): The initial balances of the accounts.
+        """
+        self.balance = balance
+
+    def transfer(self, account1: int, account2: int, money: int) -> bool:
+        """
+        Transfer money from account1 to account2 if valid.
+
+        Args:
+            account1 (int): The account number to transfer money from.
+            account2 (int): The account number to transfer money to.
+            money (int): The amount of money to transfer.
+
+        Returns:
+            bool: True if the transfer was successful, False otherwise.
+        """
+        if (
+            account1 > len(self.balance)
+            or account2 > len(self.balance)
+            or self.balance[account1 - 1] < money
+        ):
+            return False
+        self.balance[account1 - 1] -= money
+        self.balance[account2 - 1] += money
+        return True
+
+    def deposit(self, account: int, money: int) -> bool:
+        """
+        Deposit money into the specified account if valid.
+
+        Args:
+            account (int): The account number to deposit money into.
+            money (int): The amount of money to deposit.
+
+        Returns:
+            bool: True if the deposit was successful, False otherwise.
+        """
+        if account > len(self.balance):
+            return False
+
+        self.balance[account - 1] += money
+        return True
+
+    def withdraw(self, account: int, money: int) -> bool:
+        """
+        Withdraw money from the specified account if valid.
+
+        Args:
+            account (int): The account number to withdraw money from.
+            money (int): The amount of money to withdraw.
+
+        Returns:
+            bool: True if the withdrawal was successful, False otherwise.
+        """
+        if account > len(self.balance) or self.balance[account - 1] < money:
+            return False
+
+        self.balance[account - 1] -= money
+        return True
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(1)`
+- Space Complexity: `O(1)`
