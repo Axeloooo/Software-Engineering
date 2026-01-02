@@ -35,12 +35,15 @@
 
 ### 🧩 Approach
 
-- DFS (Depth-First Search):
-  - Recursively compare the nodes of both trees.
-  - If both nodes are `None`, they are the same.
-  - If one node is `None` and the other is not, they are different.
-  - If the values of the nodes are different, they are different.
-  - Recursively check the left and right subtrees.
+- Use four boundary pointers to track the current "layer" of the matrix:
+  - `top` and `bottom` for the first and last row that are not yet processed.
+  - `left` and `right` for the first and last column that are not yet processed.
+- While `top <= bottom` and `left <= right`, traverse in four directions:
+  - Left → Right across the top row (`top`, from `left` to `right`), then increment `top`.
+  - Top → Bottom down the right column (`right`, from `top` to `bottom`), then decrement `right`.
+  - If `top <= bottom`, traverse Right → Left across the bottom row (`bottom`, from `right` to `left`), then decrement `bottom`.
+  - If `left <= right`, traverse Bottom → Top up the left column (`left`, from `bottom` to `top`), then increment `left`.
+- Repeat this process, shrinking the boundaries inward after each layer, until all elements have been added to the result.
 
 ### 💡 Solution
 
