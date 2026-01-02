@@ -14,6 +14,7 @@
 - [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
 - [169. Majority Element](#169-majority-element)
 - [2043. Simple Bank System](#2043-simple-bank-system)
+- [2672. Number of Adjacent Elements With the Same Color](#2672-number-of-adjacent-elements-with-the-same-color)
 
 ---
 
@@ -808,7 +809,7 @@ class Bank:
         Args:
             balance (List[int]): The initial balances of the accounts.
         """
-        self.balance = balance
+        self.balance: List[int] = balance
 
     def transfer(self, account1: int, account2: int, money: int) -> bool:
         """
@@ -871,3 +872,99 @@ class Bank:
 
 - Time Complexity: `O(1)`
 - Space Complexity: `O(1)`
+
+---
+
+## 2672. Number of Adjacent Elements With the Same Color
+
+- **LeetCode Link:** [Number of Adjacent Elements With the Same Color](https://leetcode.com/problems/number-of-adjacent-elements-with-the-same-color/)
+- **Difficulty:** Easy
+- **Topic(s):** Array, Simulation
+- **Company:** Capital One
+
+### 🧠 Problem Statement
+
+> You are given an integer `n` representing an `array` colors of length `n` where all elements are set to 0's meaning uncolored. You are also given a 2D integer array `queries` where `queries[i] = [indexi, colori]`. For the `ith` query:
+>
+> Set `colors[indexi]` to `colori`.
+> Count the number of adjacent pairs in `colors` which have the same color (regardless of `colori`).
+> Return an array `answer` of the same length as `queries` where `answer[i]` is the answer to the `ith` query.
+>
+> Example 1:
+>
+> ```txt
+> Input: n = 4, queries = [[0,2],[1,2],[3,1],[1,1],[2,1]]
+>
+> Output: [0,1,1,0,2]
+>
+> Explanation:
+>
+> Initially array colors = [0,0,0,0], where 0 denotes uncolored elements of the array.
+> After the 1st query colors = [2,0,0,0]. The count of adjacent pairs with the same color is 0.
+> After the 2nd query colors = [2,2,0,0]. The count of adjacent pairs with the same color is 1.
+> After the 3rd query colors = [2,2,0,1]. The count of adjacent pairs with the same color is 1.
+> After the 4th query colors = [2,1,0,1]. The count of adjacent pairs with the same color is 0.
+> After the 5th query colors = [2,1,1,1]. The count of adjacent pairs with the same color is 2.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: n = 1, queries = [[0,100000]]
+>
+> Output: [0]
+>
+> Explanation:
+>
+> After the 1st query colors = [100000]. The count of adjacent pairs with the same color is 0.
+> ```
+
+### 🧩 Approach
+
+1. Initialize a count variable to keep track of adjacent pairs with the same color.
+2. Create an array `nums` of size `n` initialized to `0` to represent uncolored elements.
+3. For each query:
+   - Check the previous and next elements of the index being colored.
+   - If the current element is already colored and matches the previous or next element, decrement the count.
+   - Update the color of the current index.
+   - If the new color matches the previous or next element, increment the count.
+4. Append the current count to the result list after each query.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class Solution:
+    def colorTheArray(self, n: int, queries: List[List[int]]) -> List[int]:
+        count: int = 0
+        res: List[int] = []
+        nums: List[int] = [0 for _ in range(n)]
+
+        for idx, color in queries:
+            prev: int = nums[idx - 1] if idx > 0 else 0
+            nxt: int = nums[idx + 1] if idx < n - 1 else 0
+
+            if nums[idx] and nums[idx] == prev:
+                count -= 1
+
+            if nums[idx] and nums[idx] == nxt:
+                count -= 1
+
+            nums[idx] = color
+
+            if nums[idx] and nums[idx] == prev:
+                count += 1
+
+            if nums[idx] and nums[idx] == nxt:
+                count += 1
+
+            res.append(count)
+
+        return res
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`
