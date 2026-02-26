@@ -4,3 +4,6 @@ authors = ["Axeloooo"]
 language = "en"
 multilingual = false
 src = "src"
+
+[preprocessor.katex]
+after = ["links"]
