@@ -6,6 +6,7 @@
 
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
+- [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 
 ---
 
@@ -243,6 +244,87 @@ class MyQueue:
   - `pop`: `O(1)` amortized
   - `peek`: `O(1)` amortized
   - `empty`: `O(1)`
+- Space Complexity: `O(n)`
+
+---
+
+## 303. Range Sum Query - Immutable
+
+- **LeetCode Link:** [Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Queue, Stack
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given an integer array `nums`, handle multiple queries of the following type:
+>
+> Calculate the sum of the elements of `nums` between indices `left` and `right` inclusive where `left <= right`.
+>
+> Implement the `NumArray` class:
+>
+> - `NumArray(int[] nums)` Initializes the object with the integer array `nums`.
+> - `int sumRange(int left, int right)` Returns the sum of the elements of `nums` between indices `left` and `right` inclusive (i.e. `nums[left] + nums[left + 1] + ... + nums[right]`).
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["NumArray", "sumRange", "sumRange", "sumRange"]
+> [[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5], [0, 5]]
+>
+> Output
+> [null, 1, -1, -3]
+>
+> Explanation
+> NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+> numArray.sumRange(0, 2); // return (-2) + 0 + 3 = 1
+> numArray.sumRange(2, 5); // return 3 + (-5) + 2 + (-1) = -1
+> numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
+> ```
+
+### 🧩 Approach
+
+To efficiently calculate the sum of elements in a given range, we can use a prefix sum array. The prefix sum array allows us to compute the sum of any subarray in constant time after an initial preprocessing step. The idea is to create a prefix sum array where each element at index `i` contains the sum of all elements from the start of the original array up to index `i`. Then, to calculate the sum of elements between indices `left` and `right`, we can simply subtract the prefix sum at `left - 1` from the prefix sum at `right`.
+
+### 💡 Solution
+
+```python
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        """Initializes the NumArray object with the given integer array.
+
+        Args:
+            nums (List[int]): The input integer array.
+
+        Returns:
+            None
+        """
+        cur: int = 0
+        for n in nums:
+            cur += n
+            self._prefix.append(cur)
+
+    def sumRange(self, left: int, right: int) -> int:
+        """Returns the sum of the elements of nums between indices left and right inclusive.
+
+        Args:
+            left (int): The starting index of the range.
+            right (int): The ending index of the range.
+
+        Returns:
+            int: The sum of the elements in the specified range.
+        """
+        rightSum: int = self._prefix[right]
+        leftSum: int = self._prefix[left - 1] if left > 0 else 0
+        return rightSum - leftSum
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `sumRange`: `O(1)` for each query after preprocessing.
 - Space Complexity: `O(n)`
 
 ---
