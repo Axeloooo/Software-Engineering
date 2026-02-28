@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
+- [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 
 ---
 
@@ -123,6 +124,124 @@ class MyStack:
   - `push`: `O(1)`
   - `pop`: `O(n)`
   - `top`: `O(1)`
+  - `empty`: `O(1)`
+- Space Complexity: `O(n)`
+
+---
+
+## 232. Implement Queue using Stacks
+
+- **LeetCode Link:** [Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Queue, Stack
+- **Company:** Microsoft
+
+### 🧠 Problem Statement
+
+> Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (`push`, `peek`, `pop`, and `empty`).
+>
+> Implement the `MyQueue` class:
+>
+> - `void push(int x)` Pushes element x to the back of the queue.
+> - `int pop()` Removes the element from the front of the queue and returns it.
+> - `int peek()` Returns the element at the front of the queue.
+> - `boolean empty()` Returns `true` if the queue is empty, `false` otherwise.
+>
+> Notes:
+>
+> You must use only standard operations of a stack, which means only `push to top`, `peek/pop from top`, `size`, and `is empty` operations are valid.
+> Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["MyQueue", "push", "push", "peek", "pop", "empty"]
+> [[], [1], [2], [], [], []]
+>
+> Output
+> [null, null, null, 1, 1, false]
+>
+> Explanation
+> MyQueue myQueue = new MyQueue();
+> myQueue.push(1); // queue is: [1]
+> myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+> myQueue.peek(); // return 1
+> myQueue.pop(); // return 1, queue is [2]
+> myQueue.empty(); // return false
+> ```
+
+### 🧩 Approach
+
+To implement a queue using stacks, we can use two stacks to manage the elements of the queue. The main idea is to use one stack (`s1`) for enqueueing elements and another stack (`s2`) for dequeueing elements. When we need to dequeue an element, if `s2` is empty, we can pop all elements from `s1` and push them onto `s2`, which will reverse the order of the elements and allow us to access the front of the queue. This way, we can perform `push`, `pop`, and `peek` operations efficiently.
+
+### 💡 Solution
+
+```python
+class MyQueue:
+
+    def __init__(self):
+        """Initializes an empty queue using two stacks."""
+        self._s1: list[int] = []
+        self._s2: list[int] = []
+
+    def push(self, x: int) -> None:
+        """Pushes an element to the back of the queue.
+
+        Args:
+            x (int): The value to be pushed onto the queue.
+
+        Returns:
+            None
+        """
+        self._s1.append(x)
+
+    def pop(self) -> int:
+        """Removes and returns the front element of the queue.
+
+        Args:
+            None
+
+        Returns:
+            int: The element removed from the front of the queue.
+        """
+        if not self._s2:
+            while self._s1:
+                self._s2.append(self._s1.pop())
+        return self._s2.pop()
+
+    def peek(self) -> int:
+        """Returns the front element of the queue without removing it.
+
+        Args:
+            None
+
+        Returns:
+            int: The element at the front of the queue.
+        """
+        if not self._s2:
+            while self._s1:
+                self._s2.append(self._s1.pop())
+        return self._s2[-1]
+
+    def empty(self) -> bool:
+        """Checks whether the queue is empty.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if the queue is empty, False otherwise.
+        """
+        return max(len(self._s1), len(self._s2)) == 0
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `push`: `O(1)`
+  - `pop`: `O(1)` amortized
+  - `peek`: `O(1)` amortized
   - `empty`: `O(1)`
 - Space Complexity: `O(n)`
 
