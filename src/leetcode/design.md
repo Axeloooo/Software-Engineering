@@ -7,6 +7,7 @@
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
+- [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 
 ---
 
@@ -62,9 +63,6 @@ To implement a stack using queues, we can use a single queue to store the elemen
 from collections import deque
 
 class MyStack:
-    """
-    A stack implementation using a deque as the underlying storage.
-    """
 
     def __init__(self):
         """Initializes an empty stack."""
@@ -324,7 +322,110 @@ class NumArray:
 ### 🧮 Complexity Analysis
 
 - Time Complexity:
+  - `__init__`: `O(n)` for preprocessing the prefix sum array.
   - `sumRange`: `O(1)` for each query after preprocessing.
 - Space Complexity: `O(n)`
+
+---
+
+## 703. Kth Largest Element in a Stream
+
+- **LeetCode Link:** [Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Heap, Priority Queue
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> You are part of a university admissions office and need to keep track of the `kth` highest test score from applicants in real-time. This helps to determine cut-off marks for interviews and admissions dynamically as new applicants submit their scores.
+>
+> You are tasked to implement a class which, for a given integer `k`, maintains a stream of test scores and continuously returns the `k`th highest test score after a new score has been submitted. More specifically, we are looking for the `k`th highest score in the sorted list of all scores.
+>
+> Implement the `KthLargest` class:
+>
+> - `KthLargest(int k, int[] nums)` Initializes the object with the integer `k` and the stream of test scores `nums`.
+> - `int add(int val)` Adds a new test score `val` to the stream and returns the element representing the `kth` largest element in the pool of test scores so far.
+>
+> Example 1:
+>
+> ```txt
+> Input:
+> ["KthLargest", "add", "add", "add", "add", "add"]
+> [[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]
+>
+> Output: [null, 4, 5, 5, 8, 8]
+>
+> Explanation:
+>
+> KthLargest kthLargest = new KthLargest(3, [4, 5, 8, 2]);
+> kthLargest.add(3); // return 4
+> kthLargest.add(5); // return 5
+> kthLargest.add(10); // return 5
+> kthLargest.add(9); // return 8
+> kthLargest.add(4); // return 8
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input:
+> ["KthLargest", "add", "add", "add", "add"]
+> [[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]
+>
+> Output: [null, 7, 7, 7, 8]
+>
+> Explanation:
+>
+> KthLargest kthLargest = new KthLargest(4, [7, 7, 7, 7, 8, 3]);
+> kthLargest.add(2); // return 7
+> kthLargest.add(10); // return 7
+> kthLargest.add(9); // return 7
+> kthLargest.add(9); // return 8
+> ```
+
+### 🧩 Approach
+
+### 💡 Solution
+
+```python
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        """Initializes the KthLargest object with the given integer k and the stream of test scores nums.
+
+        Args:
+            k (int): The integer k representing the rank of the largest element to maintain.
+            nums (List[int]): The initial stream of test scores.
+
+        Returns:
+            None
+        """
+        self._minHeap: list[int] = nums
+        self._k: int = k
+        heapq.heapify(self._minHeap)
+        while len(self._minHeap) > k:
+            heapq.heappop(self._minHeap)
+
+    def add(self, val: int) -> int:
+        """Adds a new test score val to the stream and returns the element representing the kth largest element in the pool of test scores so far.
+
+        Args:
+            val (int): The new test score to be added to the stream.
+
+        Returns:
+            int: The kth largest element in the stream after adding the new score.
+        """
+        heapq.heappush(self._minHeap, val)
+        if len(self._minHeap) > self._k:
+            heapq.heappop(self._minHeap)
+        return self._minHeap[0]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(n log n)` due to heapifying the initial list and maintaining the heap size.
+  - `add`: `O(log n)` for adding an element to the heap and maintaining its size.
+- Space Complexity: `O(n)` for storing the k largest elements in the heap.
 
 ---
