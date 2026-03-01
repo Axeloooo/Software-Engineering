@@ -11,6 +11,7 @@
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
 - [933. Number of Recent Calls](#933-number-of-recent-calls)
+- [1603. Design Parking System](#1603-design-parking-system)
 
 ---
 
@@ -732,5 +733,66 @@ class RecentCounter:
 - Time Complexity:
   - `ping`: `O(1)` on average, but `O(n)` in the worst case when all requests are outside the 3000 milliseconds range and need to be removed.
 - Space Complexity: `O(n)` for storing the requests in the deque.
+
+---
+
+## 1603. Design Parking System
+
+- **LeetCode Link:** [Design Parking System](https://leetcode.com/problems/design-parking-system/)
+- **Difficulty:** Easy
+- **Topic(s):** Design
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Design a parking system for a parking lot. The parking lot has three kinds of parking spaces: big, medium, and small, with a fixed number of slots for each size.
+>
+> Implement the `ParkingSystem` class:
+>
+> - `ParkingSystem(int big, int medium, int small)` Initializes object of the `ParkingSystem` class. The number of slots for each parking space are given as part of the constructor.
+> - `bool addCar(int carType)` Checks whether there is a parking space of `carType` for the car that wants to get into the parking lot. `carType` can be of three kinds: big, medium, or small, which are represented by `1`, `2`, and `3` respectively. A car can only park in a parking space of its `carType`. If there is no space available, return `false`, else park the car in that size space and return `true`.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["ParkingSystem", "addCar", "addCar", "addCar", "addCar"]
+> [[1, 1, 0], [1], [2], [3], [1]]
+>
+> Output
+> [null, true, true, false, false]
+>
+> Explanation
+> ParkingSystem parkingSystem = new ParkingSystem(1, 1, 0);
+> parkingSystem.addCar(1); // return true because there is 1 available slot for a big car
+> parkingSystem.addCar(2); // return true because there is 1 available slot for a medium car
+> parkingSystem.addCar(3); // return false because there is no available slot for a small car
+> parkingSystem.addCar(1); // return false because there is no available slot for a big car. It is already occupied.
+> ```
+
+### 🧩 Approach
+
+To design the parking system, we can use a simple list to keep track of the available parking spaces for each car type. The list will have three elements corresponding to the number of available slots for big, medium, and small cars. When a car tries to park, we can check if there is an available slot for that car type by checking the corresponding element in the list. If there is an available slot, we can decrement the count for that car type and return `true`. If there are no available slots, we return `false`.
+
+### 💡 Solution
+
+```python
+class ParkingSystem:
+
+    def __init__(self, big: int, medium: int, small: int):
+        self._spaces: list[int] = [big, medium, small]
+
+    def addCar(self, carType: int) -> bool:
+        if self._spaces[carType - 1] > 0:
+            self._spaces[carType - 1] -= 1
+            return True
+        return False
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `addCar`: `O(1)` for checking and updating the available slots.
+- Space Complexity: `O(1)` for storing the available slots for each car type.
 
 ---
