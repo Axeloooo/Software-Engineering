@@ -10,6 +10,7 @@
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
+- [933. Number of Recent Calls](#933-number-of-recent-calls)
 
 ---
 
@@ -392,6 +393,8 @@ To maintain the `k`th largest element in a stream of test scores, we can use a m
 ### 💡 Solution
 
 ```python
+import heapq
+
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
@@ -514,7 +517,7 @@ class MyHashSet:
         cur: ListNode = self._set[key % len(self._set)]
         while cur.next:
             if cur.next.key == key:
-                return
+                return None
             cur = cur.next
         cur.next = ListNode(key)
 
@@ -531,7 +534,7 @@ class MyHashSet:
         while cur.next:
             if cur.next.key == key:
                 cur.next = cur.next.next
-                return
+                return None
             cur = cur.next
 
     def contains(self, key: int) -> bool:
@@ -608,7 +611,7 @@ To design a HashMap, we can use an array of linked lists (chaining) to handle co
 ### 💡 Solution
 
 ```python
-ffrom typing import Optional
+from typing import Optional
 
 class ListNode:
 
@@ -627,7 +630,7 @@ class MyHashMap:
         while cur.next:
             if cur.next.key == key:
                 cur.next.value = value
-                return
+                return None
             cur = cur.next
         cur.next = ListNode(key, value)
 
@@ -644,7 +647,7 @@ class MyHashMap:
         while cur.next:
             if cur.next.key == key:
                 cur.next = cur.next.next
-                return
+                return None
             cur = cur.next
 ```
 
@@ -655,3 +658,79 @@ class MyHashMap:
   - `get`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
   - `remove`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
 - Space Complexity: `O(n)` for storing the key-value pairs in the hash map.
+
+---
+
+## 933. Number of Recent Calls
+
+- **LeetCode Link:** [Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Queue
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> You have a `RecentCounter` class which counts the number of recent requests within a certain time frame.
+>
+> Implement the `RecentCounter` class:
+>
+> - `RecentCounter()` Initializes the counter with zero recent requests.
+> - `int ping(int t)` Adds a new request at time `t`, where `t` represents some time in milliseconds, and returns the number of requests that has happened in the past `3000` milliseconds (including the new request). Specifically, return the number of requests that have happened in the inclusive range `[t - 3000, t]`.
+>
+> It is guaranteed that every call to `ping` uses a strictly larger value of `t` than the previous call.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["RecentCounter", "ping", "ping", "ping", "ping"]
+> [[], [1], [100], [3001], [3002]]
+>
+> Output
+> [null, 1, 2, 3, 3]
+>
+> Explanation
+> RecentCounter recentCounter = new RecentCounter();
+> recentCounter.ping(1); // requests = [1], range is [-2999,1], return 1
+> recentCounter.ping(100); // requests = [1, 100], range is [-2900,100], return 2
+> recentCounter.ping(3001); // requests = [1, 100, 3001], range is [1,3001], return 3
+> recentCounter.ping(3002); // requests = [1, 100, 3001, 3002], range is [2,3002], return 3
+> ```
+
+### 🧩 Approach
+
+To Do Later
+
+### 💡 Solution
+
+```python
+from collections import deque
+
+class RecentCounter:
+
+    def __init__(self):
+        """Initializes the RecentCounter object with zero recent requests."""
+        self._requests: deque[int] = deque()
+
+    def ping(self, t: int) -> int:
+        """Adds a new request at time t and returns the number of requests that has happened in the past 3000 milliseconds.
+
+        Args:
+            t (int): The time in milliseconds when the new request is added.
+
+        Returns:
+            int: The number of requests that have happened in the inclusive range [t - 3000, t].
+        """
+        self._requests.append(t)
+        while self._requests and self._requests[0] < t - 3000:
+            self._requests.popleft()
+        return len(self._requests)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `ping`: `O(1)` on average, but `O(n)` in the worst case when all requests are outside the 3000 milliseconds range and need to be removed.
+- Space Complexity: `O(n)` for storing the requests in the deque.
+
+---
