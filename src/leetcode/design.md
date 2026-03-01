@@ -8,6 +8,7 @@
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
+- [705. Design HashSet](#705-design-hashset)
 
 ---
 
@@ -431,3 +432,128 @@ class KthLargest:
 - Space Complexity: `O(n)` for storing the k largest elements in the heap.
 
 ---
+
+## 705. Design HashSet
+
+- **LeetCode Link:** [Design HashSet](https://leetcode.com/problems/design-hashset/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Hash Table
+- **Company:** Meta
+
+### 🧠 Problem Statement
+
+> Design a HashSet without using any built-in hash table libraries.
+>
+> Implement `MyHashSet` class:
+>
+> - `void add(key)` Inserts the value `key` into the HashSet.
+> - `bool contains(key)` Returns whether the value `key` exists in the HashSet or not.
+> - `void remove(key)` Removes the value `key` in the HashSet. If key does not exist in the HashSet, do nothing.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["MyHashSet", "add", "add", "contains", "contains", "add", "contains", "remove", "contains"]
+> [[], [1], [2], [1], [3], [2], [2], [2], [2]]
+>
+> Output
+> [null, null, null, true, false, null, true, null, false]
+>
+> Explanation
+> MyHashSet myHashSet = new MyHashSet();
+> myHashSet.add(1); // set = [1]
+> myHashSet.add(2); // set = [1, 2]
+> myHashSet.contains(1); // return True
+> myHashSet.contains(3); // return False, (not found)
+> myHashSet.add(2); // set = [1, 2]
+> myHashSet.contains(2); // return True
+> myHashSet.remove(2); // set = [1]
+> myHashSet.contains(2); // return False, (already removed)
+> ```
+
+### 🧩 Approach
+
+To design a HashSet, we can use an array of linked lists (chaining) to handle collisions. We can define a `ListNode` class to represent each node in the linked list, which will store the key and a reference to the next node. The `MyHashSet` class will contain an array of `ListNode` objects, where each index corresponds to a hash value derived from the key. When adding a key, we will compute its hash value and insert it into the corresponding linked list. For checking if a key exists or for removing a key, we will traverse the linked list at the computed hash index to find the key.
+
+### 💡 Solution
+
+```python
+from typing import Optional
+
+class ListNode:
+
+    def __init__(self, key):
+        """Initializes a ListNode with the given key.
+
+        Args:
+            key (int): The value to be stored in the ListNode.
+
+        Returns:
+            None
+        """
+        self.key: int = key
+        self.next: Optional[ListNode] = None
+
+class MyHashSet:
+
+    def __init__(self):
+        """Initializes an empty HashSet."""
+        self._set: list[ListNode] = [ListNode(0) for _ in range(10**4)]
+
+    def add(self, key: int) -> None:
+        """Inserts the value key into the HashSet.
+
+        Args:
+            key (int): The value to be added to the HashSet.
+
+        Returns:
+            None
+        """
+        cur: ListNode = self._set[key % len(self._set)]
+        while cur.next:
+            if cur.next.key == key:
+                return
+            cur = cur.next
+        cur.next = ListNode(key)
+
+    def remove(self, key: int) -> None:
+        """Removes the value key in the HashSet. If key does not exist in the HashSet, do nothing.
+
+        Args:
+            key (int): The value to be removed from the HashSet.
+
+        Returns:
+            None
+        """
+        cur: ListNode = self._set[key % len(self._set)]
+        while cur.next:
+            if cur.next.key == key:
+                cur.next = cur.next.next
+                return
+            cur = cur.next
+
+    def contains(self, key: int) -> bool:
+        """Returns whether the value key exists in the HashSet or not.
+
+        Args:
+            key (int): The value to check for existence in the HashSet.
+
+        Returns:
+            bool: True if the value exists in the HashSet, False otherwise.
+        """
+        cur: ListNode = self._set[key % len(self._set)]
+        while cur.next:
+            if cur.next.key == key:
+                return True
+            cur = cur.next
+        return False
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `add`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
+  - `remove`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
+  - `contains`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
+- Space Complexity: `O(n)`
