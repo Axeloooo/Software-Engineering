@@ -9,6 +9,7 @@
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
+- [706. Design HashMap](#706-design-hashmap)
 
 ---
 
@@ -557,3 +558,100 @@ class MyHashSet:
   - `remove`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
   - `contains`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
 - Space Complexity: `O(n)`
+
+---
+
+## 706. Design HashMap
+
+- **LeetCode Link:** [Design HashMap](https://leetcode.com/problems/design-hashmap/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Hash Table
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> Design a HashMap without using any built-in hash table libraries.
+>
+> Implement the `MyHashMap` class:
+>
+> - `MyHashMap()` initializes the object with an empty map.
+> - `void put(int key, int value)` inserts a `(key, value)` pair into the HashMap. If the `key` already exists in the map, update the corresponding `value`.
+> - `int get(int key)` returns the `value` to which the specified `key` is mapped, or `-1` if this map contains no mapping for the `key`.
+> - `void remove(key)` removes the `key` and its corresponding `value` if the map contains the mapping for the `key`.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["MyHashMap", "put", "put", "get", "get", "put", "get", "remove", "get"]
+> [[], [1, 1], [2, 2], [1], [3], [2, 1], [2], [2], [2]]
+>
+> Output
+> [null, null, null, 1, -1, null, 1, null, -1]
+>
+> Explanation
+> MyHashMap myHashMap = new MyHashMap();
+> myHashMap.put(1, 1); // The map is now [[1,1]]
+> myHashMap.put(2, 2); // The map is now [[1,1], [2,2]]
+> myHashMap.get(1); // return 1, The map is now [[1,1], [2,2]]
+> myHashMap.get(3); // return -1 (i.e., not found), The map is now [[1,1], [2,2]]
+> myHashMap.put(2, 1); // The map is now [[1,1], [2,1]] (i.e., update the existing value)
+> myHashMap.get(2); // return 1, The map is now [[1,1], [2,1]]
+> myHashMap.remove(2); // remove the mapping for 2, The map is now [[1,1]]
+> myHashMap.get(2); // return -1 (i.e., not found), The map is now [[1,1]]
+> ```
+
+### 🧩 Approach
+
+To design a HashMap, we can use an array of linked lists (chaining) to handle collisions, similar to the design of a HashSet. We can define a `ListNode` class to represent each node in the linked list, which will store the key, value, and a reference to the next node. The `MyHashMap` class will contain an array of `ListNode` objects, where each index corresponds to a hash value derived from the key. When adding a key-value pair, we will compute its hash value and insert it into the corresponding linked list. For checking if a key exists or for removing a key, we will traverse the linked list at the computed hash index to find the key and perform the necessary operations.
+
+### 💡 Solution
+
+```python
+ffrom typing import Optional
+
+class ListNode:
+
+    def __init__(self, key, value):
+        self.key: int = key
+        self.value: int = value
+        self.next: Optional[ListNode] = None
+
+class MyHashMap:
+
+    def __init__(self):
+        self._map: list[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
+
+    def put(self, key: int, value: int) -> None:
+        cur: ListNode = self._map[key % len(self._map)]
+        while cur.next:
+            if cur.next.key == key:
+                cur.next.value = value
+                return
+            cur = cur.next
+        cur.next = ListNode(key, value)
+
+    def get(self, key: int) -> int:
+        cur: ListNode = self._map[key % len(self._map)]
+        while cur.next:
+            if cur.next.key == key:
+                return cur.next.value
+            cur = cur.next
+        return -1
+
+    def remove(self, key: int) -> None:
+        cur: ListNode = self._map[key % len(self._map)]
+        while cur.next:
+            if cur.next.key == key:
+                cur.next = cur.next.next
+                return
+            cur = cur.next
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `put`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
+  - `get`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
+  - `remove`: `O(1)` on average, but `O(n)` in the worst case due to collision handling with chaining.
+- Space Complexity: `O(n)` for storing the key-value pairs in the hash map.
