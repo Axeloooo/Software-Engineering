@@ -1250,7 +1250,7 @@ class ParkingSystem:
 > os.insert(2, "bbbbb"); // Inserts (2, "bbbbb"), returns ["bbbbb", "ccccc"].
 > os.insert(5, "eeeee"); // Inserts (5, "eeeee"), returns [].
 > os.insert(4, "ddddd"); // Inserts (4, "ddddd"), returns ["ddddd", "eeeee"].
-> // Concatentating all the chunks returned:
+> // Concatenating all the chunks returned:
 > // [] + ["aaaaa"] + ["bbbbb", "ccccc"] + [] + ["ddddd", "eeeee"] = ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"]
 > // The resulting order is the same as the order above.
 > ```
