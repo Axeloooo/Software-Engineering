@@ -181,12 +181,14 @@ To implement a queue using stacks, we can use two stacks to manage the elements 
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class MyQueue:
 
     def __init__(self):
         """Initializes an empty queue using two stacks."""
-        self._s1: list[int] = []
-        self._s2: list[int] = []
+        self._s1: List[int] = []
+        self._s2: List[int] = []
 
     def push(self, x: int) -> None:
         """Pushes an element to the back of the queue.
@@ -292,6 +294,8 @@ To efficiently calculate the sum of elements in a given range, we can use a pref
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class NumArray:
 
     def __init__(self, nums: List[int]):
@@ -303,7 +307,7 @@ class NumArray:
         Returns:
             None
         """
-        self._prefix: list[int] = []
+        self._prefix: List[int] = []
         cur: int = 0
         for n in nums:
             cur += n
@@ -395,6 +399,8 @@ To maintain the `k`th largest element in a stream of test scores, we can use a m
 ### 💡 Solution
 
 ```python
+from typing import List
+
 import heapq
 
 class KthLargest:
@@ -409,7 +415,7 @@ class KthLargest:
         Returns:
             None
         """
-        self._minHeap: list[int] = nums
+        self._minHeap: List[int] = nums
         self._k: int = k
         heapq.heapify(self._minHeap)
         while len(self._minHeap) > k:
@@ -485,7 +491,7 @@ To design a HashSet, we can use an array of linked lists (chaining) to handle co
 ### 💡 Solution
 
 ```python
-from typing import Optional
+from typing import Optional, List
 
 class ListNode:
 
@@ -505,7 +511,7 @@ class MyHashSet:
 
     def __init__(self):
         """Initializes an empty HashSet."""
-        self._set: list[ListNode] = [ListNode(0) for _ in range(10**4)]
+        self._set: List[ListNode] = [ListNode(0) for _ in range(10**4)]
 
     def add(self, key: int) -> None:
         """Inserts the value key into the HashSet.
@@ -613,7 +619,7 @@ To design a HashMap, we can use an array of linked lists (chaining) to handle co
 ### 💡 Solution
 
 ```python
-from typing import Optional
+from typing import Optional, List
 
 class ListNode:
 
@@ -625,7 +631,7 @@ class ListNode:
 class MyHashMap:
 
     def __init__(self):
-        self._map: list[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
+        self._map: List[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
 
     def put(self, key: int, value: int) -> None:
         cur: ListNode = self._map[key % len(self._map)]
@@ -778,10 +784,12 @@ To design the parking system, we can use a simple list to keep track of the avai
 ### 💡 Solution
 
 ```python
+from typing import List
+
 class ParkingSystem:
 
     def __init__(self, big: int, medium: int, small: int):
-        self._spaces: list[int] = [big, medium, small]
+        self._spaces: List[int] = [big, medium, small]
 
     def addCar(self, carType: int) -> bool:
         if self._spaces[carType - 1] > 0:
