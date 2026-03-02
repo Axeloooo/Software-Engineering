@@ -1306,7 +1306,7 @@ class OrderedStream:
 ### 🧮 Complexity Analysis
 
 - Time Complexity:
-  - `insert`: `O(1)`for inserting a value, but `O(n)` in the worst case when all values are inserted in order and we need to return a chunk of size `n`.
+  - `insert`: `O(1)` for inserting a value, but `O(n)` in the worst case when all values are inserted in order and we need to return a chunk of size `n`.
 - Space Complexity: `O(n)` for storing the values in the stream.
 
 ---
