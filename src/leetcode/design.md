@@ -432,6 +432,11 @@ class KthLargest:
 
 ### 🧮 Complexity Analysis
 
+- Time Complexity:
+  - `__init__`: `O(n log k)` for building the heap and maintaining the top `k` elements.
+  - `add`: `O(log k)` for adding a new score and maintaining the heap.
+- Space Complexity: `O(k)` for storing the top `k` elements in the heap.
+
 ---
 
 ## 705. Design HashSet
