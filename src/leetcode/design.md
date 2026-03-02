@@ -254,7 +254,7 @@ class MyQueue:
 
 - **LeetCode Link:** [Range Sum Query - Immutable](https://leetcode.com/problems/range-sum-query-immutable/)
 - **Difficulty:** Easy
-- **Topic(s):** Design, Queue, Stack
+- **Topic(s):** Design, Array, Prefix Sum
 - **Company:** Amazon
 
 ### 🧠 Problem Statement
