@@ -6,6 +6,7 @@
 
 - [146. LRU Cache](#146-lru-cache)
 - [155. Min Stack](#155-min-stack)
+- [173. Binary Search Tree Iterator](#173-binary-search-tree-iterator)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
@@ -73,6 +74,15 @@ from typing import Optional, Dict
 class Node:
 
     def __init__(self, key: int, value: int):
+        """Initializes a Node with the given key and value.
+
+        Args:
+            key (int): The key associated with the node.
+            value (int): The value associated with the node.
+
+        Returns:
+            None
+        """
         self.key: int = key
         self.value: int = value
         self.prev: Optional[Node] = None
@@ -81,6 +91,14 @@ class Node:
 class LRUCache:
 
     def __init__(self, capacity: int):
+        """Initializes the LRUCache object with the given capacity.
+
+        Args:
+            capacity (int): The maximum number of items that the cache can hold.
+
+        Returns:
+            None
+        """
         self._capacity: int = capacity
         self._hashmap: Dict[int, Node] = {}
         self._left: Node = Node(0, 0)
@@ -89,6 +107,14 @@ class LRUCache:
         self._right.prev = self._left
 
     def _insert(self, node: Node) -> None:
+        """Inserts a node at the end of the doubly linked list (right before the right dummy node).
+
+        Args:
+            node (Node): The node to be inserted into the list.
+
+        Returns:
+            None
+        """
         prev: Node = self._right.prev
         nxt: Node = self._right
         prev.next = node
@@ -97,12 +123,28 @@ class LRUCache:
         node.next = nxt
 
     def _remove(self, node: Node) -> None:
+        """Removes a node from the doubly linked list.
+
+        Args:
+            node (Node): The node to be removed from the list.
+
+        Returns:
+            None
+        """
         prev: Node = node.prev
         nxt: Node = node.next
         prev.next = nxt
         nxt.prev = prev
 
     def get(self, key: int) -> int:
+        """Returns the value of the key if the key exists, otherwise returns -1.
+
+        Args:
+            key (int): The key to be accessed in the cache.
+
+        Returns:
+            int: The value associated with the key if it exists, otherwise -1.
+        """
         if key in self._hashmap:
             self._remove(self._hashmap[key])
             self._insert(self._hashmap[key])
@@ -110,6 +152,15 @@ class LRUCache:
         return -1
 
     def put(self, key: int, value: int) -> None:
+        """Updates the value of the key if the key exists. Otherwise, adds the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evicts the least recently used key.
+
+        Args:
+            key (int): The key to be added or updated in the cache.
+            value (int): The value to be associated with the key.
+
+        Returns:
+            None
+        """
         if key in self._hashmap:
             self._remove(self._hashmap[key])
         self._hashmap[key] = Node(key, value)
@@ -188,18 +239,50 @@ class MinStack:
         self._minStack: List[int] = []
 
     def push(self, val: int) -> None:
+        """Pushes an element onto the stack and updates the minimum stack if necessary.
+
+        Args:
+            val (int): The value to be pushed onto the stack.
+
+        Returns:
+            None
+        """
         self._stack.append(val)
         val: int = min(val, self._minStack[-1] if self._minStack else val)
         self._minStack.append(val)
 
     def pop(self) -> None:
+        """Removes the element on the top of the stack and updates the minimum stack if necessary.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
         self._stack.pop()
         self._minStack.pop()
 
     def top(self) -> int:
+        """Returns the top element of the stack.
+
+        Args:
+            None
+
+        Returns:
+            int: The element at the top of the stack.
+        """
         return self._stack[-1]
 
     def getMin(self) -> int:
+        """Retrieves the minimum element in the stack.
+
+        Args:
+            None
+
+        Returns:
+            int: The minimum element in the stack.
+        """
         return self._minStack[-1]
 ```
 
@@ -211,6 +294,130 @@ class MinStack:
   - `top`: `O(1)`
   - `getMin`: `O(1)`
 - Space Complexity: `O(n)` where `n` is the number of elements in the stack.
+
+---
+
+## 173. Binary Search Tree Iterator
+
+- **LeetCode Link:** [Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Tree, Stack
+- **Company:** Meta
+
+### 🧠 Problem Statement
+
+> Implement the `BSTIterator` class that represents an iterator over the [in-order traversal](<https://en.wikipedia.org/wiki/Tree_traversal#In-order_(LNR)>) of a binary search tree (BST):
+>
+> - `BSTIterator(TreeNode root)` Initializes an object of the `BSTIterator` class. The `root` of the BST is given as part of the constructor. The pointer should be initialized to a non-existent number smaller than any element in the BST.
+> - `boolean hasNext()` Returns `true` if there exists a number in the traversal to the right of the pointer, otherwise returns `false`.
+> - `int next()` Moves the pointer to the right, then returns the number at the pointer.
+>
+> Notice that by initializing the pointer to a non-existent smallest number, the first call to `next()` will return the smallest element in the BST.
+>
+> You may assume that `next()` calls will always be valid. That is, there will be at least a next number in the in-order traversal when `next()` is called.
+>
+> Example 1:
+>
+> ![173](../images/leetcode/173.png)
+>
+> ```txt
+> Input
+> ["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+> [[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+>
+> Output
+> [null, 3, 7, true, 9, true, 15, true, 20, false]
+>
+> Explanation
+> BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
+> bSTIterator.next();    // return 3
+> bSTIterator.next();    // return 7
+> bSTIterator.hasNext(); // return True
+> bSTIterator.next();    // return 9
+> bSTIterator.hasNext(); // return True
+> bSTIterator.next();    // return 15
+> bSTIterator.hasNext(); // return True
+> bSTIterator.next();    // return 20
+> bSTIterator.hasNext(); // return False
+> ```
+
+### 🧩 Approach
+
+To implement the `BSTIterator`, we can use a stack to simulate the in-order traversal of the binary search tree. The idea is to push all the left children of the current node onto the stack until we reach a leaf node. When we call `next()`, we pop the top node from the stack, which will be the next smallest element in the BST. After popping a node, we need to consider its right child and push all of its left children onto the stack as well. This way, we maintain the invariant that the top of the stack always contains the next smallest element in the BST.
+
+### 💡 Solution
+
+```python
+from typing import Optional, List
+
+class TreeNode:
+
+    def __init__(self, val=0, left=None, right=None):
+        """Initializes a TreeNode with the given value and optional left and right children.
+
+        Args:
+            val (int): The value of the node. Default is 0.
+            left (Optional[TreeNode]): The left child of the node. Default is None.
+            right (Optional[TreeNode]): The right child of the node. Default is None.
+
+        Returns:
+            None
+        """
+        self.val: int = val
+        self.left: Optional[TreeNode] = left
+        self.right: Optional[TreeNode] = right
+
+class BSTIterator:
+
+    def __init__(self, root: Optional[TreeNode]):
+        """Initializes the BSTIterator object with the given root of the binary search tree.
+
+        Args:
+            root (Optional[TreeNode]): The root of the binary search tree.
+
+        Returns:
+            None
+        """
+        self._stack: List[TreeNode] = []
+        while root:
+            self._stack.append(root)
+            root = root.left
+
+    def next(self) -> int:
+        """Moves the pointer to the right, then returns the number at the pointer.
+
+        Args:
+            None
+
+        Returns:
+            int: The next number in the in-order traversal of the BST.
+        """
+        res: TreeNode = self._stack.pop()
+        cur: TreeNode = res.right
+        while cur:
+            self._stack.append(cur)
+            cur = cur.left
+        return res.val
+
+    def hasNext(self) -> bool:
+        """Returns whether there exists a number in the traversal to the right of the pointer.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if there exists a next number in the in-order traversal, False otherwise.
+        """
+        return self._stack != []
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `next`: `O(1)` amortized
+  - `hasNext`: `O(1)`
+
+- Space Complexity: `O(h)` where `h` is the height of the binary search tree.
 
 ---
 
@@ -1175,6 +1382,14 @@ from typing import List, Tuple
 class NeighborSum:
 
     def __init__(self, grid: List[List[int]]):
+        """Initializes the NeighborSum object with the given 2D array grid.
+
+        Args:
+            grid (List[List[int]]): The 2D array containing distinct elements.
+
+        Returns:
+            None
+        """
         self._grid: List[List[int]] = grid
         self._R: int = len(grid)
         self._C: int = len(grid[0])
@@ -1186,6 +1401,14 @@ class NeighborSum:
 
 
     def adjacentSum(self, value: int) -> int:
+        """Returns the sum of elements which are adjacent neighbors of value, that is either to the top, left, right, or bottom of value in grid.
+
+        Args:
+            value (int): The value for which to calculate the adjacent sum.
+
+        Returns:
+            int: The sum of adjacent neighbors of the given value.
+        """
         x, y = self._lookup[value]
 
         total: int = 0
@@ -1199,6 +1422,14 @@ class NeighborSum:
         return total
 
     def diagonalSum(self, value: int) -> int:
+        """Returns the sum of elements which are diagonal neighbors of value, that is either to the top-left, top-right, bottom-left, or bottom-right of value in grid.
+
+        Args:
+            value (int): The value for which to calculate the diagonal sum.
+
+        Returns:
+            int: The sum of diagonal neighbors of the given value.
+        """
         x, y = self._lookup[value]
 
         total: int = 0
