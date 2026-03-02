@@ -5,6 +5,7 @@
 ## Table of Contents
 
 - [146. LRU Cache](#146-lru-cache)
+- [155. Min Stack](#155-min-stack)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
@@ -126,6 +127,90 @@ class LRUCache:
   - `get`: `O(1)`
   - `put`: `O(1)`
 - Space Complexity: `O(n)` where `n` is the capacity of the cache.
+
+---
+
+## 155. Min Stack
+
+- **LeetCode Link:** [Min Stack](https://leetcode.com/problems/min-stack/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Stack
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+>
+> Implement the `MinStack` class:
+>
+> - `MinStack()` initializes the stack object.
+> - `void push(int val)` pushes the element `val` onto the stack.
+> - `void pop()` removes the element on the top of the stack.
+> - `int top()` gets the top element of the stack.
+> - `int getMin()` retrieves the minimum element in the stack.
+>
+> You must implement a solution with `O(1)` time complexity for each function.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["MinStack","push","push","push","getMin","pop","top","getMin"]
+> [[],[-2],[0],[-3],[],[],[],[]]
+>
+> Output
+> [null,null,null,null,-3,null,0,-2]
+>
+> Explanation
+> MinStack minStack = new MinStack();
+> minStack.push(-2);
+> minStack.push(0);
+> minStack.push(-3);
+> minStack.getMin(); // return -3
+> minStack.pop();
+> minStack.top();    // return 0
+> minStack.getMin(); // return -2
+> ```
+
+### 🧩 Approach
+
+To implement a stack that supports retrieving the minimum element in constant time, we can use two stacks. The first stack will be used to store all the elements of the stack, while the second stack will be used to keep track of the minimum elements. Whenever we push a new element onto the main stack, we compare it with the current minimum (the top of the minimum stack). If the new element is smaller than or equal to the current minimum, we also push it onto the minimum stack. When we pop an element from the main stack, if that element is the same as the current minimum, we also pop it from the minimum stack. This way, the top of the minimum stack will always represent the minimum element in the main stack.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class MinStack:
+
+    def __init__(self):
+        self._stack: List[int] = []
+        self._minStack: List[int] = []
+
+    def push(self, val: int) -> None:
+        self._stack.append(val)
+        val: int = min(val, self._minStack[-1] if self._minStack else val)
+        self._minStack.append(val)
+
+    def pop(self) -> None:
+        self._stack.pop()
+        self._minStack.pop()
+
+    def top(self) -> int:
+        return self._stack[-1]
+
+    def getMin(self) -> int:
+        return self._minStack[-1]
+```
+
+## 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `push`: `O(1)`
+  - `pop`: `O(1)`
+  - `top`: `O(1)`
+  - `getMin`: `O(1)`
+- Space Complexity: `O(n)` where `n` is the number of elements in the stack.
 
 ---
 
