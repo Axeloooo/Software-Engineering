@@ -12,6 +12,8 @@
 - [706. Design HashMap](#706-design-hashmap)
 - [933. Number of Recent Calls](#933-number-of-recent-calls)
 - [1603. Design Parking System](#1603-design-parking-system)
+- [1656. Design an Ordered Stream](#1656-design-an-ordered-stream)
+- [3242. Design Neighbor Sum Service](#3242-design-neighbor-sum-service)
 
 ---
 
@@ -805,3 +807,217 @@ class ParkingSystem:
 - Space Complexity: `O(1)` for storing the available slots for each car type.
 
 ---
+
+## 1656. Design an Ordered Stream
+
+- **LeetCode Link:** [Design an Ordered Stream](https://leetcode.com/problems/design-an-ordered-stream/)
+- **Difficulty:** Easy
+- **Topic(s):** Design
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> There is a stream of `n` `(idKey, value)` pairs arriving in an arbitrary order, where `idKey` is an integer between `1` and `n` and `value` is a string. No two pairs have the same `id`.
+>
+> Design a stream that returns the values in increasing order of their IDs by returning a chunk (list) of values after each insertion. The concatenation of all the chunks should result in a list of the sorted values.
+>
+> Implement the `OrderedStream` class:
+>
+> - `OrderedStream(int n)` Constructs the stream to take `n` values.
+> - `String[] insert(int idKey, String value)` Inserts the pair `(idKey, value)` into the stream, then returns the largest possible chunk of currently inserted values that appear next in the order.
+>
+> Example:
+>
+> ![ordered-stream](../images/leetcode/1656.gif)
+>
+> ```txt
+> Input
+> ["OrderedStream", "insert", "insert", "insert", "insert", "insert"]
+> [[5], [3, "ccccc"], [1, "aaaaa"], [2, "bbbbb"], [5, "eeeee"], [4, "ddddd"]]
+>
+> Output
+> [null, [], ["aaaaa"], ["bbbbb", "ccccc"], [], ["ddddd", "eeeee"]]
+>
+> Explanation
+> // Note that the values ordered by ID is ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"].
+> OrderedStream os = new OrderedStream(5);
+> os.insert(3, "ccccc"); // Inserts (3, "ccccc"), returns [].
+> os.insert(1, "aaaaa"); // Inserts (1, "aaaaa"), returns ["aaaaa"].
+> os.insert(2, "bbbbb"); // Inserts (2, "bbbbb"), returns ["bbbbb", "ccccc"].
+> os.insert(5, "eeeee"); // Inserts (5, "eeeee"), returns [].
+> os.insert(4, "ddddd"); // Inserts (4, "ddddd"), returns ["ddddd", "eeeee"].
+> // Concatentating all the chunks returned:
+> // [] + ["aaaaa"] + ["bbbbb", "ccccc"] + [] + ["ddddd", "eeeee"] = ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"]
+> // The resulting order is the same as the order above.
+> ```
+
+### 🧩 Approach
+
+To design the ordered stream, we can use a list to store the values corresponding to their IDs. We will maintain a pointer that keeps track of the next ID that we need to return in order. When a new `(idKey, value)` pair is inserted, we will store the value at the index corresponding to `idKey - 1` in the list. After inserting the new value, we will check if the value at the current pointer index is available (not `None`). If it is available, we will keep moving the pointer forward until we find a `None` value or reach the end of the list. We will then return the chunk of values from the original pointer position to the new pointer position.
+
+### 💡 Solution
+
+```python
+from typing import Optional, List
+
+class OrderedStream:
+
+    def __init__(self, n: int):
+        """Constructs the stream to take n values.
+
+        Args:
+            n (int): The number of values the stream can take.
+
+        Returns:
+            None
+        """
+        self._ptr: int = 0
+        self._data: List[Optional[str]] = [None] * n
+
+
+    def insert(self, idKey: int, value: str) -> List[str]:
+        """Inserts the pair (idKey, value) into the stream, then returns the largest possible chunk of currently inserted values that appear next in the order.
+
+        Args:
+            idKey (int): The ID key of the value to be inserted.
+            value (str): The value to be inserted.
+
+        Returns:
+            List[str]: The largest possible chunk of currently inserted values that appear next in the order.
+        """
+        idx: int = idKey - 1
+        self._data[idx] = value
+
+        if idx != self._ptr:
+            return []
+
+        n = len(self._data)
+
+        while self._ptr < n and self._data[self._ptr]:
+            self._ptr += 1
+
+        return self._data[idx:self._ptr]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `insert`: `O(1)`for inserting a value, but `O(n)` in the worst case when all values are inserted in order and we need to return a chunk of size `n`.
+- Space Complexity: `O(n)` for storing the values in the stream.
+
+---
+
+## 3242. Design Neighbor Sum Service
+
+- **LeetCode Link:** [Design Neighbor Sum Service](https://leetcode.com/problems/design-neighbor-sum-service/)
+- **Difficulty:** Easy
+- **Topic(s):** Design
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> You are given a `n x n` 2D array `grid` containing distinct elements in the range `[0, n2 - 1]`.
+>
+> Implement the `NeighborSum` class:
+>
+> - `NeighborSum(int [][]grid)` initializes the object.
+> - `int adjacentSum(int value)` returns the sum of elements which are adjacent neighbors of `value`, that is either to the top, left, right, or bottom of `value` in `grid`.
+> - `int diagonalSum(int value)` returns the sum of elements which are diagonal neighbors of `value`, that is either to the top-left, top-right, bottom-left, or bottom-right of `value` in `grid`.
+>
+> ![neighbor-sum-service](../images/leetcode/3242.png)
+>
+> Example 1:
+>
+> ![neighbor-sum-service-example-1](../images/leetcode/3242_ex1.png)
+>
+> ```txt
+> Input:
+>
+> ["NeighborSum", "adjacentSum", "adjacentSum", "diagonalSum", "diagonalSum"]
+>
+> [[[[0, 1, 2], [3, 4, 5], [6, 7, 8]]], [1], [4], [4], [8]]
+>
+> Output: [null, 6, 16, 16, 4]
+>
+> Explanation:
+>
+> - The adjacent neighbors of 1 are 0, 2, and 4.
+> - The adjacent neighbors of 4 are 1, 3, 5, and 7.
+> - The diagonal neighbors of 4 are 0, 2, 6, and 8.
+> - The diagonal neighbor of 8 is 4.
+> ```
+>
+> Example 2:
+>
+> ![neighbor-sum-service-example-2](../images/leetcode/3242_ex2.png)
+>
+> ```txt
+> Input:
+>
+> ["NeighborSum", "adjacentSum", "diagonalSum"]
+>
+> [[[[1, 2, 0, 3], [4, 7, 15, 6], [8, 9, 10, 11], [12, 13, 14, 5]]], [15], [9]]
+>
+> Output: [null, 23, 45]
+>
+> Explanation:
+>
+> - The adjacent neighbors of 15 are 0, 10, 7, and 6.
+> - The diagonal neighbors of 9 are 4, 12, 14, and 15.
+> ```
+
+### 🧩 Approach
+
+Use a lookup table (hash map) to store the coordinates of each value in the grid for O(1) access. For both `adjacentSum` and `diagonalSum`, we can define the relative positions of the neighbors and iterate through them to calculate the sum, while ensuring that we stay within the bounds of the grid.
+
+### 💡 Solution
+
+```python
+from typing import List, Tuple
+
+class NeighborSum:
+
+    def __init__(self, grid: List[List[int]]):
+        self._grid: List[List[int]] = grid
+        self._R: int = len(grid)
+        self._C: int = len(grid[0])
+        self._lookup: dict[int, Tuple[int, int]] = {}
+
+        for x in range(self._R):
+            for y in range(self._C):
+                self._lookup[grid[x][y]] = (x, y)
+
+
+    def adjacentSum(self, value: int) -> int:
+        x, y = self._lookup[value]
+
+        total: int = 0
+        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            nx: int = x + dx
+            ny: int = y + dy
+
+            if 0 <= nx < self._R and 0 <= ny < self._C:
+                total += self._grid[nx][ny]
+
+        return total
+
+    def diagonalSum(self, value: int) -> int:
+        x, y = self._lookup[value]
+
+        total: int = 0
+        for dx, dy in [(-1, -1), (1, 1), (1, -1), (-1, 1)]:
+            nx: int = x + dx
+            ny: int = y + dy
+
+            if 0 <= nx < self._R and 0 <= ny < self._C:
+                total += self._grid[nx][ny]
+
+        return total
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `adjacentSum`: `O(1)` since we only check 4 adjacent neighbors.
+  - `diagonalSum`: `O(1)` since we only check 4 diagonal neighbors.
+- Space Complexity: `O(n^2)` for storing the grid and lookup table.
