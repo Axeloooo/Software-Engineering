@@ -1297,7 +1297,7 @@ class OrderedStream:
 
         n = len(self._data)
 
-        while self._ptr < n and self._data[self._ptr]:
+        while self._ptr < n and self._data[self._ptr] is not None:
             self._ptr += 1
 
         return self._data[idx:self._ptr]
