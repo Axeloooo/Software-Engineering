@@ -432,11 +432,6 @@ class KthLargest:
 
 ### 🧮 Complexity Analysis
 
-- Time Complexity:
-  - `__init__`: `O(n log n)` due to heapifying the initial list and maintaining the heap size.
-  - `add`: `O(log n)` for adding an element to the heap and maintaining its size.
-- Space Complexity: `O(n)` for storing the k largest elements in the heap.
-
 ---
 
 ## 705. Design HashSet
@@ -701,7 +696,7 @@ class MyHashMap:
 
 ### 🧩 Approach
 
-To Do Later
+To count the number of recent requests within a certain time frame, we can use a queue (specifically, a deque) to store the timestamps of the requests. When a new request is added using the `ping` method, we will add its timestamp to the back of the queue. Then, we will remove any timestamps from the front of the queue that are outside the range of `[t - 3000, t]`. Finally, we can return the size of the queue, which will represent the number of requests that have happened in the past 3000 milliseconds.
 
 ### 💡 Solution
 
