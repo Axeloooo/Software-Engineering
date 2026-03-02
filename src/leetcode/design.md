@@ -4,6 +4,7 @@
 
 ## Table of Contents
 
+- [146. LRU Cache](#146-lru-cache)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
@@ -14,6 +15,117 @@
 - [1603. Design Parking System](#1603-design-parking-system)
 - [1656. Design an Ordered Stream](#1656-design-an-ordered-stream)
 - [3242. Design Neighbor Sum Service](#3242-design-neighbor-sum-service)
+
+---
+
+## 146. LRU Cache
+
+- **LeetCode Link:** [LRU Cache](https://leetcode.com/problems/lru-cache/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Hash Table, Linked List
+- **Company:** Twitch
+
+### 🧠 Problem Statement
+
+Design a data structure that follows the constraints of a [Least Recently Used (LRU) cache](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU).
+
+Implement the `LRUCache` class:
+
+- `LRUCache(int capacity)` Initialize the LRU cache with positive size `capacity`.
+- `int get(int key)` Return the value of the `key` if the key exists, otherwise return `-1`.
+- `void put(int key, int value)` Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, evict the least recently used key.
+
+The functions `get` and `put` must each run in `O(1)` average time complexity.
+
+Example 1:
+
+```txt
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+Explanation
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // cache is {1=1}
+lRUCache.put(2, 2); // cache is {1=1, 2=2}
+lRUCache.get(1);    // return 1
+lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2);    // returns -1 (not found)
+lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+lRUCache.get(1);    // return -1 (not found)
+lRUCache.get(3);    // return 3
+lRUCache.get(4);    // return 4
+```
+
+### 🧩 Approach
+
+To implement an LRU Cache, we can use a combination of a hash map and a doubly linked list. The hash map will allow us to access the cache items in `O(1)` time, while the doubly linked list will help us maintain the order of usage of the cache items. The most recently used item will be at the end of the list, and the least recently used item will be at the beginning of the list. When we access an item, we will move it to the end of the list to mark it as most recently used. When we need to evict an item due to capacity constraints, we will remove the item at the beginning of the list, which is the least recently used item.
+
+### 💡 Solution
+
+```python
+from typing import Optional, Dict
+
+class Node:
+
+    def __init__(self, key: int, value: int):
+        self.key: int = key
+        self.value: int = value
+        self.prev: Optional[Node] = None
+        self.next: Optional[Node] = None
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self._capacity: int = capacity
+        self._hashmap: Dict[int, Node] = {}
+        self._left: Node = Node(0, 0)
+        self._right: Node = Node(0, 0)
+        self._left.next = self._right
+        self._right.prev = self._left
+
+    def _insert(self, node: Node) -> None:
+        prev: Node = self._right.prev
+        nxt: Node = self._right
+        prev.next = node
+        nxt.prev = node
+        node.prev = prev
+        node.next = nxt
+
+    def _remove(self, node: Node) -> None:
+        prev: Node = node.prev
+        nxt: Node = node.next
+        prev.next = nxt
+        nxt.prev = prev
+
+    def get(self, key: int) -> int:
+        if key in self._hashmap:
+            self._remove(self._hashmap[key])
+            self._insert(self._hashmap[key])
+            return self._hashmap[key].value
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self._hashmap:
+            self._remove(self._hashmap[key])
+        self._hashmap[key] = Node(key, value)
+        self._insert(self._hashmap[key])
+
+        if len(self._hashmap) > self._capacity:
+            lru: Node = self._left.next
+            self._remove(lru)
+            del self._hashmap[lru.key]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `get`: `O(1)`
+  - `put`: `O(1)`
+- Space Complexity: `O(n)` where `n` is the capacity of the cache.
 
 ---
 
@@ -497,7 +609,7 @@ from typing import Optional, List
 
 class ListNode:
 
-    def __init__(self, key):
+    def __init__(self, key: int):
         """Initializes a ListNode with the given key.
 
         Args:
@@ -625,7 +737,7 @@ from typing import Optional, List
 
 class ListNode:
 
-    def __init__(self, key, value):
+    def __init__(self, key: int, value: int):
         self.key: int = key
         self.value: int = value
         self.next: Optional[ListNode] = None
