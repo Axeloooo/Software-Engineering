@@ -303,6 +303,7 @@ class NumArray:
         Returns:
             None
         """
+        self._prefix: list[int] = []
         cur: int = 0
         for n in nums:
             cur += n
