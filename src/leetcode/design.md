@@ -4,6 +4,9 @@
 
 ## Table of Contents
 
+- [146. LRU Cache](#146-lru-cache)
+- [155. Min Stack](#155-min-stack)
+- [173. Binary Search Tree Iterator](#173-binary-search-tree-iterator)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
@@ -12,6 +15,409 @@
 - [706. Design HashMap](#706-design-hashmap)
 - [933. Number of Recent Calls](#933-number-of-recent-calls)
 - [1603. Design Parking System](#1603-design-parking-system)
+- [1656. Design an Ordered Stream](#1656-design-an-ordered-stream)
+- [3242. Design Neighbor Sum Service](#3242-design-neighbor-sum-service)
+
+---
+
+## 146. LRU Cache
+
+- **LeetCode Link:** [LRU Cache](https://leetcode.com/problems/lru-cache/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Hash Table, Linked List
+- **Company:** Twitch
+
+### 🧠 Problem Statement
+
+Design a data structure that follows the constraints of a [Least Recently Used (LRU) cache](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU).
+
+Implement the `LRUCache` class:
+
+- `LRUCache(int capacity)` Initialize the LRU cache with positive size `capacity`.
+- `int get(int key)` Return the value of the `key` if the key exists, otherwise return `-1`.
+- `void put(int key, int value)` Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, evict the least recently used key.
+
+The functions `get` and `put` must each run in `O(1)` average time complexity.
+
+Example 1:
+
+```txt
+Input
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+
+Output
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+Explanation
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // cache is {1=1}
+lRUCache.put(2, 2); // cache is {1=1, 2=2}
+lRUCache.get(1);    // return 1
+lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2);    // returns -1 (not found)
+lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {4=4, 3=3}
+lRUCache.get(1);    // return -1 (not found)
+lRUCache.get(3);    // return 3
+lRUCache.get(4);    // return 4
+```
+
+### 🧩 Approach
+
+To implement an LRU Cache, we can use a combination of a hash map and a doubly linked list. The hash map will allow us to access the cache items in `O(1)` time, while the doubly linked list will help us maintain the order of usage of the cache items. The most recently used item will be at the end of the list, and the least recently used item will be at the beginning of the list. When we access an item, we will move it to the end of the list to mark it as most recently used. When we need to evict an item due to capacity constraints, we will remove the item at the beginning of the list, which is the least recently used item.
+
+### 💡 Solution
+
+```python
+from typing import Optional, Dict
+
+class Node:
+
+    def __init__(self, key: int, value: int):
+        """Initializes a Node with the given key and value.
+
+        Args:
+            key (int): The key associated with the node.
+            value (int): The value associated with the node.
+
+        Returns:
+            None
+        """
+        self.key: int = key
+        self.value: int = value
+        self.prev: Optional[Node] = None
+        self.next: Optional[Node] = None
+
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        """Initializes the LRUCache object with the given capacity.
+
+        Args:
+            capacity (int): The maximum number of items that the cache can hold.
+
+        Returns:
+            None
+        """
+        self._capacity: int = capacity
+        self._hashmap: Dict[int, Node] = {}
+        self._left: Node = Node(0, 0)
+        self._right: Node = Node(0, 0)
+        self._left.next = self._right
+        self._right.prev = self._left
+
+    def _insert(self, node: Node) -> None:
+        """Inserts a node at the end of the doubly linked list (right before the right dummy node).
+
+        Args:
+            node (Node): The node to be inserted into the list.
+
+        Returns:
+            None
+        """
+        prev: Node = self._right.prev
+        nxt: Node = self._right
+        prev.next = node
+        nxt.prev = node
+        node.prev = prev
+        node.next = nxt
+
+    def _remove(self, node: Node) -> None:
+        """Removes a node from the doubly linked list.
+
+        Args:
+            node (Node): The node to be removed from the list.
+
+        Returns:
+            None
+        """
+        prev: Node = node.prev
+        nxt: Node = node.next
+        prev.next = nxt
+        nxt.prev = prev
+
+    def get(self, key: int) -> int:
+        """Returns the value of the key if the key exists, otherwise returns -1.
+
+        Args:
+            key (int): The key to be accessed in the cache.
+
+        Returns:
+            int: The value associated with the key if it exists, otherwise -1.
+        """
+        if key in self._hashmap:
+            self._remove(self._hashmap[key])
+            self._insert(self._hashmap[key])
+            return self._hashmap[key].value
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        """Updates the value of the key if the key exists. Otherwise, adds the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evicts the least recently used key.
+
+        Args:
+            key (int): The key to be added or updated in the cache.
+            value (int): The value to be associated with the key.
+
+        Returns:
+            None
+        """
+        if key in self._hashmap:
+            self._remove(self._hashmap[key])
+        self._hashmap[key] = Node(key, value)
+        self._insert(self._hashmap[key])
+
+        if len(self._hashmap) > self._capacity:
+            lru: Node = self._left.next
+            self._remove(lru)
+            del self._hashmap[lru.key]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `get`: `O(1)`
+  - `put`: `O(1)`
+- Space Complexity: `O(n)` where `n` is the capacity of the cache.
+
+---
+
+## 155. Min Stack
+
+- **LeetCode Link:** [Min Stack](https://leetcode.com/problems/min-stack/)
+- **Difficulty:** Easy
+- **Topic(s):** Design, Stack
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+>
+> Implement the `MinStack` class:
+>
+> - `MinStack()` initializes the stack object.
+> - `void push(int val)` pushes the element `val` onto the stack.
+> - `void pop()` removes the element on the top of the stack.
+> - `int top()` gets the top element of the stack.
+> - `int getMin()` retrieves the minimum element in the stack.
+>
+> You must implement a solution with `O(1)` time complexity for each function.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["MinStack","push","push","push","getMin","pop","top","getMin"]
+> [[],[-2],[0],[-3],[],[],[],[]]
+>
+> Output
+> [null,null,null,null,-3,null,0,-2]
+>
+> Explanation
+> MinStack minStack = new MinStack();
+> minStack.push(-2);
+> minStack.push(0);
+> minStack.push(-3);
+> minStack.getMin(); // return -3
+> minStack.pop();
+> minStack.top();    // return 0
+> minStack.getMin(); // return -2
+> ```
+
+### 🧩 Approach
+
+To implement a stack that supports retrieving the minimum element in constant time, we can use two stacks. The first stack will be used to store all the elements of the stack, while the second stack will be used to keep track of the minimum elements. Whenever we push a new element onto the main stack, we compare it with the current minimum (the top of the minimum stack). If the new element is smaller than or equal to the current minimum, we also push it onto the minimum stack. When we pop an element from the main stack, if that element is the same as the current minimum, we also pop it from the minimum stack. This way, the top of the minimum stack will always represent the minimum element in the main stack.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class MinStack:
+
+    def __init__(self):
+        self._stack: List[int] = []
+        self._minStack: List[int] = []
+
+    def push(self, val: int) -> None:
+        """Pushes an element onto the stack and updates the minimum stack if necessary.
+
+        Args:
+            val (int): The value to be pushed onto the stack.
+
+        Returns:
+            None
+        """
+        self._stack.append(val)
+        val: int = min(val, self._minStack[-1] if self._minStack else val)
+        self._minStack.append(val)
+
+    def pop(self) -> None:
+        """Removes the element on the top of the stack and updates the minimum stack if necessary.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self._stack.pop()
+        self._minStack.pop()
+
+    def top(self) -> int:
+        """Returns the top element of the stack.
+
+        Args:
+            None
+
+        Returns:
+            int: The element at the top of the stack.
+        """
+        return self._stack[-1]
+
+    def getMin(self) -> int:
+        """Retrieves the minimum element in the stack.
+
+        Args:
+            None
+
+        Returns:
+            int: The minimum element in the stack.
+        """
+        return self._minStack[-1]
+```
+
+## 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `push`: `O(1)`
+  - `pop`: `O(1)`
+  - `top`: `O(1)`
+  - `getMin`: `O(1)`
+- Space Complexity: `O(n)` where `n` is the number of elements in the stack.
+
+---
+
+## 173. Binary Search Tree Iterator
+
+- **LeetCode Link:** [Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Tree, Stack
+- **Company:** Meta
+
+### 🧠 Problem Statement
+
+> Implement the `BSTIterator` class that represents an iterator over the [in-order traversal](<https://en.wikipedia.org/wiki/Tree_traversal#In-order_(LNR)>) of a binary search tree (BST):
+>
+> - `BSTIterator(TreeNode root)` Initializes an object of the `BSTIterator` class. The `root` of the BST is given as part of the constructor. The pointer should be initialized to a non-existent number smaller than any element in the BST.
+> - `boolean hasNext()` Returns `true` if there exists a number in the traversal to the right of the pointer, otherwise returns `false`.
+> - `int next()` Moves the pointer to the right, then returns the number at the pointer.
+>
+> Notice that by initializing the pointer to a non-existent smallest number, the first call to `next()` will return the smallest element in the BST.
+>
+> You may assume that `next()` calls will always be valid. That is, there will be at least a next number in the in-order traversal when `next()` is called.
+>
+> Example 1:
+>
+> ![173](../images/leetcode/173.png)
+>
+> ```txt
+> Input
+> ["BSTIterator", "next", "next", "hasNext", "next", "hasNext", "next", "hasNext", "next", "hasNext"]
+> [[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+>
+> Output
+> [null, 3, 7, true, 9, true, 15, true, 20, false]
+>
+> Explanation
+> BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
+> bSTIterator.next();    // return 3
+> bSTIterator.next();    // return 7
+> bSTIterator.hasNext(); // return True
+> bSTIterator.next();    // return 9
+> bSTIterator.hasNext(); // return True
+> bSTIterator.next();    // return 15
+> bSTIterator.hasNext(); // return True
+> bSTIterator.next();    // return 20
+> bSTIterator.hasNext(); // return False
+> ```
+
+### 🧩 Approach
+
+To implement the `BSTIterator`, we can use a stack to simulate the in-order traversal of the binary search tree. The idea is to push all the left children of the current node onto the stack until we reach a leaf node. When we call `next()`, we pop the top node from the stack, which will be the next smallest element in the BST. After popping a node, we need to consider its right child and push all of its left children onto the stack as well. This way, we maintain the invariant that the top of the stack always contains the next smallest element in the BST.
+
+### 💡 Solution
+
+```python
+from typing import Optional, List
+
+class TreeNode:
+
+    def __init__(self, val=0, left=None, right=None):
+        """Initializes a TreeNode with the given value and optional left and right children.
+
+        Args:
+            val (int): The value of the node. Default is 0.
+            left (Optional[TreeNode]): The left child of the node. Default is None.
+            right (Optional[TreeNode]): The right child of the node. Default is None.
+
+        Returns:
+            None
+        """
+        self.val: int = val
+        self.left: Optional[TreeNode] = left
+        self.right: Optional[TreeNode] = right
+
+class BSTIterator:
+
+    def __init__(self, root: Optional[TreeNode]):
+        """Initializes the BSTIterator object with the given root of the binary search tree.
+
+        Args:
+            root (Optional[TreeNode]): The root of the binary search tree.
+
+        Returns:
+            None
+        """
+        self._stack: List[TreeNode] = []
+        while root:
+            self._stack.append(root)
+            root = root.left
+
+    def next(self) -> int:
+        """Moves the pointer to the right, then returns the number at the pointer.
+
+        Args:
+            None
+
+        Returns:
+            int: The next number in the in-order traversal of the BST.
+        """
+        res: TreeNode = self._stack.pop()
+        cur: TreeNode = res.right
+        while cur:
+            self._stack.append(cur)
+            cur = cur.left
+        return res.val
+
+    def hasNext(self) -> bool:
+        """Returns whether there exists a number in the traversal to the right of the pointer.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if there exists a next number in the in-order traversal, False otherwise.
+        """
+        return self._stack != []
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `next`: `O(1)` amortized
+  - `hasNext`: `O(1)`
+
+- Space Complexity: `O(h)` where `h` is the height of the binary search tree.
 
 ---
 
@@ -495,7 +901,7 @@ from typing import Optional, List
 
 class ListNode:
 
-    def __init__(self, key):
+    def __init__(self, key: int):
         """Initializes a ListNode with the given key.
 
         Args:
@@ -623,7 +1029,7 @@ from typing import Optional, List
 
 class ListNode:
 
-    def __init__(self, key, value):
+    def __init__(self, key: int, value: int):
         self.key: int = key
         self.value: int = value
         self.next: Optional[ListNode] = None
@@ -805,3 +1211,241 @@ class ParkingSystem:
 - Space Complexity: `O(1)` for storing the available slots for each car type.
 
 ---
+
+## 1656. Design an Ordered Stream
+
+- **LeetCode Link:** [Design an Ordered Stream](https://leetcode.com/problems/design-an-ordered-stream/)
+- **Difficulty:** Easy
+- **Topic(s):** Design
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> There is a stream of `n` `(idKey, value)` pairs arriving in an arbitrary order, where `idKey` is an integer between `1` and `n` and `value` is a string. No two pairs have the same `id`.
+>
+> Design a stream that returns the values in increasing order of their IDs by returning a chunk (list) of values after each insertion. The concatenation of all the chunks should result in a list of the sorted values.
+>
+> Implement the `OrderedStream` class:
+>
+> - `OrderedStream(int n)` Constructs the stream to take `n` values.
+> - `String[] insert(int idKey, String value)` Inserts the pair `(idKey, value)` into the stream, then returns the largest possible chunk of currently inserted values that appear next in the order.
+>
+> Example:
+>
+> ![ordered-stream](../images/leetcode/1656.gif)
+>
+> ```txt
+> Input
+> ["OrderedStream", "insert", "insert", "insert", "insert", "insert"]
+> [[5], [3, "ccccc"], [1, "aaaaa"], [2, "bbbbb"], [5, "eeeee"], [4, "ddddd"]]
+>
+> Output
+> [null, [], ["aaaaa"], ["bbbbb", "ccccc"], [], ["ddddd", "eeeee"]]
+>
+> Explanation
+> // Note that the values ordered by ID is ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"].
+> OrderedStream os = new OrderedStream(5);
+> os.insert(3, "ccccc"); // Inserts (3, "ccccc"), returns [].
+> os.insert(1, "aaaaa"); // Inserts (1, "aaaaa"), returns ["aaaaa"].
+> os.insert(2, "bbbbb"); // Inserts (2, "bbbbb"), returns ["bbbbb", "ccccc"].
+> os.insert(5, "eeeee"); // Inserts (5, "eeeee"), returns [].
+> os.insert(4, "ddddd"); // Inserts (4, "ddddd"), returns ["ddddd", "eeeee"].
+> // Concatenating all the chunks returned:
+> // [] + ["aaaaa"] + ["bbbbb", "ccccc"] + [] + ["ddddd", "eeeee"] = ["aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee"]
+> // The resulting order is the same as the order above.
+> ```
+
+### 🧩 Approach
+
+To design the ordered stream, we can use a list to store the values corresponding to their IDs. We will maintain a pointer that keeps track of the next ID that we need to return in order. When a new `(idKey, value)` pair is inserted, we will store the value at the index corresponding to `idKey - 1` in the list. After inserting the new value, we will check if the value at the current pointer index is available (not `None`). If it is available, we will keep moving the pointer forward until we find a `None` value or reach the end of the list. We will then return the chunk of values from the original pointer position to the new pointer position.
+
+### 💡 Solution
+
+```python
+from typing import Optional, List
+
+class OrderedStream:
+
+    def __init__(self, n: int):
+        """Constructs the stream to take n values.
+
+        Args:
+            n (int): The number of values the stream can take.
+
+        Returns:
+            None
+        """
+        self._ptr: int = 0
+        self._data: List[Optional[str]] = [None] * n
+
+
+    def insert(self, idKey: int, value: str) -> List[str]:
+        """Inserts the pair (idKey, value) into the stream, then returns the largest possible chunk of currently inserted values that appear next in the order.
+
+        Args:
+            idKey (int): The ID key of the value to be inserted.
+            value (str): The value to be inserted.
+
+        Returns:
+            List[str]: The largest possible chunk of currently inserted values that appear next in the order.
+        """
+        idx: int = idKey - 1
+        self._data[idx] = value
+
+        if idx != self._ptr:
+            return []
+
+        n = len(self._data)
+
+        while self._ptr < n and self._data[self._ptr] is not None:
+            self._ptr += 1
+
+        return self._data[idx:self._ptr]
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `insert`: `O(1)` for inserting a value, but `O(n)` in the worst case when all values are inserted in order and we need to return a chunk of size `n`.
+- Space Complexity: `O(n)` for storing the values in the stream.
+
+---
+
+## 3242. Design Neighbor Sum Service
+
+- **LeetCode Link:** [Design Neighbor Sum Service](https://leetcode.com/problems/design-neighbor-sum-service/)
+- **Difficulty:** Easy
+- **Topic(s):** Design
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> You are given a `n x n` 2D array `grid` containing distinct elements in the range `[0, n^2 - 1]`.
+>
+> Implement the `NeighborSum` class:
+>
+> - `NeighborSum(int [][]grid)` initializes the object.
+> - `int adjacentSum(int value)` returns the sum of elements which are adjacent neighbors of `value`, that is either to the top, left, right, or bottom of `value` in `grid`.
+> - `int diagonalSum(int value)` returns the sum of elements which are diagonal neighbors of `value`, that is either to the top-left, top-right, bottom-left, or bottom-right of `value` in `grid`.
+>
+> ![neighbor-sum-service](../images/leetcode/3242.png)
+>
+> Example 1:
+>
+> ![neighbor-sum-service-example-1](../images/leetcode/3242_ex1.png)
+>
+> ```txt
+> Input:
+>
+> ["NeighborSum", "adjacentSum", "adjacentSum", "diagonalSum", "diagonalSum"]
+>
+> [[[[0, 1, 2], [3, 4, 5], [6, 7, 8]]], [1], [4], [4], [8]]
+>
+> Output: [null, 6, 16, 16, 4]
+>
+> Explanation:
+>
+> - The adjacent neighbors of 1 are 0, 2, and 4.
+> - The adjacent neighbors of 4 are 1, 3, 5, and 7.
+> - The diagonal neighbors of 4 are 0, 2, 6, and 8.
+> - The diagonal neighbor of 8 is 4.
+> ```
+>
+> Example 2:
+>
+> ![neighbor-sum-service-example-2](../images/leetcode/3242_ex2.png)
+>
+> ```txt
+> Input:
+>
+> ["NeighborSum", "adjacentSum", "diagonalSum"]
+>
+> [[[[1, 2, 0, 3], [4, 7, 15, 6], [8, 9, 10, 11], [12, 13, 14, 5]]], [15], [9]]
+>
+> Output: [null, 23, 45]
+>
+> Explanation:
+>
+> - The adjacent neighbors of 15 are 0, 10, 7, and 6.
+> - The diagonal neighbors of 9 are 4, 12, 14, and 15.
+> ```
+
+### 🧩 Approach
+
+Use a lookup table (hash map) to store the coordinates of each value in the grid for O(1) access. For both `adjacentSum` and `diagonalSum`, we can define the relative positions of the neighbors and iterate through them to calculate the sum, while ensuring that we stay within the bounds of the grid.
+
+### 💡 Solution
+
+```python
+from typing import List, Tuple
+
+class NeighborSum:
+
+    def __init__(self, grid: List[List[int]]):
+        """Initializes the NeighborSum object with the given 2D array grid.
+
+        Args:
+            grid (List[List[int]]): The 2D array containing distinct elements.
+
+        Returns:
+            None
+        """
+        self._grid: List[List[int]] = grid
+        self._R: int = len(grid)
+        self._C: int = len(grid[0])
+        self._lookup: dict[int, Tuple[int, int]] = {}
+
+        for x in range(self._R):
+            for y in range(self._C):
+                self._lookup[grid[x][y]] = (x, y)
+
+
+    def adjacentSum(self, value: int) -> int:
+        """Returns the sum of elements which are adjacent neighbors of value, that is either to the top, left, right, or bottom of value in grid.
+
+        Args:
+            value (int): The value for which to calculate the adjacent sum.
+
+        Returns:
+            int: The sum of adjacent neighbors of the given value.
+        """
+        x, y = self._lookup[value]
+
+        total: int = 0
+        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            nx: int = x + dx
+            ny: int = y + dy
+
+            if 0 <= nx < self._R and 0 <= ny < self._C:
+                total += self._grid[nx][ny]
+
+        return total
+
+    def diagonalSum(self, value: int) -> int:
+        """Returns the sum of elements which are diagonal neighbors of value, that is either to the top-left, top-right, bottom-left, or bottom-right of value in grid.
+
+        Args:
+            value (int): The value for which to calculate the diagonal sum.
+
+        Returns:
+            int: The sum of diagonal neighbors of the given value.
+        """
+        x, y = self._lookup[value]
+
+        total: int = 0
+        for dx, dy in [(-1, -1), (1, 1), (1, -1), (-1, 1)]:
+            nx: int = x + dx
+            ny: int = y + dy
+
+            if 0 <= nx < self._R and 0 <= ny < self._C:
+                total += self._grid[nx][ny]
+
+        return total
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `adjacentSum`: `O(1)` since we only check 4 adjacent neighbors.
+  - `diagonalSum`: `O(1)` since we only check 4 diagonal neighbors.
+- Space Complexity: `O(n^2)` for storing the grid and lookup table.
