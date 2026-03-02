@@ -1320,7 +1320,7 @@ class OrderedStream:
 
 ### 🧠 Problem Statement
 
-> You are given a `n x n` 2D array `grid` containing distinct elements in the range `[0, n2 - 1]`.
+> You are given a `n x n` 2D array `grid` containing distinct elements in the range `[0, n^2 - 1]`.
 >
 > Implement the `NeighborSum` class:
 >
