@@ -1008,7 +1008,7 @@ class PeekingIterator:
             None
         """
         self.__iterator: Iterator = iterator
-        self.__cache: int | None = None
+        self.__cache: int = None
         self.__peekCache()
 
     def __peekCache(self) -> None:
