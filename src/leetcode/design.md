@@ -11,6 +11,7 @@
 - [211. Design Add and Search Words Data Structure](#211-design-add-and-search-words-data-structure)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
+- [284. Peeking Iterator](#284-peeking-iterator)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
@@ -915,6 +916,157 @@ class MyQueue:
   - `peek`: `O(1)` amortized
   - `empty`: `O(1)`
 - Space Complexity: `O(n)`
+
+---
+
+## 284. Peeking Iterator
+
+- **LeetCode Link:** [Peeking Iterator](https://leetcode.com/problems/peeking-iterator/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Iterator
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> Design an iterator that supports the `peek` operation on an existing iterator in addition to the `hasNext` and the `next` operations.
+>
+> Implement the `PeekingIterator` class:
+>
+> - `PeekingIterator(Iterator<int> nums)` Initializes the object with the given integer iterator `iterator`.
+> - `int next()` Returns the next element in the array and moves the pointer to the next element.
+> - `boolean hasNext()` Returns `true` if there are still elements in the array.
+> - `int peek()` Returns the next element in the array without moving the pointer.
+>
+> Note: Each language may have a different implementation of the constructor and `Iterator`, but they all support the int `next()` and `boolean hasNext()` functions.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["PeekingIterator", "next", "peek", "next", "next", "hasNext"]
+> [[[1, 2, 3]], [], [], [], [], []]
+> Output
+> [null, 1, 2, 2, 3, false]
+>
+> Explanation
+> PeekingIterator peekingIterator = new PeekingIterator([1, 2, 3]); // [1,2,3]
+> peekingIterator.next(); // return 1, the pointer moves to the next element [1,2,3].
+> peekingIterator.peek(); // return 2, the pointer does not move [1,2,3].
+> peekingIterator.next(); // return 2, the pointer moves to the next element [1,2,3]
+> peekingIterator.next(); // return 3, the pointer moves to the next element [1,2,3]
+> peekingIterator.hasNext(); // return False
+> ```
+
+### 🧩 Approach
+
+To implement the `PeekingIterator`, we can maintain a cache to store the next element of the iterator. This way, we can return the next element in constant time when `peek()` is called without advancing the iterator. When `next()` is called, we can return the cached value and then update the cache with the next element from the iterator. The `hasNext()` method can simply check if there is a cached value available.
+
+### 💡 Solution
+
+```python
+# Below is the interface for Iterator, which is already defined for you.
+#
+# class Iterator:
+#     def __init__(self, nums):
+#         """Initializes an iterator object to the beginning of a list.
+#
+#         Args:
+#             nums (List[int]): The list of integers to iterate over.
+#
+#         Returns:
+#             None
+#         """
+#
+#     def hasNext(self):
+#         """Returns true if the iteration has more elements.
+#
+#         Args:
+#             None
+#
+#         Returns:
+#             bool: True if there are more elements to iterate over, False otherwise.
+#         """
+#
+#     def next(self):
+#         """Returns the next element in the iteration.
+#
+#         Args:
+#             None
+#         Returns:
+#             int: The next element in the iteration.
+#         """
+
+class PeekingIterator:
+    def __init__(self, iterator):
+        """Initializes the PeekingIterator with the given iterator.
+
+        Args:
+            iterator (Iterator): The input iterator to be wrapped by the PeekingIterator.
+
+        Returns:
+            None
+        """
+        self._iterator: Iterator = iterator
+        self.__cache: int | None = None
+        self.__peekCache()
+
+    def __peekCache(self) -> None:
+        """Updates the cache with the next element from the iterator if it exists, otherwise sets it to None.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        if self._iterator.hasNext():
+            self.__cache = self._iterator.next()
+        else:
+            self.__cache = None
+
+    def peek(self):
+        """Returns the next element in the array without moving the pointer.
+
+        Args:
+            None
+
+        Returns:
+            int: The next element in the array.
+        """
+        return self.__cache
+
+    def next(self) -> int:
+        """Returns the next element in the array and moves the pointer to the next element.
+
+        Args:
+            None
+
+        Returns:
+            int: The next element in the array.
+        """
+        peek: int = self.__cache
+        self.__peekCache()
+        return peek
+
+    def hasNext(self) -> bool:
+        """Returns true if there are still elements in the array.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if there are still elements in the array, False otherwise.
+        """
+        return self.__cache is not None
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `peek`: `O(1)`
+  - `next`: `O(1)`
+  - `hasNext`: `O(1)`
+- Space Complexity: `O(1)`
 
 ---
 
