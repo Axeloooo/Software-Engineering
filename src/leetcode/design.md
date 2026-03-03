@@ -13,6 +13,7 @@
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [284. Peeking Iterator](#284-peeking-iterator)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
+- [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
@@ -1152,6 +1153,106 @@ class NumArray:
   - `__init__`: `O(n)` for preprocessing the prefix sum array.
   - `sumRange`: `O(1)` for each query after preprocessing.
 - Space Complexity: `O(n)`
+
+---
+
+## 304. Range Sum Query 2D - Immutable
+
+- **LeetCode Link:** [Range Sum Query 2D - Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Array, Prefix Sum
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given a 2D matrix `matrix`, handle multiple queries of the following type:
+>
+> - Calculate the sum of the elements of `matrix` inside the rectangle defined by its upper left corner `(row1, col1)` and lower right corner `(row2, col2)`.
+>
+> Implement the NumMatrix class:
+>
+> - `NumMatrix(int[][] matrix)` Initializes the object with the integer matrix `matrix`.
+> - `int sumRegion(int row1, int col1, int row2, int col2)` Returns the sum of the elements of `matrix` inside the rectangle defined by its upper left corner `(row1, col1)` and lower right corner `(row2, col2)`.
+>
+> You must design an algorithm where `sumRegion` works on `O(1)` time complexity.
+>
+> Example 1:
+>
+> ![Example1](../images/leetcode/304.jpg)
+>
+> ```txt
+> Input
+> ["NumMatrix", "sumRegion", "sumRegion", "sumRegion"]
+> [[[[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]], [2, 1, 4, 3], [1, 1, 2, 2], [1, 2, 2, 4]]
+>
+> Output
+> [null, 8, 11, 12]
+>
+> Explanation
+> NumMatrix numMatrix = new NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]);
+> numMatrix.sumRegion(2, 1, 4, 3); // return 8 (i.e sum of the red rectangle)
+> numMatrix.sumRegion(1, 1, 2, 2); // return 11 (i.e sum of the green rectangle)
+> numMatrix.sumRegion(1, 2, 2, 4); // return 12 (i.e sum of the blue rectangle)
+> ```
+
+### 🧩 Approach
+
+To efficiently calculate the sum of elements in a given rectangular region of a 2D matrix, we can use a 2D prefix sum matrix. The prefix sum matrix allows us to compute the sum of any submatrix in constant time after an initial preprocessing step. The idea is to create a prefix sum matrix where each element at index `(i, j)` contains the sum of all elements from the top-left corner of the original matrix up to index `(i, j)`. Then, to calculate the sum of elements in the rectangle defined by `(row1, col1)` and `(row2, col2)`, we can use the inclusion-exclusion principle to combine the relevant prefix sums.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        """Initializes the NumMatrix object with the given 2D integer matrix.
+
+        Args:
+            matrix (List[List[int]]): The input 2D integer matrix.
+
+        Returns:
+            None
+        """
+        R, C = len(matrix), len(matrix[0])
+        self.__sumMat: List[List[int]] = [[0] * (C + 1) for _ in range(R + 1)]
+
+        for r in range(R):
+            prefix: int = 0
+            for c in range(C):
+                prefix += matrix[r][c]
+                above: int = self.__sumMat[r][c + 1]
+                self.__sumMat[r + 1][c + 1] = prefix + above
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        """Returns the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+
+        Args:
+            row1 (int): The row index of the upper left corner of the rectangle.
+            col1 (int): The column index of the upper left corner of the rectangle.
+            row2 (int): The row index of the lower right corner of the rectangle.
+            col2 (int): The column index of the lower right corner of the rectangle.
+
+        Returns:
+            int: The sum of the elements in the specified rectangle.
+        """
+        row1, col1, row2, col2 = row1 + 1, col1 + 1, row2 + 1, col2 + 1
+
+        bottomRight: int = self.__sumMat[row2][col2]
+        above: int = self.__sumMat[row1 - 1][col2]
+        left: int = self.__sumMat[row2][col1 - 1]
+        topLeft: int = self.__sumMat[row1 - 1][col1 - 1]
+
+        return bottomRight - above - left + topLeft
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(R * C)` for preprocessing the prefix sum matrix.
+  - `sumRegion`: `O(1)` for each query after preprocessing.
+- Space Complexity: `O(R * C)` for storing the prefix sum matrix.
 
 ---
 
