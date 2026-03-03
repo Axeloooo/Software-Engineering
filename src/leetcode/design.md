@@ -102,14 +102,14 @@ class LRUCache:
         Returns:
             None
         """
-        self._capacity: int = capacity
-        self._hashmap: Dict[int, Node] = {}
-        self._left: Node = Node(0, 0)
-        self._right: Node = Node(0, 0)
-        self._left.next = self._right
-        self._right.prev = self._left
+        self.__capacity: int = capacity
+        self.__hashmap: Dict[int, Node] = {}
+        self.__left: Node = Node(0, 0)
+        self.__right: Node = Node(0, 0)
+        self.__left.next = self.__right
+        self.__right.prev = self.__left
 
-    def _insert(self, node: Node) -> None:
+    def __insert(self, node: Node) -> None:
         """Inserts a node at the end of the doubly linked list (right before the right dummy node).
 
         Args:
@@ -118,14 +118,14 @@ class LRUCache:
         Returns:
             None
         """
-        prev: Node = self._right.prev
-        nxt: Node = self._right
+        prev: Node = self.__right.prev
+        nxt: Node = self.__right
         prev.next = node
         nxt.prev = node
         node.prev = prev
         node.next = nxt
 
-    def _remove(self, node: Node) -> None:
+    def __remove(self, node: Node) -> None:
         """Removes a node from the doubly linked list.
 
         Args:
@@ -148,10 +148,10 @@ class LRUCache:
         Returns:
             int: The value associated with the key if it exists, otherwise -1.
         """
-        if key in self._hashmap:
-            self._remove(self._hashmap[key])
-            self._insert(self._hashmap[key])
-            return self._hashmap[key].value
+        if key in self.__hashmap:
+            self.__remove(self.__hashmap[key])
+            self.__insert(self.__hashmap[key])
+            return self.__hashmap[key].value
         return -1
 
     def put(self, key: int, value: int) -> None:
@@ -164,15 +164,15 @@ class LRUCache:
         Returns:
             None
         """
-        if key in self._hashmap:
-            self._remove(self._hashmap[key])
-        self._hashmap[key] = Node(key, value)
-        self._insert(self._hashmap[key])
+        if key in self.__hashmap:
+            self.__remove(self.__hashmap[key])
+        self.__hashmap[key] = Node(key, value)
+        self.__insert(self.__hashmap[key])
 
-        if len(self._hashmap) > self._capacity:
-            lru: Node = self._left.next
-            self._remove(lru)
-            del self._hashmap[lru.key]
+        if len(self.__hashmap) > self.__capacity:
+            lru: Node = self.__left.next
+            self.__remove(lru)
+            del self.__hashmap[lru.key]
 ```
 
 ### 🧮 Complexity Analysis
@@ -238,8 +238,8 @@ from typing import List
 class MinStack:
 
     def __init__(self):
-        self._stack: List[int] = []
-        self._minStack: List[int] = []
+        self.__stack: List[int] = []
+        self.__minStack: List[int] = []
 
     def push(self, val: int) -> None:
         """Pushes an element onto the stack and updates the minimum stack if necessary.
@@ -250,9 +250,9 @@ class MinStack:
         Returns:
             None
         """
-        self._stack.append(val)
-        val: int = min(val, self._minStack[-1] if self._minStack else val)
-        self._minStack.append(val)
+        self.__stack.append(val)
+        val: int = min(val, self.__minStack[-1] if self.__minStack else val)
+        self.__minStack.append(val)
 
     def pop(self) -> None:
         """Removes the element on the top of the stack and updates the minimum stack if necessary.
@@ -263,8 +263,8 @@ class MinStack:
         Returns:
             None
         """
-        self._stack.pop()
-        self._minStack.pop()
+        self.__stack.pop()
+        self.__minStack.pop()
 
     def top(self) -> int:
         """Returns the top element of the stack.
@@ -275,7 +275,7 @@ class MinStack:
         Returns:
             int: The element at the top of the stack.
         """
-        return self._stack[-1]
+        return self.__stack[-1]
 
     def getMin(self) -> int:
         """Retrieves the minimum element in the stack.
@@ -286,7 +286,7 @@ class MinStack:
         Returns:
             int: The minimum element in the stack.
         """
-        return self._minStack[-1]
+        return self.__minStack[-1]
 ```
 
 ## 🧮 Complexity Analysis
@@ -381,9 +381,9 @@ class BSTIterator:
         Returns:
             None
         """
-        self._stack: List[TreeNode] = []
+        self.__stack: List[TreeNode] = []
         while root:
-            self._stack.append(root)
+            self.__stack.append(root)
             root = root.left
 
     def next(self) -> int:
@@ -395,10 +395,10 @@ class BSTIterator:
         Returns:
             int: The next number in the in-order traversal of the BST.
         """
-        res: TreeNode = self._stack.pop()
+        res: TreeNode = self.__stack.pop()
         cur: TreeNode = res.right
         while cur:
-            self._stack.append(cur)
+            self.__stack.append(cur)
             cur = cur.left
         return res.val
 
@@ -411,7 +411,7 @@ class BSTIterator:
         Returns:
             bool: True if there exists a next number in the in-order traversal, False otherwise.
         """
-        return self._stack != []
+        return self.__stack != []
 ```
 
 ### 🧮 Complexity Analysis
@@ -482,8 +482,8 @@ class TrieNode:
         Returns:
             None
         """
-        self._children: Dict[str, TrieNode] = {}
-        self._endOfWord: bool = False
+        self.__children: Dict[str, TrieNode] = {}
+        self.__endOfWord: bool = False
 
 class Trie:
 
@@ -496,7 +496,7 @@ class Trie:
         Returns:
             None
         """
-        self._root = TrieNode()
+        self.__root = TrieNode()
 
     def insert(self, word: str) -> None:
         """Inserts the string word into the trie.
@@ -507,12 +507,12 @@ class Trie:
         Returns:
             None
         """
-        cur: TrieNode = self._root
+        cur: TrieNode = self.__root
         for c in word:
-            if c not in cur._children:
-                cur._children[c] = TrieNode()
-            cur = cur._children[c]
-        cur._endOfWord = True
+            if c not in cur.__children:
+                cur.__children[c] = TrieNode()
+            cur = cur.__children[c]
+        cur.__endOfWord = True
 
     def search(self, word: str) -> bool:
         """Returns true if the string word is in the trie, and false otherwise.
@@ -523,12 +523,12 @@ class Trie:
         Returns:
             bool: True if the string is in the trie, False otherwise.
         """
-        cur: TrieNode = self._root
+        cur: TrieNode = self.__root
         for c in word:
-            if c not in cur._children:
+            if c not in cur.__children:
                 return False
-            cur = cur._children[c]
-        return cur._endOfWord
+            cur = cur.__children[c]
+        return cur.__endOfWord
 
     def startsWith(self, prefix: str) -> bool:
         """Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
@@ -539,11 +539,11 @@ class Trie:
         Returns:
             bool: True if there is a string in the trie that starts with the prefix, False otherwise.
         """
-        cur: TrieNode = self._root
+        cur: TrieNode = self.__root
         for c in prefix:
-            if c not in cur._children:
+            if c not in cur.__children:
                 return False
-            cur = cur._children[c]
+            cur = cur.__children[c]
         return True
 ```
 
@@ -615,8 +615,8 @@ class TrieNode:
         Returns:
             None
         """
-        self._children: Dict[str, TrieNode] = {}
-        self._endOfWord: bool = False
+        self.__children: Dict[str, TrieNode] = {}
+        self.__endOfWord: bool = False
 
 class WordDictionary:
 
@@ -629,7 +629,7 @@ class WordDictionary:
         Returns:
             None
         """
-        self._root = TrieNode()
+        self.__root = TrieNode()
 
     def addWord(self, word: str) -> None:
         """Adds word to the data structure, it can be matched later.
@@ -640,12 +640,12 @@ class WordDictionary:
         Returns:
             None
         """
-        cur: TrieNode = self._root
+        cur: TrieNode = self.__root
         for c in word:
-            if c not in cur._children:
-                cur._children[c] = TrieNode()
-            cur = cur._children[c]
-        cur._endOfWord = True
+            if c not in cur.__children:
+                cur.__children[c] = TrieNode()
+            cur = cur.__children[c]
+        cur.__endOfWord = True
 
     def search(self, word: str) -> bool:
         """Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
@@ -661,16 +661,16 @@ class WordDictionary:
             for i in range(j, len(word)):
                 c: str = word[i]
                 if c == ".":
-                    for child in cur._children.values():
+                    for child in cur.__children.values():
                         if dfs(i + 1, child):
                             return True
                     return False
                 else:
-                    if c not in cur._children:
+                    if c not in cur.__children:
                         return False
-                    cur = cur._children[c]
-            return cur._endOfWord
-        return dfs(0, self._root)
+                    cur = cur.__children[c]
+            return cur.__endOfWord
+        return dfs(0, self.__root)
 ```
 
 ### 🧮 Complexity Analysis
@@ -737,7 +737,7 @@ class MyStack:
 
     def __init__(self):
         """Initializes an empty stack."""
-        self._q: deque[int] = deque()
+        self.__q: deque[int] = deque()
 
     def push(self, x: int) -> None:
         """Pushes an element onto the top of the stack.
@@ -748,7 +748,7 @@ class MyStack:
         Returns:
             None
         """
-        self._q.append(x)
+        self.__q.append(x)
 
     def pop(self) -> int:
         """Removes and returns the top element of the stack.
@@ -759,9 +759,9 @@ class MyStack:
         Returns:
             int: The element removed from the top of the stack.
         """
-        for _ in range(len(self._q) - 1):
-            self._q.append(self._q.popleft())
-        return self._q.popleft()
+        for _ in range(len(self.__q) - 1):
+            self.__q.append(self.__q.popleft())
+        return self.__q.popleft()
 
 
     def top(self) -> int:
@@ -773,7 +773,7 @@ class MyStack:
         Returns:
             int: The element at the top of the stack.
         """
-        return self._q[-1]
+        return self.__q[-1]
 
 
     def empty(self) -> bool:
@@ -785,7 +785,7 @@ class MyStack:
         Returns:
             bool: True if the stack is empty, False otherwise.
         """
-        return not self._q
+        return not self.__q
 ```
 
 ### 🧮 Complexity Analysis
@@ -854,8 +854,8 @@ class MyQueue:
 
     def __init__(self):
         """Initializes an empty queue using two stacks."""
-        self._s1: List[int] = []
-        self._s2: List[int] = []
+        self.__s1: List[int] = []
+        self.__s2: List[int] = []
 
     def push(self, x: int) -> None:
         """Pushes an element to the back of the queue.
@@ -866,7 +866,7 @@ class MyQueue:
         Returns:
             None
         """
-        self._s1.append(x)
+        self.__s1.append(x)
 
     def pop(self) -> int:
         """Removes and returns the front element of the queue.
@@ -877,10 +877,10 @@ class MyQueue:
         Returns:
             int: The element removed from the front of the queue.
         """
-        if not self._s2:
-            while self._s1:
-                self._s2.append(self._s1.pop())
-        return self._s2.pop()
+        if not self.__s2:
+            while self.__s1:
+                self.__s2.append(self.__s1.pop())
+        return self.__s2.pop()
 
     def peek(self) -> int:
         """Returns the front element of the queue without removing it.
@@ -891,10 +891,10 @@ class MyQueue:
         Returns:
             int: The element at the front of the queue.
         """
-        if not self._s2:
-            while self._s1:
-                self._s2.append(self._s1.pop())
-        return self._s2[-1]
+        if not self.__s2:
+            while self.__s1:
+                self.__s2.append(self.__s1.pop())
+        return self.__s2[-1]
 
     def empty(self) -> bool:
         """Checks whether the queue is empty.
@@ -905,7 +905,7 @@ class MyQueue:
         Returns:
             bool: True if the queue is empty, False otherwise.
         """
-        return max(len(self._s1), len(self._s2)) == 0
+        return max(len(self.__s1), len(self.__s2)) == 0
 ```
 
 ### 🧮 Complexity Analysis
@@ -1006,7 +1006,7 @@ class PeekingIterator:
         Returns:
             None
         """
-        self._iterator: Iterator = iterator
+        self.__iterator: Iterator = iterator
         self.__cache: int | None = None
         self.__peekCache()
 
@@ -1019,8 +1019,8 @@ class PeekingIterator:
         Returns:
             None
         """
-        if self._iterator.hasNext():
-            self.__cache = self._iterator.next()
+        if self.__iterator.hasNext():
+            self.__cache = self.__iterator.next()
         else:
             self.__cache = None
 
@@ -1125,11 +1125,11 @@ class NumArray:
         Returns:
             None
         """
-        self._prefix: List[int] = []
+        self.__prefix: List[int] = []
         cur: int = 0
         for n in nums:
             cur += n
-            self._prefix.append(cur)
+            self.__prefix.append(cur)
 
     def sumRange(self, left: int, right: int) -> int:
         """Returns the sum of the elements of nums between indices left and right inclusive.
@@ -1141,8 +1141,8 @@ class NumArray:
         Returns:
             int: The sum of the elements in the specified range.
         """
-        rightSum: int = self._prefix[right]
-        leftSum: int = self._prefix[left - 1] if left > 0 else 0
+        rightSum: int = self.__prefix[right]
+        leftSum: int = self.__prefix[left - 1] if left > 0 else 0
         return rightSum - leftSum
 ```
 
@@ -1233,11 +1233,11 @@ class KthLargest:
         Returns:
             None
         """
-        self._minHeap: List[int] = nums
-        self._k: int = k
-        heapq.heapify(self._minHeap)
-        while len(self._minHeap) > k:
-            heapq.heappop(self._minHeap)
+        self.__minHeap: List[int] = nums
+        self.__k: int = k
+        heapq.heapify(self.__minHeap)
+        while len(self.__minHeap) > k:
+            heapq.heappop(self.__minHeap)
 
     def add(self, val: int) -> int:
         """Adds a new test score val to the stream and returns the element representing the kth largest element in the pool of test scores so far.
@@ -1248,10 +1248,10 @@ class KthLargest:
         Returns:
             int: The kth largest element in the stream after adding the new score.
         """
-        heapq.heappush(self._minHeap, val)
-        if len(self._minHeap) > self._k:
-            heapq.heappop(self._minHeap)
-        return self._minHeap[0]
+        heapq.heappush(self.__minHeap, val)
+        if len(self.__minHeap) > self.__k:
+            heapq.heappop(self.__minHeap)
+        return self.__minHeap[0]
 ```
 
 ### 🧮 Complexity Analysis
@@ -1329,7 +1329,7 @@ class MyHashSet:
 
     def __init__(self):
         """Initializes an empty HashSet."""
-        self._set: List[ListNode] = [ListNode(0) for _ in range(10**4)]
+        self.__set: List[ListNode] = [ListNode(0) for _ in range(10**4)]
 
     def add(self, key: int) -> None:
         """Inserts the value key into the HashSet.
@@ -1340,7 +1340,7 @@ class MyHashSet:
         Returns:
             None
         """
-        cur: ListNode = self._set[key % len(self._set)]
+        cur: ListNode = self.__set[key % len(self.__set)]
         while cur.next:
             if cur.next.key == key:
                 return None
@@ -1356,7 +1356,7 @@ class MyHashSet:
         Returns:
             None
         """
-        cur: ListNode = self._set[key % len(self._set)]
+        cur: ListNode = self.__set[key % len(self.__set)]
         while cur.next:
             if cur.next.key == key:
                 cur.next = cur.next.next
@@ -1372,7 +1372,7 @@ class MyHashSet:
         Returns:
             bool: True if the value exists in the HashSet, False otherwise.
         """
-        cur: ListNode = self._set[key % len(self._set)]
+        cur: ListNode = self.__set[key % len(self.__set)]
         while cur.next:
             if cur.next.key == key:
                 return True
@@ -1449,10 +1449,10 @@ class ListNode:
 class MyHashMap:
 
     def __init__(self):
-        self._map: List[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
+        self.__map: List[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
 
     def put(self, key: int, value: int) -> None:
-        cur: ListNode = self._map[key % len(self._map)]
+        cur: ListNode = self.__map[key % len(self.__map)]
         while cur.next:
             if cur.next.key == key:
                 cur.next.value = value
@@ -1461,7 +1461,7 @@ class MyHashMap:
         cur.next = ListNode(key, value)
 
     def get(self, key: int) -> int:
-        cur: ListNode = self._map[key % len(self._map)]
+        cur: ListNode = self.__map[key % len(self.__map)]
         while cur.next:
             if cur.next.key == key:
                 return cur.next.value
@@ -1469,7 +1469,7 @@ class MyHashMap:
         return -1
 
     def remove(self, key: int) -> None:
-        cur: ListNode = self._map[key % len(self._map)]
+        cur: ListNode = self.__map[key % len(self.__map)]
         while cur.next:
             if cur.next.key == key:
                 cur.next = cur.next.next
@@ -1536,7 +1536,7 @@ class RecentCounter:
 
     def __init__(self):
         """Initializes the RecentCounter object with zero recent requests."""
-        self._requests: deque[int] = deque()
+        self.__requests: deque[int] = deque()
 
     def ping(self, t: int) -> int:
         """Adds a new request at time t and returns the number of requests that has happened in the past 3000 milliseconds.
@@ -1547,10 +1547,10 @@ class RecentCounter:
         Returns:
             int: The number of requests that have happened in the inclusive range [t - 3000, t].
         """
-        self._requests.append(t)
-        while self._requests and self._requests[0] < t - 3000:
-            self._requests.popleft()
-        return len(self._requests)
+        self.__requests.append(t)
+        while self.__requests and self.__requests[0] < t - 3000:
+            self.__requests.popleft()
+        return len(self.__requests)
 ```
 
 ### 🧮 Complexity Analysis
@@ -1607,11 +1607,11 @@ from typing import List
 class ParkingSystem:
 
     def __init__(self, big: int, medium: int, small: int):
-        self._spaces: List[int] = [big, medium, small]
+        self.__spaces: List[int] = [big, medium, small]
 
     def addCar(self, carType: int) -> bool:
-        if self._spaces[carType - 1] > 0:
-            self._spaces[carType - 1] -= 1
+        if self.__spaces[carType - 1] > 0:
+            self.__spaces[carType - 1] -= 1
             return True
         return False
 ```
@@ -1687,8 +1687,8 @@ class OrderedStream:
         Returns:
             None
         """
-        self._ptr: int = 0
-        self._data: List[Optional[str]] = [None] * n
+        self.__ptr: int = 0
+        self.__data: List[Optional[str]] = [None] * n
 
 
     def insert(self, idKey: int, value: str) -> List[str]:
@@ -1702,17 +1702,17 @@ class OrderedStream:
             List[str]: The largest possible chunk of currently inserted values that appear next in the order.
         """
         idx: int = idKey - 1
-        self._data[idx] = value
+        self.__data[idx] = value
 
-        if idx != self._ptr:
+        if idx != self.__ptr:
             return []
 
-        n = len(self._data)
+        n = len(self.__data)
 
-        while self._ptr < n and self._data[self._ptr] is not None:
-            self._ptr += 1
+        while self.__ptr < n and self.__data[self.__ptr] is not None:
+            self.__ptr += 1
 
-        return self._data[idx:self._ptr]
+        return self.__data[idx:self.__ptr]
 ```
 
 ### 🧮 Complexity Analysis
@@ -1802,14 +1802,14 @@ class NeighborSum:
         Returns:
             None
         """
-        self._grid: List[List[int]] = grid
-        self._R: int = len(grid)
-        self._C: int = len(grid[0])
-        self._lookup: dict[int, Tuple[int, int]] = {}
+        self.__grid: List[List[int]] = grid
+        self.__R: int = len(grid)
+        self.__C: int = len(grid[0])
+        self.__lookup: dict[int, Tuple[int, int]] = {}
 
-        for x in range(self._R):
-            for y in range(self._C):
-                self._lookup[grid[x][y]] = (x, y)
+        for x in range(self.__R):
+            for y in range(self.__C):
+                self.__lookup[grid[x][y]] = (x, y)
 
 
     def adjacentSum(self, value: int) -> int:
@@ -1821,15 +1821,15 @@ class NeighborSum:
         Returns:
             int: The sum of adjacent neighbors of the given value.
         """
-        x, y = self._lookup[value]
+        x, y = self.__lookup[value]
 
         total: int = 0
         for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
             nx: int = x + dx
             ny: int = y + dy
 
-            if 0 <= nx < self._R and 0 <= ny < self._C:
-                total += self._grid[nx][ny]
+            if 0 <= nx < self.__R and 0 <= ny < self.__C:
+                total += self.__grid[nx][ny]
 
         return total
 
@@ -1842,15 +1842,15 @@ class NeighborSum:
         Returns:
             int: The sum of diagonal neighbors of the given value.
         """
-        x, y = self._lookup[value]
+        x, y = self.__lookup[value]
 
         total: int = 0
         for dx, dy in [(-1, -1), (1, 1), (1, -1), (-1, 1)]:
             nx: int = x + dx
             ny: int = y + dy
 
-            if 0 <= nx < self._R and 0 <= ny < self._C:
-                total += self._grid[nx][ny]
+            if 0 <= nx < self.__R and 0 <= ny < self.__C:
+                total += self.__grid[nx][ny]
 
         return total
 ```
