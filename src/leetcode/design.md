@@ -8,6 +8,7 @@
 - [155. Min Stack](#155-min-stack)
 - [173. Binary Search Tree Iterator](#173-binary-search-tree-iterator)
 - [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
+- [211. Design Add and Search Words Data Structure](#211-design-add-and-search-words-data-structure)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
@@ -552,6 +553,131 @@ class Trie:
   - `search`: `O(m)` where `m` is the length of the word being searched.
   - `startsWith`: `O(m)` where `m` is the length of the prefix being searched.
 - Space Complexity: `O(n * m)` where `n` is the number of words inserted into the trie and `m` is the average length of the words. In the worst case, if all words are unique and have no common prefixes, the space complexity can be `O(n * m)`. However, if many words share common prefixes, the space complexity can be significantly reduced.
+
+---
+
+## 211. Design Add and Search Words Data Structure
+
+- **LeetCode Link:** [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Trie, Backtracking
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> Design a data structure that supports adding new words and finding if a string matches any previously added string.
+>
+> Implement the `WordDictionary` class:
+>
+> - `WordDictionary()` Initializes the object.
+> - `void addWord(word)` Adds `word` to the data structure, it can be matched later.
+> - `bool search(word)` Returns `true` if there is any string in the data structure that matches `word` or `false` otherwise. `word` may contain dots `'.'` where dots can be matched with any letter.
+>
+> Example:
+>
+> ```txt
+> Input
+> ["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+> [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+>
+> Output
+> [null,null,null,null,false,true,true,true]
+>
+> Explanation
+> WordDictionary wordDictionary = new WordDictionary();
+> wordDictionary.addWord("bad");
+> wordDictionary.addWord("dad");
+> wordDictionary.addWord("mad");
+> wordDictionary.search("pad"); // return False
+> wordDictionary.search("bad"); // return True
+> wordDictionary.search(".ad"); // return True
+> wordDictionary.search("b.."); // return True
+> ```
+
+### 🧩 Approach
+
+To implement the `WordDictionary`, we can use a Trie (Prefix Tree) data structure to store the added words. The `addWord` method will insert words into the trie, while the `search` method will perform a depth-first search (DFS) to handle the case where the search word may contain dots `'.'`. When we encounter a dot in the search word, we need to explore all possible child nodes at that position in the trie. If we reach the end of the search word and find a node that marks the end of a valid word, we return `true`. If we exhaust all possibilities without finding a match, we return `false`.
+
+### 💡 Solution
+
+```python
+from typing import Dict
+
+class TrieNode:
+
+    def __init__(self):
+        """Initializes a TrieNode with an empty dictionary of children and a boolean flag to indicate the end of a word.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self._children: Dict[str, TrieNode] = {}
+        self._endOfWord: bool = False
+
+class WordDictionary:
+
+    def __init__(self):
+        """Initializes the WordDictionary object.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self._root = TrieNode()
+
+    def addWord(self, word: str) -> None:
+        """Adds word to the data structure, it can be matched later.
+
+        Args:
+            word (str): The word to be added to the data structure.
+
+        Returns:
+            None
+        """
+        cur: TrieNode = self._root
+        for c in word:
+            if c not in cur._children:
+                cur._children[c] = TrieNode()
+            cur = cur._children[c]
+        cur._endOfWord = True
+
+    def search(self, word: str) -> bool:
+        """Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+
+        Args:
+            word (str): The word to be searched in the data structure. It may contain dots '.'.
+
+        Returns:
+            bool: True if there is a string in the data structure that matches the word, False otherwise.
+        """
+        def dfs(j, root):
+            cur: TrieNode = root
+            for i in range(j, len(word)):
+                c: str = word[i]
+                if c == ".":
+                    for child in cur._children.values():
+                        if dfs(i + 1, child):
+                            return True
+                    return False
+                else:
+                    if c not in cur._children:
+                        return False
+                    cur = cur._children[c]
+            return cur._endOfWord
+        return dfs(0, self._root)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `addWord`: `O(m)` where `m` is the length of the word being added.
+  - `search`: In the worst case, if the search word contains only dots, the time complexity can be `O(n * m)` where `n` is the number of words in the data structure and `m` is the average length of the words. However, if there are fewer dots and more specific characters, the time complexity can be significantly reduced.
+- Space Complexity: `O(n * m)` where `n` is the number of words added to the data structure and `m` is the average length of the words. In the worst case, if all words are unique and have no common prefixes, the space complexity can be `O(n * m)`. However, if many words share common prefixes, the space complexity can be significantly reduced.
 
 ---
 
