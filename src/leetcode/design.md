@@ -483,8 +483,8 @@ class TrieNode:
         Returns:
             None
         """
-        self.__children: Dict[str, TrieNode] = {}
-        self.__endOfWord: bool = False
+        self.children: Dict[str, TrieNode] = {}
+        self.endOfWord: bool = False
 
 class Trie:
 
@@ -510,10 +510,10 @@ class Trie:
         """
         cur: TrieNode = self.__root
         for c in word:
-            if c not in cur.__children:
-                cur.__children[c] = TrieNode()
-            cur = cur.__children[c]
-        cur.__endOfWord = True
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
 
     def search(self, word: str) -> bool:
         """Returns true if the string word is in the trie, and false otherwise.
@@ -526,10 +526,10 @@ class Trie:
         """
         cur: TrieNode = self.__root
         for c in word:
-            if c not in cur.__children:
+            if c not in cur.children:
                 return False
-            cur = cur.__children[c]
-        return cur.__endOfWord
+            cur = cur.children[c]
+        return cur.endOfWord
 
     def startsWith(self, prefix: str) -> bool:
         """Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
@@ -542,9 +542,9 @@ class Trie:
         """
         cur: TrieNode = self.__root
         for c in prefix:
-            if c not in cur.__children:
+            if c not in cur.children:
                 return False
-            cur = cur.__children[c]
+            cur = cur.children[c]
         return True
 ```
 
@@ -616,8 +616,8 @@ class TrieNode:
         Returns:
             None
         """
-        self.__children: Dict[str, TrieNode] = {}
-        self.__endOfWord: bool = False
+        self.children: Dict[str, TrieNode] = {}
+        self.endOfWord: bool = False
 
 class WordDictionary:
 
@@ -643,10 +643,10 @@ class WordDictionary:
         """
         cur: TrieNode = self.__root
         for c in word:
-            if c not in cur.__children:
-                cur.__children[c] = TrieNode()
-            cur = cur.__children[c]
-        cur.__endOfWord = True
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
 
     def search(self, word: str) -> bool:
         """Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
@@ -662,15 +662,15 @@ class WordDictionary:
             for i in range(j, len(word)):
                 c: str = word[i]
                 if c == ".":
-                    for child in cur.__children.values():
+                    for child in cur.children.values():
                         if dfs(i + 1, child):
                             return True
                     return False
                 else:
-                    if c not in cur.__children:
+                    if c not in cur.children:
                         return False
-                    cur = cur.__children[c]
-            return cur.__endOfWord
+                    cur = cur.children[c]
+            return cur.endOfWord
         return dfs(0, self.__root)
 ```
 
