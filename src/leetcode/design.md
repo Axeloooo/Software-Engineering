@@ -7,9 +7,13 @@
 - [146. LRU Cache](#146-lru-cache)
 - [155. Min Stack](#155-min-stack)
 - [173. Binary Search Tree Iterator](#173-binary-search-tree-iterator)
+- [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
+- [211. Design Add and Search Words Data Structure](#211-design-add-and-search-words-data-structure)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
+- [284. Peeking Iterator](#284-peeking-iterator)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
+- [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
@@ -99,14 +103,14 @@ class LRUCache:
         Returns:
             None
         """
-        self._capacity: int = capacity
-        self._hashmap: Dict[int, Node] = {}
-        self._left: Node = Node(0, 0)
-        self._right: Node = Node(0, 0)
-        self._left.next = self._right
-        self._right.prev = self._left
+        self.__capacity: int = capacity
+        self.__hashmap: Dict[int, Node] = {}
+        self.__left: Node = Node(0, 0)
+        self.__right: Node = Node(0, 0)
+        self.__left.next = self.__right
+        self.__right.prev = self.__left
 
-    def _insert(self, node: Node) -> None:
+    def __insert(self, node: Node) -> None:
         """Inserts a node at the end of the doubly linked list (right before the right dummy node).
 
         Args:
@@ -115,14 +119,14 @@ class LRUCache:
         Returns:
             None
         """
-        prev: Node = self._right.prev
-        nxt: Node = self._right
+        prev: Node = self.__right.prev
+        nxt: Node = self.__right
         prev.next = node
         nxt.prev = node
         node.prev = prev
         node.next = nxt
 
-    def _remove(self, node: Node) -> None:
+    def __remove(self, node: Node) -> None:
         """Removes a node from the doubly linked list.
 
         Args:
@@ -145,10 +149,10 @@ class LRUCache:
         Returns:
             int: The value associated with the key if it exists, otherwise -1.
         """
-        if key in self._hashmap:
-            self._remove(self._hashmap[key])
-            self._insert(self._hashmap[key])
-            return self._hashmap[key].value
+        if key in self.__hashmap:
+            self.__remove(self.__hashmap[key])
+            self.__insert(self.__hashmap[key])
+            return self.__hashmap[key].value
         return -1
 
     def put(self, key: int, value: int) -> None:
@@ -161,15 +165,15 @@ class LRUCache:
         Returns:
             None
         """
-        if key in self._hashmap:
-            self._remove(self._hashmap[key])
-        self._hashmap[key] = Node(key, value)
-        self._insert(self._hashmap[key])
+        if key in self.__hashmap:
+            self.__remove(self.__hashmap[key])
+        self.__hashmap[key] = Node(key, value)
+        self.__insert(self.__hashmap[key])
 
-        if len(self._hashmap) > self._capacity:
-            lru: Node = self._left.next
-            self._remove(lru)
-            del self._hashmap[lru.key]
+        if len(self.__hashmap) > self.__capacity:
+            lru: Node = self.__left.next
+            self.__remove(lru)
+            del self.__hashmap[lru.key]
 ```
 
 ### 🧮 Complexity Analysis
@@ -235,8 +239,8 @@ from typing import List
 class MinStack:
 
     def __init__(self):
-        self._stack: List[int] = []
-        self._minStack: List[int] = []
+        self.__stack: List[int] = []
+        self.__minStack: List[int] = []
 
     def push(self, val: int) -> None:
         """Pushes an element onto the stack and updates the minimum stack if necessary.
@@ -247,9 +251,9 @@ class MinStack:
         Returns:
             None
         """
-        self._stack.append(val)
-        val: int = min(val, self._minStack[-1] if self._minStack else val)
-        self._minStack.append(val)
+        self.__stack.append(val)
+        val: int = min(val, self.__minStack[-1] if self.__minStack else val)
+        self.__minStack.append(val)
 
     def pop(self) -> None:
         """Removes the element on the top of the stack and updates the minimum stack if necessary.
@@ -260,8 +264,8 @@ class MinStack:
         Returns:
             None
         """
-        self._stack.pop()
-        self._minStack.pop()
+        self.__stack.pop()
+        self.__minStack.pop()
 
     def top(self) -> int:
         """Returns the top element of the stack.
@@ -272,7 +276,7 @@ class MinStack:
         Returns:
             int: The element at the top of the stack.
         """
-        return self._stack[-1]
+        return self.__stack[-1]
 
     def getMin(self) -> int:
         """Retrieves the minimum element in the stack.
@@ -283,7 +287,7 @@ class MinStack:
         Returns:
             int: The minimum element in the stack.
         """
-        return self._minStack[-1]
+        return self.__minStack[-1]
 ```
 
 ## 🧮 Complexity Analysis
@@ -378,9 +382,9 @@ class BSTIterator:
         Returns:
             None
         """
-        self._stack: List[TreeNode] = []
+        self.__stack: List[TreeNode] = []
         while root:
-            self._stack.append(root)
+            self.__stack.append(root)
             root = root.left
 
     def next(self) -> int:
@@ -392,10 +396,10 @@ class BSTIterator:
         Returns:
             int: The next number in the in-order traversal of the BST.
         """
-        res: TreeNode = self._stack.pop()
+        res: TreeNode = self.__stack.pop()
         cur: TreeNode = res.right
         while cur:
-            self._stack.append(cur)
+            self.__stack.append(cur)
             cur = cur.left
         return res.val
 
@@ -408,7 +412,7 @@ class BSTIterator:
         Returns:
             bool: True if there exists a next number in the in-order traversal, False otherwise.
         """
-        return self._stack != []
+        return self.__stack != []
 ```
 
 ### 🧮 Complexity Analysis
@@ -418,6 +422,264 @@ class BSTIterator:
   - `hasNext`: `O(1)`
 
 - Space Complexity: `O(h)` where `h` is the height of the binary search tree.
+
+---
+
+## 208. Implement Trie (Prefix Tree)
+
+- **LeetCode Link:** [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Trie
+- **Company:** Microsoft
+
+### 🧠 Problem Statement
+
+> A [trie](https://en.wikipedia.org/wiki/Trie) (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+>
+> Implement the Trie class:
+>
+> - `Trie()` Initializes the trie object.
+> - `void insert(String word)` Inserts the string `word` into the trie.
+> - `boolean search(String word)` Returns `true` if the string `word` is in the trie (i.e., was inserted before), and `false` otherwise.
+> - `boolean startsWith(String prefix)` Returns `true` if there is a previously inserted string `word` that has the prefix `prefix`, and `false` otherwise.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
+> [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+>
+> Output
+> [null, null, true, false, true, null, true]
+>
+> Explanation
+> Trie trie = new Trie();
+> trie.insert("apple");
+> trie.search("apple"); // return True
+> trie.search("app"); // return False
+> trie.startsWith("app"); // return True
+> trie.insert("app");
+> trie.search("app"); // return True
+> ```
+
+### 🧩 Approach
+
+To implement a Trie (Prefix Tree), we can define a `TrieNode` class that represents each node in the trie. Each `TrieNode` will contain a dictionary of its children nodes and a boolean flag to indicate whether it represents the end of a word. The `Trie` class will use the `TrieNode` to build the trie structure. The `insert` method will add words to the trie, the `search` method will check for the existence of a word, and the `startsWith` method will check for the existence of any word that starts with a given prefix.
+
+### 💡 Solution
+
+```python
+from typing import Dict
+
+class TrieNode:
+
+    def __init__(self):
+        """Initializes a TrieNode with an empty dictionary of children and a boolean flag to indicate the end of a word.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.children: Dict[str, TrieNode] = {}
+        self.endOfWord: bool = False
+
+class Trie:
+
+    def __init__(self):
+        """Initializes the Trie object.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.__root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        """Inserts the string word into the trie.
+
+        Args:
+            word (str): The string to be inserted into the trie.
+
+        Returns:
+            None
+        """
+        cur: TrieNode = self.__root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def search(self, word: str) -> bool:
+        """Returns true if the string word is in the trie, and false otherwise.
+
+        Args:
+            word (str): The string to be searched in the trie.
+
+        Returns:
+            bool: True if the string is in the trie, False otherwise.
+        """
+        cur: TrieNode = self.__root
+        for c in word:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return cur.endOfWord
+
+    def startsWith(self, prefix: str) -> bool:
+        """Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+
+        Args:
+            prefix (str): The prefix to be searched in the trie.
+
+        Returns:
+            bool: True if there is a string in the trie that starts with the prefix, False otherwise.
+        """
+        cur: TrieNode = self.__root
+        for c in prefix:
+            if c not in cur.children:
+                return False
+            cur = cur.children[c]
+        return True
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `insert`: `O(m)` where `m` is the length of the word being inserted.
+  - `search`: `O(m)` where `m` is the length of the word being searched.
+  - `startsWith`: `O(m)` where `m` is the length of the prefix being searched.
+- Space Complexity: `O(n * m)` where `n` is the number of words inserted into the trie and `m` is the average length of the words. In the worst case, if all words are unique and have no common prefixes, the space complexity can be `O(n * m)`. However, if many words share common prefixes, the space complexity can be significantly reduced.
+
+---
+
+## 211. Design Add and Search Words Data Structure
+
+- **LeetCode Link:** [Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Trie, Backtracking
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> Design a data structure that supports adding new words and finding if a string matches any previously added string.
+>
+> Implement the `WordDictionary` class:
+>
+> - `WordDictionary()` Initializes the object.
+> - `void addWord(word)` Adds `word` to the data structure, it can be matched later.
+> - `bool search(word)` Returns `true` if there is any string in the data structure that matches `word` or `false` otherwise. `word` may contain dots `'.'` where dots can be matched with any letter.
+>
+> Example:
+>
+> ```txt
+> Input
+> ["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+> [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+>
+> Output
+> [null,null,null,null,false,true,true,true]
+>
+> Explanation
+> WordDictionary wordDictionary = new WordDictionary();
+> wordDictionary.addWord("bad");
+> wordDictionary.addWord("dad");
+> wordDictionary.addWord("mad");
+> wordDictionary.search("pad"); // return False
+> wordDictionary.search("bad"); // return True
+> wordDictionary.search(".ad"); // return True
+> wordDictionary.search("b.."); // return True
+> ```
+
+### 🧩 Approach
+
+To implement the `WordDictionary`, we can use a Trie (Prefix Tree) data structure to store the added words. The `addWord` method will insert words into the trie, while the `search` method will perform a depth-first search (DFS) to handle the case where the search word may contain dots `'.'`. When we encounter a dot in the search word, we need to explore all possible child nodes at that position in the trie. If we reach the end of the search word and find a node that marks the end of a valid word, we return `true`. If we exhaust all possibilities without finding a match, we return `false`.
+
+### 💡 Solution
+
+```python
+from typing import Dict
+
+class TrieNode:
+
+    def __init__(self):
+        """Initializes a TrieNode with an empty dictionary of children and a boolean flag to indicate the end of a word.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.children: Dict[str, TrieNode] = {}
+        self.endOfWord: bool = False
+
+class WordDictionary:
+
+    def __init__(self):
+        """Initializes the WordDictionary object.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.__root = TrieNode()
+
+    def addWord(self, word: str) -> None:
+        """Adds word to the data structure, it can be matched later.
+
+        Args:
+            word (str): The word to be added to the data structure.
+
+        Returns:
+            None
+        """
+        cur: TrieNode = self.__root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.endOfWord = True
+
+    def search(self, word: str) -> bool:
+        """Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+
+        Args:
+            word (str): The word to be searched in the data structure. It may contain dots '.'.
+
+        Returns:
+            bool: True if there is a string in the data structure that matches the word, False otherwise.
+        """
+        def dfs(j, root):
+            cur: TrieNode = root
+            for i in range(j, len(word)):
+                c: str = word[i]
+                if c == ".":
+                    for child in cur.children.values():
+                        if dfs(i + 1, child):
+                            return True
+                    return False
+                else:
+                    if c not in cur.children:
+                        return False
+                    cur = cur.children[c]
+            return cur.endOfWord
+        return dfs(0, self.__root)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `addWord`: `O(m)` where `m` is the length of the word being added.
+  - `search`: In the worst case, if the search word contains only dots, the time complexity can be `O(n * m)` where `n` is the number of words in the data structure and `m` is the average length of the words. However, if there are fewer dots and more specific characters, the time complexity can be significantly reduced.
+- Space Complexity: `O(n * m)` where `n` is the number of words added to the data structure and `m` is the average length of the words. In the worst case, if all words are unique and have no common prefixes, the space complexity can be `O(n * m)`. However, if many words share common prefixes, the space complexity can be significantly reduced.
 
 ---
 
@@ -476,7 +738,7 @@ class MyStack:
 
     def __init__(self):
         """Initializes an empty stack."""
-        self._q: deque[int] = deque()
+        self.__q: deque[int] = deque()
 
     def push(self, x: int) -> None:
         """Pushes an element onto the top of the stack.
@@ -487,7 +749,7 @@ class MyStack:
         Returns:
             None
         """
-        self._q.append(x)
+        self.__q.append(x)
 
     def pop(self) -> int:
         """Removes and returns the top element of the stack.
@@ -498,9 +760,9 @@ class MyStack:
         Returns:
             int: The element removed from the top of the stack.
         """
-        for _ in range(len(self._q) - 1):
-            self._q.append(self._q.popleft())
-        return self._q.popleft()
+        for _ in range(len(self.__q) - 1):
+            self.__q.append(self.__q.popleft())
+        return self.__q.popleft()
 
 
     def top(self) -> int:
@@ -512,7 +774,7 @@ class MyStack:
         Returns:
             int: The element at the top of the stack.
         """
-        return self._q[-1]
+        return self.__q[-1]
 
 
     def empty(self) -> bool:
@@ -524,7 +786,7 @@ class MyStack:
         Returns:
             bool: True if the stack is empty, False otherwise.
         """
-        return not self._q
+        return not self.__q
 ```
 
 ### 🧮 Complexity Analysis
@@ -593,8 +855,8 @@ class MyQueue:
 
     def __init__(self):
         """Initializes an empty queue using two stacks."""
-        self._s1: List[int] = []
-        self._s2: List[int] = []
+        self.__s1: List[int] = []
+        self.__s2: List[int] = []
 
     def push(self, x: int) -> None:
         """Pushes an element to the back of the queue.
@@ -605,7 +867,7 @@ class MyQueue:
         Returns:
             None
         """
-        self._s1.append(x)
+        self.__s1.append(x)
 
     def pop(self) -> int:
         """Removes and returns the front element of the queue.
@@ -616,10 +878,10 @@ class MyQueue:
         Returns:
             int: The element removed from the front of the queue.
         """
-        if not self._s2:
-            while self._s1:
-                self._s2.append(self._s1.pop())
-        return self._s2.pop()
+        if not self.__s2:
+            while self.__s1:
+                self.__s2.append(self.__s1.pop())
+        return self.__s2.pop()
 
     def peek(self) -> int:
         """Returns the front element of the queue without removing it.
@@ -630,10 +892,10 @@ class MyQueue:
         Returns:
             int: The element at the front of the queue.
         """
-        if not self._s2:
-            while self._s1:
-                self._s2.append(self._s1.pop())
-        return self._s2[-1]
+        if not self.__s2:
+            while self.__s1:
+                self.__s2.append(self.__s1.pop())
+        return self.__s2[-1]
 
     def empty(self) -> bool:
         """Checks whether the queue is empty.
@@ -644,7 +906,7 @@ class MyQueue:
         Returns:
             bool: True if the queue is empty, False otherwise.
         """
-        return max(len(self._s1), len(self._s2)) == 0
+        return max(len(self.__s1), len(self.__s2)) == 0
 ```
 
 ### 🧮 Complexity Analysis
@@ -655,6 +917,157 @@ class MyQueue:
   - `peek`: `O(1)` amortized
   - `empty`: `O(1)`
 - Space Complexity: `O(n)`
+
+---
+
+## 284. Peeking Iterator
+
+- **LeetCode Link:** [Peeking Iterator](https://leetcode.com/problems/peeking-iterator/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Iterator
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> Design an iterator that supports the `peek` operation on an existing iterator in addition to the `hasNext` and the `next` operations.
+>
+> Implement the `PeekingIterator` class:
+>
+> - `PeekingIterator(Iterator<int> nums)` Initializes the object with the given integer iterator `iterator`.
+> - `int next()` Returns the next element in the array and moves the pointer to the next element.
+> - `boolean hasNext()` Returns `true` if there are still elements in the array.
+> - `int peek()` Returns the next element in the array without moving the pointer.
+>
+> Note: Each language may have a different implementation of the constructor and `Iterator`, but they all support the int `next()` and `boolean hasNext()` functions.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["PeekingIterator", "next", "peek", "next", "next", "hasNext"]
+> [[[1, 2, 3]], [], [], [], [], []]
+> Output
+> [null, 1, 2, 2, 3, false]
+>
+> Explanation
+> PeekingIterator peekingIterator = new PeekingIterator([1, 2, 3]); // [1,2,3]
+> peekingIterator.next(); // return 1, the pointer moves to the next element [1,2,3].
+> peekingIterator.peek(); // return 2, the pointer does not move [1,2,3].
+> peekingIterator.next(); // return 2, the pointer moves to the next element [1,2,3]
+> peekingIterator.next(); // return 3, the pointer moves to the next element [1,2,3]
+> peekingIterator.hasNext(); // return False
+> ```
+
+### 🧩 Approach
+
+To implement the `PeekingIterator`, we can maintain a cache to store the next element of the iterator. This way, we can return the next element in constant time when `peek()` is called without advancing the iterator. When `next()` is called, we can return the cached value and then update the cache with the next element from the iterator. The `hasNext()` method can simply check if there is a cached value available.
+
+### 💡 Solution
+
+```python
+# Below is the interface for Iterator, which is already defined for you.
+#
+# class Iterator:
+#     def __init__(self, nums):
+#         """Initializes an iterator object to the beginning of a list.
+#
+#         Args:
+#             nums (List[int]): The list of integers to iterate over.
+#
+#         Returns:
+#             None
+#         """
+#
+#     def hasNext(self):
+#         """Returns true if the iteration has more elements.
+#
+#         Args:
+#             None
+#
+#         Returns:
+#             bool: True if there are more elements to iterate over, False otherwise.
+#         """
+#
+#     def next(self):
+#         """Returns the next element in the iteration.
+#
+#         Args:
+#             None
+#         Returns:
+#             int: The next element in the iteration.
+#         """
+
+class PeekingIterator:
+    def __init__(self, iterator):
+        """Initializes the PeekingIterator with the given iterator.
+
+        Args:
+            iterator (Iterator): The input iterator to be wrapped by the PeekingIterator.
+
+        Returns:
+            None
+        """
+        self.__iterator: Iterator = iterator
+        self.__cache: int = None
+        self.__peekCache()
+
+    def __peekCache(self) -> None:
+        """Updates the cache with the next element from the iterator if it exists, otherwise sets it to None.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        if self.__iterator.hasNext():
+            self.__cache = self.__iterator.next()
+        else:
+            self.__cache = None
+
+    def peek(self):
+        """Returns the next element in the array without moving the pointer.
+
+        Args:
+            None
+
+        Returns:
+            int: The next element in the array.
+        """
+        return self.__cache
+
+    def next(self) -> int:
+        """Returns the next element in the array and moves the pointer to the next element.
+
+        Args:
+            None
+
+        Returns:
+            int: The next element in the array.
+        """
+        peek: int = self.__cache
+        self.__peekCache()
+        return peek
+
+    def hasNext(self) -> bool:
+        """Returns true if there are still elements in the array.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if there are still elements in the array, False otherwise.
+        """
+        return self.__cache is not None
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `peek`: `O(1)`
+  - `next`: `O(1)`
+  - `hasNext`: `O(1)`
+- Space Complexity: `O(1)`
 
 ---
 
@@ -713,11 +1126,11 @@ class NumArray:
         Returns:
             None
         """
-        self._prefix: List[int] = []
+        self.__prefix: List[int] = []
         cur: int = 0
         for n in nums:
             cur += n
-            self._prefix.append(cur)
+            self.__prefix.append(cur)
 
     def sumRange(self, left: int, right: int) -> int:
         """Returns the sum of the elements of nums between indices left and right inclusive.
@@ -729,8 +1142,8 @@ class NumArray:
         Returns:
             int: The sum of the elements in the specified range.
         """
-        rightSum: int = self._prefix[right]
-        leftSum: int = self._prefix[left - 1] if left > 0 else 0
+        rightSum: int = self.__prefix[right]
+        leftSum: int = self.__prefix[left - 1] if left > 0 else 0
         return rightSum - leftSum
 ```
 
@@ -740,6 +1153,106 @@ class NumArray:
   - `__init__`: `O(n)` for preprocessing the prefix sum array.
   - `sumRange`: `O(1)` for each query after preprocessing.
 - Space Complexity: `O(n)`
+
+---
+
+## 304. Range Sum Query 2D - Immutable
+
+- **LeetCode Link:** [Range Sum Query 2D - Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Array, Prefix Sum
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given a 2D matrix `matrix`, handle multiple queries of the following type:
+>
+> - Calculate the sum of the elements of `matrix` inside the rectangle defined by its upper left corner `(row1, col1)` and lower right corner `(row2, col2)`.
+>
+> Implement the NumMatrix class:
+>
+> - `NumMatrix(int[][] matrix)` Initializes the object with the integer matrix `matrix`.
+> - `int sumRegion(int row1, int col1, int row2, int col2)` Returns the sum of the elements of `matrix` inside the rectangle defined by its upper left corner `(row1, col1)` and lower right corner `(row2, col2)`.
+>
+> You must design an algorithm where `sumRegion` works on `O(1)` time complexity.
+>
+> Example 1:
+>
+> ![Example1](../images/leetcode/304.jpg)
+>
+> ```txt
+> Input
+> ["NumMatrix", "sumRegion", "sumRegion", "sumRegion"]
+> [[[[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]], [2, 1, 4, 3], [1, 1, 2, 2], [1, 2, 2, 4]]
+>
+> Output
+> [null, 8, 11, 12]
+>
+> Explanation
+> NumMatrix numMatrix = new NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]);
+> numMatrix.sumRegion(2, 1, 4, 3); // return 8 (i.e sum of the red rectangle)
+> numMatrix.sumRegion(1, 1, 2, 2); // return 11 (i.e sum of the green rectangle)
+> numMatrix.sumRegion(1, 2, 2, 4); // return 12 (i.e sum of the blue rectangle)
+> ```
+
+### 🧩 Approach
+
+To efficiently calculate the sum of elements in a given rectangular region of a 2D matrix, we can use a 2D prefix sum matrix. The prefix sum matrix allows us to compute the sum of any submatrix in constant time after an initial preprocessing step. The idea is to create a prefix sum matrix where each element at index `(i, j)` contains the sum of all elements from the top-left corner of the original matrix up to index `(i, j)`. Then, to calculate the sum of elements in the rectangle defined by `(row1, col1)` and `(row2, col2)`, we can use the inclusion-exclusion principle to combine the relevant prefix sums.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        """Initializes the NumMatrix object with the given 2D integer matrix.
+
+        Args:
+            matrix (List[List[int]]): The input 2D integer matrix.
+
+        Returns:
+            None
+        """
+        R, C = len(matrix), len(matrix[0])
+        self.__sumMat: List[List[int]] = [[0] * (C + 1) for _ in range(R + 1)]
+
+        for r in range(R):
+            prefix: int = 0
+            for c in range(C):
+                prefix += matrix[r][c]
+                above: int = self.__sumMat[r][c + 1]
+                self.__sumMat[r + 1][c + 1] = prefix + above
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        """Returns the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+
+        Args:
+            row1 (int): The row index of the upper left corner of the rectangle.
+            col1 (int): The column index of the upper left corner of the rectangle.
+            row2 (int): The row index of the lower right corner of the rectangle.
+            col2 (int): The column index of the lower right corner of the rectangle.
+
+        Returns:
+            int: The sum of the elements in the specified rectangle.
+        """
+        row1, col1, row2, col2 = row1 + 1, col1 + 1, row2 + 1, col2 + 1
+
+        bottomRight: int = self.__sumMat[row2][col2]
+        above: int = self.__sumMat[row1 - 1][col2]
+        left: int = self.__sumMat[row2][col1 - 1]
+        topLeft: int = self.__sumMat[row1 - 1][col1 - 1]
+
+        return bottomRight - above - left + topLeft
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(R * C)` for preprocessing the prefix sum matrix.
+  - `sumRegion`: `O(1)` for each query after preprocessing.
+- Space Complexity: `O(R * C)` for storing the prefix sum matrix.
 
 ---
 
@@ -821,11 +1334,11 @@ class KthLargest:
         Returns:
             None
         """
-        self._minHeap: List[int] = nums
-        self._k: int = k
-        heapq.heapify(self._minHeap)
-        while len(self._minHeap) > k:
-            heapq.heappop(self._minHeap)
+        self.__minHeap: List[int] = nums
+        self.__k: int = k
+        heapq.heapify(self.__minHeap)
+        while len(self.__minHeap) > k:
+            heapq.heappop(self.__minHeap)
 
     def add(self, val: int) -> int:
         """Adds a new test score val to the stream and returns the element representing the kth largest element in the pool of test scores so far.
@@ -836,10 +1349,10 @@ class KthLargest:
         Returns:
             int: The kth largest element in the stream after adding the new score.
         """
-        heapq.heappush(self._minHeap, val)
-        if len(self._minHeap) > self._k:
-            heapq.heappop(self._minHeap)
-        return self._minHeap[0]
+        heapq.heappush(self.__minHeap, val)
+        if len(self.__minHeap) > self.__k:
+            heapq.heappop(self.__minHeap)
+        return self.__minHeap[0]
 ```
 
 ### 🧮 Complexity Analysis
@@ -917,7 +1430,7 @@ class MyHashSet:
 
     def __init__(self):
         """Initializes an empty HashSet."""
-        self._set: List[ListNode] = [ListNode(0) for _ in range(10**4)]
+        self.__set: List[ListNode] = [ListNode(0) for _ in range(10**4)]
 
     def add(self, key: int) -> None:
         """Inserts the value key into the HashSet.
@@ -928,7 +1441,7 @@ class MyHashSet:
         Returns:
             None
         """
-        cur: ListNode = self._set[key % len(self._set)]
+        cur: ListNode = self.__set[key % len(self.__set)]
         while cur.next:
             if cur.next.key == key:
                 return None
@@ -944,7 +1457,7 @@ class MyHashSet:
         Returns:
             None
         """
-        cur: ListNode = self._set[key % len(self._set)]
+        cur: ListNode = self.__set[key % len(self.__set)]
         while cur.next:
             if cur.next.key == key:
                 cur.next = cur.next.next
@@ -960,7 +1473,7 @@ class MyHashSet:
         Returns:
             bool: True if the value exists in the HashSet, False otherwise.
         """
-        cur: ListNode = self._set[key % len(self._set)]
+        cur: ListNode = self.__set[key % len(self.__set)]
         while cur.next:
             if cur.next.key == key:
                 return True
@@ -1037,10 +1550,10 @@ class ListNode:
 class MyHashMap:
 
     def __init__(self):
-        self._map: List[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
+        self.__map: List[ListNode] = [ListNode(0, 0) for _ in range(10**4)]
 
     def put(self, key: int, value: int) -> None:
-        cur: ListNode = self._map[key % len(self._map)]
+        cur: ListNode = self.__map[key % len(self.__map)]
         while cur.next:
             if cur.next.key == key:
                 cur.next.value = value
@@ -1049,7 +1562,7 @@ class MyHashMap:
         cur.next = ListNode(key, value)
 
     def get(self, key: int) -> int:
-        cur: ListNode = self._map[key % len(self._map)]
+        cur: ListNode = self.__map[key % len(self.__map)]
         while cur.next:
             if cur.next.key == key:
                 return cur.next.value
@@ -1057,7 +1570,7 @@ class MyHashMap:
         return -1
 
     def remove(self, key: int) -> None:
-        cur: ListNode = self._map[key % len(self._map)]
+        cur: ListNode = self.__map[key % len(self.__map)]
         while cur.next:
             if cur.next.key == key:
                 cur.next = cur.next.next
@@ -1124,7 +1637,7 @@ class RecentCounter:
 
     def __init__(self):
         """Initializes the RecentCounter object with zero recent requests."""
-        self._requests: deque[int] = deque()
+        self.__requests: deque[int] = deque()
 
     def ping(self, t: int) -> int:
         """Adds a new request at time t and returns the number of requests that has happened in the past 3000 milliseconds.
@@ -1135,10 +1648,10 @@ class RecentCounter:
         Returns:
             int: The number of requests that have happened in the inclusive range [t - 3000, t].
         """
-        self._requests.append(t)
-        while self._requests and self._requests[0] < t - 3000:
-            self._requests.popleft()
-        return len(self._requests)
+        self.__requests.append(t)
+        while self.__requests and self.__requests[0] < t - 3000:
+            self.__requests.popleft()
+        return len(self.__requests)
 ```
 
 ### 🧮 Complexity Analysis
@@ -1195,11 +1708,11 @@ from typing import List
 class ParkingSystem:
 
     def __init__(self, big: int, medium: int, small: int):
-        self._spaces: List[int] = [big, medium, small]
+        self.__spaces: List[int] = [big, medium, small]
 
     def addCar(self, carType: int) -> bool:
-        if self._spaces[carType - 1] > 0:
-            self._spaces[carType - 1] -= 1
+        if self.__spaces[carType - 1] > 0:
+            self.__spaces[carType - 1] -= 1
             return True
         return False
 ```
@@ -1275,8 +1788,8 @@ class OrderedStream:
         Returns:
             None
         """
-        self._ptr: int = 0
-        self._data: List[Optional[str]] = [None] * n
+        self.__ptr: int = 0
+        self.__data: List[Optional[str]] = [None] * n
 
 
     def insert(self, idKey: int, value: str) -> List[str]:
@@ -1290,17 +1803,17 @@ class OrderedStream:
             List[str]: The largest possible chunk of currently inserted values that appear next in the order.
         """
         idx: int = idKey - 1
-        self._data[idx] = value
+        self.__data[idx] = value
 
-        if idx != self._ptr:
+        if idx != self.__ptr:
             return []
 
-        n = len(self._data)
+        n = len(self.__data)
 
-        while self._ptr < n and self._data[self._ptr] is not None:
-            self._ptr += 1
+        while self.__ptr < n and self.__data[self.__ptr] is not None:
+            self.__ptr += 1
 
-        return self._data[idx:self._ptr]
+        return self.__data[idx:self.__ptr]
 ```
 
 ### 🧮 Complexity Analysis
@@ -1390,14 +1903,14 @@ class NeighborSum:
         Returns:
             None
         """
-        self._grid: List[List[int]] = grid
-        self._R: int = len(grid)
-        self._C: int = len(grid[0])
-        self._lookup: dict[int, Tuple[int, int]] = {}
+        self.__grid: List[List[int]] = grid
+        self.__R: int = len(grid)
+        self.__C: int = len(grid[0])
+        self.__lookup: dict[int, Tuple[int, int]] = {}
 
-        for x in range(self._R):
-            for y in range(self._C):
-                self._lookup[grid[x][y]] = (x, y)
+        for x in range(self.__R):
+            for y in range(self.__C):
+                self.__lookup[grid[x][y]] = (x, y)
 
 
     def adjacentSum(self, value: int) -> int:
@@ -1409,15 +1922,15 @@ class NeighborSum:
         Returns:
             int: The sum of adjacent neighbors of the given value.
         """
-        x, y = self._lookup[value]
+        x, y = self.__lookup[value]
 
         total: int = 0
         for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
             nx: int = x + dx
             ny: int = y + dy
 
-            if 0 <= nx < self._R and 0 <= ny < self._C:
-                total += self._grid[nx][ny]
+            if 0 <= nx < self.__R and 0 <= ny < self.__C:
+                total += self.__grid[nx][ny]
 
         return total
 
@@ -1430,15 +1943,15 @@ class NeighborSum:
         Returns:
             int: The sum of diagonal neighbors of the given value.
         """
-        x, y = self._lookup[value]
+        x, y = self.__lookup[value]
 
         total: int = 0
         for dx, dy in [(-1, -1), (1, 1), (1, -1), (-1, 1)]:
             nx: int = x + dx
             ny: int = y + dy
 
-            if 0 <= nx < self._R and 0 <= ny < self._C:
-                total += self._grid[nx][ny]
+            if 0 <= nx < self.__R and 0 <= ny < self.__C:
+                total += self.__grid[nx][ny]
 
         return total
 ```
