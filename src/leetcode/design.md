@@ -7,6 +7,7 @@
 - [146. LRU Cache](#146-lru-cache)
 - [155. Min Stack](#155-min-stack)
 - [173. Binary Search Tree Iterator](#173-binary-search-tree-iterator)
+- [208. Implement Trie (Prefix Tree)](#208-implement-trie-prefix-tree)
 - [225. Implement Stack using Queues](#225-implement-stack-using-queues)
 - [232. Implement Queue using Stacks](#232-implement-queue-using-stacks)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
@@ -418,6 +419,139 @@ class BSTIterator:
   - `hasNext`: `O(1)`
 
 - Space Complexity: `O(h)` where `h` is the height of the binary search tree.
+
+---
+
+## 208. Implement Trie (Prefix Tree)
+
+- **LeetCode Link:** [Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Trie
+- **Company:** Microsoft
+
+### 🧠 Problem Statement
+
+> A [trie](https://en.wikipedia.org/wiki/Trie) (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+>
+> Implement the Trie class:
+>
+> - `Trie()` Initializes the trie object.
+> - `void insert(String word)` Inserts the string `word` into the trie.
+> - `boolean search(String word)` Returns `true` if the string `word` is in the trie (i.e., was inserted before), and `false` otherwise.
+> - `boolean startsWith(String prefix)` Returns `true` if there is a previously inserted string `word` that has the prefix `prefix`, and `false` otherwise.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
+> [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+>
+> Output
+> [null, null, true, false, true, null, true]
+>
+> Explanation
+> Trie trie = new Trie();
+> trie.insert("apple");
+> trie.search("apple"); // return True
+> trie.search("app"); // return False
+> trie.startsWith("app"); // return True
+> trie.insert("app");
+> trie.search("app"); // return True
+> ```
+
+### 🧩 Approach
+
+To implement a Trie (Prefix Tree), we can define a `TrieNode` class that represents each node in the trie. Each `TrieNode` will contain a dictionary of its children nodes and a boolean flag to indicate whether it represents the end of a word. The `Trie` class will use the `TrieNode` to build the trie structure. The `insert` method will add words to the trie, the `search` method will check for the existence of a word, and the `startsWith` method will check for the existence of any word that starts with a given prefix.
+
+### 💡 Solution
+
+```python
+from typing import Dict
+
+class TrieNode:
+
+    def __init__(self):
+        """Initializes a TrieNode with an empty dictionary of children and a boolean flag to indicate the end of a word.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self._children: Dict[str, TrieNode] = {}
+        self._endOfWord: bool = False
+
+class Trie:
+
+    def __init__(self):
+        """Initializes the Trie object.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self._root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        """Inserts the string word into the trie.
+
+        Args:
+            word (str): The string to be inserted into the trie.
+
+        Returns:
+            None
+        """
+        cur: TrieNode = self._root
+        for c in word:
+            if c not in cur._children:
+                cur._children[c] = TrieNode()
+            cur = cur._children[c]
+        cur._endOfWord = True
+
+    def search(self, word: str) -> bool:
+        """Returns true if the string word is in the trie, and false otherwise.
+
+        Args:
+            word (str): The string to be searched in the trie.
+
+        Returns:
+            bool: True if the string is in the trie, False otherwise.
+        """
+        cur: TrieNode = self._root
+        for c in word:
+            if c not in cur._children:
+                return False
+            cur = cur._children[c]
+        return cur._endOfWord
+
+    def startsWith(self, prefix: str) -> bool:
+        """Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+
+        Args:
+            prefix (str): The prefix to be searched in the trie.
+
+        Returns:
+            bool: True if there is a string in the trie that starts with the prefix, False otherwise.
+        """
+        cur: TrieNode = self._root
+        for c in prefix:
+            if c not in cur._children:
+                return False
+            cur = cur._children[c]
+        return True
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `insert`: `O(m)` where `m` is the length of the word being inserted.
+  - `search`: `O(m)` where `m` is the length of the word being searched.
+  - `startsWith`: `O(m)` where `m` is the length of the prefix being searched.
+- Space Complexity: `O(n * m)` where `n` is the number of words inserted into the trie and `m` is the average length of the words. In the worst case, if all words are unique and have no common prefixes, the space complexity can be `O(n * m)`. However, if many words share common prefixes, the space complexity can be significantly reduced.
 
 ---
 
