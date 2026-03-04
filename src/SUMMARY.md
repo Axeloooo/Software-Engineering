@@ -16,9 +16,9 @@
 
 # Design Patterns
 
-- [Creational Patterns]()
-- [Structural Patterns]()
-- [Behavioral Patterns]()
+- [Creational Patterns](./design_patterns/creational_patterns.md)
+- [Structural Patterns](./design_patterns/structural_patterns.md)
+- [Behavioral Patterns](./design_patterns/behavioral_patterns.md)
 
 ---
 

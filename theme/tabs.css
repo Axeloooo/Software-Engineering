@@ -1,0 +1,54 @@
+.mdbook-tabs {
+  display: flex;
+}
+
+.mdbook-tab {
+  background-color: var(--table-alternate-bg);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1.45em;
+}
+
+.mdbook-tab.active {
+  background-color: var(--table-header-bg);
+  font-weight: bold;
+}
+
+.mdbook-tab-content {
+  padding: 1rem 0rem;
+}
+
+.mdbook-tab-content table {
+  margin: unset;
+}
+
+.mdbook-tab::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+  vertical-align: -2px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Assuming tabs.js sets data-tabname="<name>" */
+.mdbook-tab[data-tabname="Java"]::before {
+  background-image: url("../images/design_patterns/java.svg");
+}
+.mdbook-tab[data-tabname="Python"]::before {
+  background-image: url("../images/design_patterns/python.svg");
+}
+.mdbook-tab[data-tabname="C++"]::before {
+  background-image: url("../images/design_patterns/cpp.svg");
+}
+.mdbook-tab[data-tabname="C#"]::before {
+  background-image: url("../images/design_patterns/csharp.svg");
+}
+.mdbook-tab[data-tabname="TypeScript"]::before {
+  background-image: url("../images/design_patterns/typescript.svg");
+}
