@@ -32,6 +32,7 @@
 
 # LeetCode
 
+- [Design](./leetcode/design.md)
 - [Array / String](./leetcode/array_string.md)
 - [Two Pointers](./leetcode/two_pointers.md)
 - [Sliding Window]()
