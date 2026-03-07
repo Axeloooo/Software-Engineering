@@ -7,12 +7,14 @@
 - [Birth of Quantum Mechanics](#birth-of-quantum-mechanics)
 - [Photoelectric Effect and Wave-Particle Duality](#photoelectric-effect-and-wave-particle-duality)
 - [Bohr Model of the Atom](#bohr-model-of-the-atom)
+- [Wave Function, Superposition, and Wave Packets](#wave-function-superposition-and-wave-packets)
+- [Uncertainty Principle](#uncertainty-principle)
+- [Schrodinger Equation](#schrodinger-equation)
+- [Expectation Value](#expectation-value)
 
 ---
 
-### Birth of Quantum Mechanics
-
----
+## Birth of Quantum Mechanics
 
 ### Blackbody Radiation
 
@@ -23,8 +25,6 @@ A **blackbody** is an ideal object that:
 - Has an emission spectrum independent of its material.
 
 A cavity with a small hole approximates a blackbody because radiation entering the hole undergoes many reflections and is almost completely absorbed before escaping.
-
----
 
 ### Intensity and Spectral Intensity
 
@@ -46,8 +46,6 @@ $$
 I = \int_0^\infty I_f \, df
 $$
 
----
-
 ### Temperature Dependence
 
 As temperature increases:
@@ -61,8 +59,6 @@ Hotter objects change visible color:
 - ~3000 K → red glow
 - ~6000 K → yellow-white
 - ~12000 K → bluish-white
-
----
 
 ### Wien’s Displacement Law
 
@@ -83,8 +79,6 @@ Scaling behavior:
 - If $T$ doubles → $f_{\text{peak}}$ doubles.
 - If $T$ doubles → $\lambda_{\text{peak}}$ halves.
 
----
-
 ### Stefan–Boltzmann Law
 
 Total emitted intensity:
@@ -100,8 +94,6 @@ $$
 $$
 
 If temperature doubles, total emitted power increases by $2^4 = 16$.
-
----
 
 ### Classical Prediction: Rayleigh–Jeans Law
 
@@ -126,8 +118,6 @@ $$
 $$
 
 This divergence at high frequency is called the **ultraviolet catastrophe**.
-
----
 
 ### Planck’s Quantum Hypothesis
 
@@ -155,8 +145,6 @@ $$
 I_f(f,T) = \frac{2 f^2}{c^2} \frac{h f}{e^{hf/k_B T} - 1}
 $$
 
----
-
 ### Why Planck’s Law Resolves the Catastrophe
 
 At high frequency ($hf \gg k_B T$):
@@ -172,8 +160,6 @@ $$
 $$
 
 High-frequency modes are exponentially suppressed, preventing divergence.
-
----
 
 ### Low-Frequency Limit (Classical Recovery)
 
@@ -191,8 +177,6 @@ $$
 
 Planck’s law reduces to the Rayleigh–Jeans result at low frequencies.
 
----
-
 ### Photon Energy
 
 Energy of a single photon:
@@ -206,8 +190,6 @@ Using wavelength:
 $$
 E = \frac{hc}{\lambda}
 $$
-
----
 
 ### Key Constants
 
@@ -235,8 +217,6 @@ $$
 \sigma = 5.67 \times 10^{-8} \, \text{W/m}^2\text{K}^4
 $$
 
----
-
 ### Conceptual Takeaways
 
 - Classical physics fails because it assumes continuous energy.
@@ -249,8 +229,6 @@ $$
 ---
 
 ## Photoelectric Effect and Wave-Particle Duality
-
----
 
 ### The Photoelectric Effect
 
@@ -265,8 +243,6 @@ Key experimental observations:
 
 These results could not be explained using classical wave theory.
 
----
-
 ### Classical Prediction (Incorrect)
 
 Classical wave theory predicted:
@@ -276,8 +252,6 @@ Classical wave theory predicted:
 - There should be a measurable time delay before emission.
 
 Experiments showed this was completely wrong.
-
----
 
 ### Einstein’s Explanation (1905)
 
@@ -293,8 +267,6 @@ When a photon strikes an electron:
 
 - Part of its energy is used to overcome the metal’s **work function**.
 - The remainder becomes kinetic energy.
-
----
 
 ### Photoelectric Equation
 
@@ -315,8 +287,6 @@ $$
 K_{\text{max}} = h f - W
 $$
 
----
-
 ### Threshold Frequency
 
 The **threshold frequency** $f_0$ occurs when $K_{\text{max}} = 0$:
@@ -335,8 +305,6 @@ If $f < f_0$, no electrons are emitted — regardless of intensity.
 
 This was impossible under classical physics.
 
----
-
 ### Experimental Graph
 
 If we plot $K_{\text{max}}$ vs frequency:
@@ -353,16 +321,12 @@ This is a straight line:
 
 This experiment allowed direct measurement of Planck’s constant.
 
----
-
 ### Intensity vs Frequency
 
 - **Intensity controls number of photons → number of electrons emitted**
 - **Frequency controls energy per photon → kinetic energy of electrons**
 
 Do not confuse these.
-
----
 
 ### Wave–Particle Duality
 
@@ -383,8 +347,6 @@ Light has **wave–particle duality**.
 
 It cannot be described fully as only a wave or only a particle.
 
----
-
 ### Momentum of a Photon
 
 Photons carry momentum even though they have no mass.
@@ -402,8 +364,6 @@ p = \frac{h}{\lambda}
 $$
 
 This will later connect to de Broglie matter waves.
-
----
 
 ### Key Constants
 
@@ -425,8 +385,6 @@ $$
 c = 3.00 \times 10^8\,\mathrm{m\,s^{-1}}
 $$
 
----
-
 ### Conceptual Takeaways
 
 - Light energy is quantized.
@@ -439,3 +397,17 @@ $$
 ## Bohr Model of the Atom
 
 ---
+
+## Wave Function, Superposition, and Wave Packets
+
+---
+
+## Uncertainty Principle
+
+---
+
+## Schrodinger Equation
+
+---
+
+## Expectation Value
