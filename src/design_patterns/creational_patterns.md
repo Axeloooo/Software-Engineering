@@ -292,7 +292,7 @@ class SlackNotificationCreator extends NotificationCreator {
 }
 ```
 
-5, Client Code
+5. Client Code
 
 ```java
 public class FactoryMethodDemo {
@@ -1744,7 +1744,7 @@ The Builder pattern involves four participants. In many real-world implementatio
 - **Director (Optional)**
   - Coordinates the construction process by calling builder steps in a specific sequence.
   - Useful when you want to encapsulate standard configurations or reusable construction sequences.
-  - Often omitted in fluent builder style, where the client effectively plays this role by chaining bilder calls.
+  - Often omitted in fluent builder style, where the client effectively plays this role by chaining builder calls.
 
 ### 🛠 Implementation
 
