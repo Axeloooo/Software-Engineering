@@ -1344,7 +1344,7 @@ class BoldDecorator(TextDecorator):
 
 - Italic Decorator
 
-```java
+```python
 class ItalicDecorator(TextDecorator):
    def __init__(self, inner):
        super().__init__(inner)
