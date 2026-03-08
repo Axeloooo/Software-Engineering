@@ -536,7 +536,7 @@ int main() {
 1. Define the Product Interface
 
 ```csharp
-interface Notification
+interface INotification
 {
     void Send(string message);
 }
