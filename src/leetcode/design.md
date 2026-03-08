@@ -290,7 +290,7 @@ class MinStack:
         return self.__minStack[-1]
 ```
 
-## 🧮 Complexity Analysis
+### 🧮 Complexity Analysis
 
 - Time Complexity:
   - `push`: `O(1)`

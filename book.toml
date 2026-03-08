@@ -4,5 +4,9 @@ authors = ["Axeloooo"]
 language = "en"
 src = "src"
 
+[preprocessor.tabs]
+
 [output.html]
+additional-css = ["theme/tabs.css"]
+additional-js  = ["theme/tabs.js"]
 mathjax-support = true
