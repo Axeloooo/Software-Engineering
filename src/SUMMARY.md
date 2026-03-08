@@ -2,7 +2,7 @@
 
 ---
 
-# Quantum
+# ⚛️ Quantum Computing
 
 - [Physics](./quantum/quantum_physics.md)
 - [Information]()
@@ -10,7 +10,7 @@
 
 ---
 
-# Microsoft Azure
+# ☁️ Microsoft Azure
 
 - [AI + Machine Learning](./azure/ai_+_machine_learning.md)
 - [Compute](./azure/compute.md)
@@ -22,7 +22,7 @@
 
 ---
 
-# Design Patterns
+# 🧩 Design Patterns
 
 - [Creational Patterns](./design_patterns/creational_patterns.md)
 - [Structural Patterns](./design_patterns/structural_patterns.md)
@@ -30,7 +30,7 @@
 
 ---
 
-# LeetCode
+# 🧠 LeetCode
 
 - [Design](./leetcode/design.md)
 - [Array / String](./leetcode/array_string.md)
@@ -55,7 +55,7 @@
 
 ---
 
-# C++
+# 💻 C++
 
 - [Standard I/O](./cpp/standard_io.md)
 - [Object-Oriented Programming](./cpp/oop.md)
