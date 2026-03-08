@@ -9,7 +9,7 @@
 
 ---
 
-### Azure Monitor
+## Azure Monitor
 
 <div style="text-align: center;">
   <img src="../images/azure/Icons/monitor/00001-icon-service-Monitor.svg" alt="Azure Monitor" style="width:150px; height:auto;" />
@@ -27,7 +27,7 @@
 
 ---
 
-### Azure Service Health
+## Azure Service Health
 
 <div style="text-align: center;">
   <img src="../images/azure/Icons/general/10004-icon-service-Service-Health.svg" alt="Azure Service Health" style="width:150px; height:auto;" />
