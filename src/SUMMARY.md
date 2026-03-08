@@ -5,8 +5,8 @@
 # ⚛️ Quantum Computing
 
 - [Physics](./quantum/quantum_physics.md)
-- [Information]()
-- [Computation]()
+- [Information](./quantum/quantum_information.md)
+- [Computation](./quantum/quantum_computation.md)
 
 ---
 
