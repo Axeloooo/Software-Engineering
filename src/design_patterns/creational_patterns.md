@@ -13,7 +13,7 @@
 
 ## Singleton
 
-**📖 Definition**
+### 📖 Definition
 
 Singleton Pattern is a creational design pattern that guarantees a class has only one instance and provides a global point of access to it.
 
@@ -28,7 +28,7 @@ Singleton is useful in scenarios like:
 - Coordinating System-Wide Actions (logging, print spoolers, file managers)
 - Managing State (user session, application state)
 
-**🧩 Class Diagram**
+### 🧩 Class Diagram
 
 To implement the singleton pattern, we must prevent external objects from creating instances of the singleton class. Only the singleton class should be permitted to create its own objects.
 
@@ -40,7 +40,7 @@ Additionally, we need to provide a method for external objects to access the sin
 - The constructor is private or otherwise restricted, so other code cannot create new instances directly.
 - A `getInstance()` (or similar) class-level method returns the shared instance and is accessible from anywhere.
 
-**🛠 Implementation**
+### 🛠 Implementation
 
 {{#tabs}}
 {{#tab name="Java"}}
@@ -178,7 +178,7 @@ class Singleton {
 
 ## Factory Method
 
-**📖 Definition**
+### 📖 Definition
 
 The Factory Method Design Pattern is a creational pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
 
@@ -188,7 +188,7 @@ It’s particularly useful in situations where:
 - Object creation logic is complex, repetitive, or needs encapsulation.
 - You want to follow the Open/Closed Principle, open for extension, closed for modification.
 
-**🧩 Class Diagram**
+### 🧩 Class Diagram
 
 ![Factory Method Class Diagram](../images/design_patterns/factory.png)
 
@@ -200,7 +200,7 @@ It’s particularly useful in situations where:
 
 - **ConcreteCreator**: Subclasses of Creator that override the factory method to return a specific ConcreteProduct. Each creator is paired with exactly one product type.
 
-**🛠 Implementation**
+### 🛠 Implementation
 
 {{#tabs}}
 {{#tab name="Java"}}
@@ -774,25 +774,944 @@ main();
 
 ## Abstract Factory
 
-**📖 Definition**
+### 📖 Definition
 
-Provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+The Abstract Factory Design Pattern is a creational pattern that provides an interface for creating families of related or dependent objects without specifying their concrete classes.
 
-**🧩 Class Diagram**
+It’s particularly useful in situations where:
+
+- You need to create objects that must be used together and are part of a consistent family (e.g., GUI elements like buttons, checkboxes, and menus).
+- Your system must support multiple configurations, environments, or product variants (e.g., light vs. dark themes, Windows vs. macOS look-and-feel).
+- You want to enforce consistency across related objects, ensuring that they are all created from the same factory.
+
+### 🧩 Class Diagram
 
 ![Abstract Factory Class Diagram](../images/design_patterns/abstract_factory.png)
 
-**🛠 Implementation**
+- **Abstract Factory**
+  - Defines a common interface for creating a family of related products.
+  - Typically includes factory methods like createButton(), createCheckbox(), createTextField(), etc.
+  - Clients rely on this interface to create objects without knowing their concrete types.
+
+- **Concrete Factory**
+  - Implement the abstract factory interface.
+  - Create concrete product variants that belong to a specific family or platform.
+  - Each factory ensures that all components it produces are compatible (i.e., belong to the same platform/theme).
+
+- **Abstract Product**
+  - Define the interfaces or abstract classes for a set of related components.
+  - All product variants for a given type (e.g., WindowsButton, MacOSButton) will implement these interfaces.
+
+- **Concrete Product**
+  - Implement the abstract product interfaces.
+  - Contain platform-specific logic and appearance for the components.
+
+- **Client**
+  - Uses the abstract factory and abstract product interfaces.
+  - Is completely unaware of the concrete classes it is using — it only interacts with the factory and product interfaces.
+  - Can switch entire product families (e.g., from Windows to macOS) by changing the factory without touching UI logic.
+
+### 🛠 Implementation
+
+{{#tabs}}
+{{#tab name="Java"}}
+
+1. Define Abstract Product Interfaces
+
+- Button
+
+```java
+interface Button {
+    void paint();
+    void onClick();
+}
+```
+
+- Checkbox
+
+```java
+interface Checkbox {
+    void paint();
+    void onSelect();
+}
+```
+
+2. Create Concrete Products
+
+- Windows Products
+
+```java
+class WindowsButton implements Button {
+    @Override
+    public void paint() {
+        System.out.println("Painting a Windows-style button.");
+    }
+
+    @Override
+    public void onClick() {
+        System.out.println("Windows button clicked.");
+    }
+}
+
+class WindowsCheckbox implements Checkbox {
+    @Override
+    public void paint() {
+        System.out.println("Painting a Windows-style checkbox.");
+    }
+
+    @Override
+    public void onSelect() {
+        System.out.println("Windows checkbox selected.");
+    }
+}
+```
+
+- MacOS Products
+
+```java
+class MacOSButton implements Button {
+    @Override
+    public void paint() {
+        System.out.println("Painting a macOS-style button.");
+    }
+
+    @Override
+    public void onClick() {
+        System.out.println("macOS button clicked.");
+    }
+}
+
+class MacOSCheckbox implements Checkbox {
+    @Override
+    public void paint() {
+        System.out.println("Painting a macOS-style checkbox.");
+    }
+
+    @Override
+    public void onSelect() {
+        System.out.println("macOS checkbox selected.");
+    }
+}
+```
+
+3. Define the Abstract Factory
+
+```java
+interface GUIFactory {
+    Button createButton();
+    Checkbox createCheckbox();
+}
+```
+
+4. Implement Concrete Factories
+
+- WindowsFactory
+
+```java
+class WindowsFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new WindowsButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new WindowsCheckbox();
+    }
+}
+```
+
+- MacOSFactory
+
+```java
+class MacOSFactory implements GUIFactory {
+    @Override
+    public Button createButton() {
+        return new MacOSButton();
+    }
+
+    @Override
+    public Checkbox createCheckbox() {
+        return new MacOSCheckbox();
+    }
+}
+```
+
+5. Client Code
+
+```java
+class Application {
+    private final Button button;
+    private final Checkbox checkbox;
+
+    public Application(GUIFactory factory) {
+        this.button = factory.createButton();
+        this.checkbox = factory.createCheckbox();
+    }
+
+    public void renderUI() {
+        button.paint();
+        checkbox.paint();
+    }
+}
+```
+
+6. Wire Everything Together
+
+```java
+public class AppLauncher {
+    public static void main(String[] args) {
+        // Simulate platform detection
+        String os = System.getProperty("os.name");
+        GUIFactory factory;
+
+        if (os.contains("Windows")) {
+            factory = new WindowsFactory();
+        } else {
+            factory = new MacOSFactory();
+        }
+
+        Application app = new Application(factory);
+        app.renderUI();
+    }
+}
+```
+
+- Output (on MacOS)
+
+```txt
+Painting a macOS-style button.
+Painting a macOS-style checkbox.
+```
+
+- Output (on Windows)
+
+```txt
+Painting a Windows-style button.
+Painting a Windows-style checkbox.
+```
+
+{{#endtab}}
+{{#tab name="Python"}}
+
+1. Define Abstract Product Interfaces
+
+- Button
 
 ```python
+from abc import ABC, abstractmethod
 
+class Button(ABC):
+    @abstractmethod
+    def paint(self):
+        pass
+
+    @abstractmethod
+    def on_click(self):
+        pass
 ```
+
+- Checkbox
+
+```python
+class Checkbox(ABC):
+    @abstractmethod
+    def paint(self):
+        pass
+
+    @abstractmethod
+    def on_select(self):
+        pass
+```
+
+2. Create Concrete Products
+
+- Windows Products
+
+```python
+class WindowsButton(Button):
+    def paint(self):
+        print("Painting a Windows-style button.")
+
+    def on_click(self):
+        print("Windows button clicked.")
+
+
+class WindowsCheckbox(Checkbox):
+    def paint(self):
+        print("Painting a Windows-style checkbox.")
+
+    def on_select(self):
+        print("Windows checkbox selected.")
+```
+
+- MacOS Products
+
+```python
+class MacOSButton(Button):
+    def paint(self):
+        print("Painting a macOS-style button.")
+
+    def on_click(self):
+        print("macOS button clicked.")
+
+
+class MacOSCheckbox(Checkbox):
+    def paint(self):
+        print("Painting a macOS-style checkbox.")
+
+    def on_select(self):
+        print("macOS checkbox selected.")
+```
+
+3. Define the Abstract Factory
+
+```python
+class GUIFactory(ABC):
+    @abstractmethod
+    def create_button(self):
+        pass
+
+    @abstractmethod
+    def create_checkbox(self):
+        pass
+```
+
+4. Implement Concrete Factories
+
+- WindowsFactory
+
+```python
+class WindowsFactory(GUIFactory):
+    def create_button(self):
+        return WindowsButton()
+
+    def create_checkbox(self):
+        return WindowsCheckbox()
+```
+
+- MacOSFactory
+
+```python
+class MacOSFactory(GUIFactory):
+    def create_button(self):
+        return MacOSButton()
+
+    def create_checkbox(self):
+        return MacOSCheckbox()
+```
+
+5. Client Code
+
+```python
+class Application:
+    def __init__(self, factory):
+        self.button = factory.create_button()
+        self.checkbox = factory.create_checkbox()
+
+    def render_ui(self):
+        self.button.paint()
+        self.checkbox.paint()
+```
+
+6. Wire Everything Together
+
+```python
+import platform
+
+class AppLauncher:
+    @staticmethod
+    def main():
+        # Simulate platform detection
+        os = platform.system()
+
+        if "Windows" in os:
+            factory = WindowsFactory()
+        else:
+            factory = MacOSFactory()
+
+        app = Application(factory)
+        app.render_ui()
+
+if __name__ == "__main__":
+    AppLauncher.main()
+```
+
+- Output (on MacOS)
+
+```txt
+Painting a macOS-style button.
+Painting a macOS-style checkbox.
+```
+
+- Output (on Windows)
+
+```txt
+Painting a Windows-style button.
+Painting a Windows-style checkbox.
+```
+
+{{#endtab}}
+{{#tab name="C++"}}
+
+1. Define Abstract Product Interfaces
+
+- Button
+
+```cpp
+class Button {
+public:
+    virtual void paint() = 0;
+    virtual void onClick() = 0;
+    virtual ~Button() = default;
+};
+```
+
+- Checkbox
+
+```cpp
+class Checkbox {
+public:
+    virtual void paint() = 0;
+    virtual void onSelect() = 0;
+    virtual ~Checkbox() {}
+};
+```
+
+2. Create Concrete Products
+
+- Windows Products
+
+```cpp
+class WindowsButton : public Button {
+public:
+    void paint() override {
+        cout << "Painting a Windows-style button." << endl;
+    }
+
+    void onClick() override {
+        cout << "Windows button clicked." << endl;
+    }
+};
+
+class WindowsCheckbox : public Checkbox {
+public:
+    void paint() override {
+        cout << "Painting a Windows-style checkbox." << endl;
+    }
+
+    void onSelect() override {
+        cout << "Windows checkbox selected." << endl;
+    }
+};
+```
+
+- MacOS Products
+
+```cpp
+class MacOSButton : public Button {
+public:
+    void paint() override {
+        cout << "Painting a macOS-style button." << endl;
+    }
+
+    void onClick() override {
+        cout << "macOS button clicked." << endl;
+    }
+};
+
+class MacOSCheckbox : public Checkbox {
+public:
+    void paint() override {
+        cout << "Painting a macOS-style checkbox." << endl;
+    }
+
+    void onSelect() override {
+        cout << "macOS checkbox selected." << endl;
+    }
+};
+```
+
+3. Define the Abstract Factory
+
+```cpp
+class GUIFactory {
+public:
+    virtual Button* createButton() = 0;
+    virtual Checkbox* createCheckbox() = 0;
+    virtual ~GUIFactory() {}
+};
+```
+
+4. Implement Concrete Factories
+
+- WindowsFactory
+
+```cpp
+class WindowsFactory : public GUIFactory {
+public:
+    Button* createButton() override {
+        return new WindowsButton();
+    }
+    Checkbox* createCheckbox() override {
+        return new WindowsCheckbox();
+    }
+};
+```
+
+- MacOSFactory
+
+```cpp
+class MacOSFactory : public GUIFactory {
+public:
+    Button* createButton() override {
+        return new MacOSButton();
+    }
+    Checkbox* createCheckbox() override {
+        return new MacOSCheckbox();
+    }
+};
+```
+
+5. Client Code
+
+```cpp
+class Application {
+private:
+    Button* button;
+    Checkbox* checkbox;
+
+public:
+    Application(GUIFactory* factory) {
+        button = factory->createButton();
+        checkbox = factory->createCheckbox();
+    }
+
+    ~Application() {
+        delete button;
+        delete checkbox;
+    }
+
+    void renderUI() {
+        button->paint();
+        checkbox->paint();
+    }
+};
+```
+
+6. Wire Everything Together
+
+```cpp
+int main() {
+    string os;
+    cout << "Enter OS (Windows/Mac): ";
+    getline(cin, os);
+
+    GUIFactory* factory = nullptr;
+
+    // Simulated platform detection
+    transform(os.begin(), os.end(), os.begin(), ::tolower);
+    if (os.find("windows") != string::npos) {
+        factory = new WindowsFactory();
+    } else {
+        factory = new MacOSFactory();
+    }
+
+    Application app(factory);
+    app.renderUI();
+
+    delete factory;
+
+    return 0;
+}
+```
+
+- Output (on MacOS)
+
+```txt
+Painting a macOS-style button.
+Painting a macOS-style checkbox.
+```
+
+- Output (on Windows)
+
+```txt
+Painting a Windows-style button.
+Painting a Windows-style checkbox.
+```
+
+{{#endtab}}
+{{#tab name="C#"}}
+
+1. Define Abstract Product Interfaces
+
+- Button
+
+```csharp
+interface IButton
+{
+    void Paint();
+    void OnClick();
+}
+```
+
+- Checkbox
+
+```csharp
+interface ICheckbox
+{
+    void Paint();
+    void OnSelect();
+}
+```
+
+2. Create Concrete Products
+
+- Windows Products
+
+```csharp
+class WindowsButton : IButton
+{
+    public void Paint()
+    {
+        Console.WriteLine("Painting a Windows-style button.");
+    }
+
+    public void OnClick()
+    {
+        Console.WriteLine("Windows button clicked.");
+    }
+}
+
+class WindowsCheckbox : ICheckbox
+{
+    public void Paint()
+    {
+        Console.WriteLine("Painting a Windows-style checkbox.");
+    }
+
+    public void OnSelect()
+    {
+        Console.WriteLine("Windows checkbox selected.");
+    }
+}
+```
+
+- MacOS Products
+
+```csharp
+class MacOSButton : IButton
+{
+    public void Paint()
+    {
+        Console.WriteLine("Painting a macOS-style button.");
+    }
+
+    public void OnClick()
+    {
+        Console.WriteLine("macOS button clicked.");
+    }
+}
+
+class MacOSCheckbox : ICheckbox
+{
+    public void Paint()
+    {
+        Console.WriteLine("Painting a macOS-style checkbox.");
+    }
+
+    public void OnSelect()
+    {
+        Console.WriteLine("macOS checkbox selected.");
+    }
+}
+```
+
+3. Define the Abstract Factory
+
+```csharp
+interface IGUIFactory
+{
+    IButton CreateButton();
+    ICheckbox CreateCheckbox();
+}
+```
+
+4. Implement Concrete Factories
+
+- WindowsFactory
+
+```csharp
+class WindowsFactory : IGUIFactory
+{
+    public IButton CreateButton()
+    {
+        return new WindowsButton();
+    }
+
+    public ICheckbox CreateCheckbox()
+    {
+        return new WindowsCheckbox();
+    }
+}
+```
+
+- MacOSFactory
+
+```csharp
+class MacOSFactory : IGUIFactory
+{
+    public IButton CreateButton()
+    {
+        return new MacOSButton();
+    }
+
+    public ICheckbox CreateCheckbox()
+    {
+        return new MacOSCheckbox();
+    }
+}
+```
+
+5. Client Code
+
+```csharp
+class Application
+{
+    private readonly IButton _button;
+    private readonly ICheckbox _checkbox;
+
+    public Application(IGUIFactory factory)
+    {
+        _button = factory.CreateButton();
+        _checkbox = factory.CreateCheckbox();
+    }
+
+    public void RenderUI()
+    {
+        _button.Paint();
+        _checkbox.Paint();
+    }
+}
+```
+
+6. Wire Everything Together
+
+```csharp
+public class AppLauncher
+{
+    public static void Main()
+    {
+        Console.Write("Enter OS (Windows/Mac): ");
+        string os = Console.ReadLine()?.ToLower() ?? "";
+
+        IGUIFactory factory;
+
+        if (os.Contains("windows"))
+        {
+            factory = new WindowsFactory();
+        }
+        else
+        {
+            factory = new MacOSFactory();
+        }
+
+        Application app = new Application(factory);
+        app.RenderUI();
+    }
+}
+```
+
+- Output (on MacOS)
+
+```txt
+Painting a macOS-style button.
+Painting a macOS-style checkbox.
+```
+
+- Output (on Windows)
+
+```txt
+Painting a Windows-style button.
+Painting a Windows-style checkbox.
+```
+
+{{#endtab}}
+{{#tab name="TypeScript"}}
+
+1. Define Abstract Product Interfaces
+
+- Button
+
+```typescript
+interface Button {
+  paint(): void;
+  onClick(): void;
+}
+```
+
+- Checkbox
+
+```typescript
+interface Checkbox {
+  paint(): void;
+  onSelect(): void;
+}
+```
+
+2. Create Concrete Products
+
+- Windows Products
+
+```typescript
+class WindowsButton implements Button {
+  paint(): void {
+    console.log("Painting a Windows-style button.");
+  }
+
+  onClick(): void {
+    console.log("Windows button clicked.");
+  }
+}
+
+class WindowsCheckbox implements Checkbox {
+  paint(): void {
+    console.log("Painting a Windows-style checkbox.");
+  }
+
+  onSelect(): void {
+    console.log("Windows checkbox selected.");
+  }
+}
+```
+
+- MacOS Products
+
+```typescript
+class MacOSButton implements Button {
+  paint(): void {
+    console.log("Painting a macOS-style button.");
+  }
+
+  onClick(): void {
+    console.log("macOS button clicked.");
+  }
+}
+
+class MacOSCheckbox implements Checkbox {
+  paint(): void {
+    console.log("Painting a macOS-style checkbox.");
+  }
+
+  onSelect(): void {
+    console.log("macOS checkbox selected.");
+  }
+}
+```
+
+3. Define the Abstract Factory
+
+```typescript
+interface GUIFactory {
+  createButton(): Button;
+  createCheckbox(): Checkbox;
+}
+```
+
+4. Implement Concrete Factories
+
+- WindowsFactory
+
+```typescript
+class WindowsFactory implements GUIFactory {
+  createButton(): Button {
+    return new WindowsButton();
+  }
+
+  createCheckbox(): Checkbox {
+    return new WindowsCheckbox();
+  }
+}
+```
+
+- MacOSFactory
+
+```typescript
+class MacOSFactory implements GUIFactory {
+  createButton(): Button {
+    return new MacOSButton();
+  }
+
+  createCheckbox(): Checkbox {
+    return new MacOSCheckbox();
+  }
+}
+```
+
+5. Client Code
+
+```typescript
+class Application {
+  private readonly button: Button;
+  private readonly checkbox: Checkbox;
+
+  constructor(factory: GUIFactory) {
+    this.button = factory.createButton();
+    this.checkbox = factory.createCheckbox();
+  }
+
+  renderUI(): void {
+    this.button.paint();
+    this.checkbox.paint();
+  }
+}
+```
+
+6. Wire Everything Together
+
+```typescript
+class AppLauncher {
+  static main(): void {
+    // Simulate platform detection
+    const os = process.platform;
+    let factory: GUIFactory;
+
+    if (os === "win32") {
+      factory = new WindowsFactory();
+    } else {
+      factory = new MacOSFactory();
+    }
+
+    const app = new Application(factory);
+    app.renderUI();
+  }
+}
+
+AppLauncher.main();
+```
+
+- Output (on MacOS)
+
+```txt
+Painting a macOS-style button.
+Painting a macOS-style checkbox.
+```
+
+- Output (on Windows)
+
+```txt
+Painting a Windows-style button.
+Painting a Windows-style checkbox.
+```
+
+{{#endtab}}
+{{#endtabs}}
 
 ---
 
 ## Builder
 
-**📖 Definition**
+### 📖 Definition
 
 The Builder Design Pattern is a creational pattern that lets you construct complex objects step-by-step, separating the construction logic from the final representation.
 
@@ -801,7 +1720,7 @@ Two ideas define the pattern:
 1. **Step-by-step construction**: Instead of passing everything to a constructor at once, you set each field through individual method calls. You only call the methods for the fields you need.
 2. **Fluent interface**: Each setter method returns the builder itself, allowing you to chain calls into a single readable expression that ends with `build()`.
 
-**🧩 Class Diagram**
+### 🧩 Class Diagram
 
 The Builder pattern involves four participants. In many real-world implementations, the Director is optional and is often skipped when using fluent builders.
 
@@ -827,7 +1746,7 @@ The Builder pattern involves four participants. In many real-world implementatio
   - Useful when you want to encapsulate standard configurations or reusable construction sequences.
   - Often omitted in fluent builder style, where the client effectively plays this role by chaining bilder calls.
 
-**🛠 Implementation**
+### 🛠 Implementation
 
 {{#tabs}}
 {{#tab name="Java"}}
@@ -1380,5 +2299,3 @@ const put = new HttpRequest.Builder("https://api.example.com/config")
 
 {{#endtab}}
 {{#endtabs}}
-
----
