@@ -2,7 +2,15 @@
 
 ---
 
-# Microsoft Azure
+# ⚛️ Quantum Computing
+
+- [Physics](./quantum/quantum_physics.md)
+- [Information]()
+- [Computation]()
+
+---
+
+# ☁️ Microsoft Azure
 
 - [AI + Machine Learning](./azure/ai_+_machine_learning.md)
 - [Compute](./azure/compute.md)
@@ -14,38 +22,40 @@
 
 ---
 
-# Design Patterns
+# 🧩 Design Patterns
 
-- [Creational Patterns]()
-- [Structural Patterns]()
-- [Behavioral Patterns]()
+- [Creational Patterns](./design_patterns/creational_patterns.md)
+- [Structural Patterns](./design_patterns/structural_patterns.md)
+- [Behavioral Patterns](./design_patterns/behavioral_patterns.md)
 
 ---
 
-# LeetCode
+# 🧠 LeetCode
 
+- [Design](./leetcode/design.md)
 - [Array / String](./leetcode/array_string.md)
 - [Two Pointers](./leetcode/two_pointers.md)
 - [Sliding Window]()
 - [Matrix]()
 - [Hashmap](./leetcode/hashmap.md)
-- [Intervals]()
-- [Stack]()
-- [Linked List]()
+- [Intervals](./leetcode/intervals.md)
+- [Stack](./leetcode/stack.md)
+- [Linked List](./leetcode/linked_list.md)
 - [Binary Tree](./leetcode/binary_tree.md)
 - [Graph]()
 - [Trie]()
 - [Backtracking]()
-- [Divide & Conquer]()
+- [Divide & Conquer](./leetcode/divide_and_conquer.md)
 - [Kadane's Algorithm]()
-- [Binary Search]()
+- [Binary Search](./leetcode/binary_search.md)
 - [Heap]()
-- [Bit Manipulation]()
+- [Bit Manipulation](./leetcode/bit_manipulation.md)
+- [Math](./leetcode/math.md)
 - [Dynamic Programming]()
 
 ---
 
-# C++
+# 💻 C++
 
 - [Standard I/O](./cpp/standard_io.md)
 - [Object-Oriented Programming](./cpp/oop.md)

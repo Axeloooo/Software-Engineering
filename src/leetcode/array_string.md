@@ -13,6 +13,8 @@
 - [88. Merge Sorted Array](#88-merge-sorted-array)
 - [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock)
 - [169. Majority Element](#169-majority-element)
+- [2043. Simple Bank System](#2043-simple-bank-system)
+- [2672. Number of Adjacent Elements With the Same Color](#2672-number-of-adjacent-elements-with-the-same-color)
 
 ---
 
@@ -21,6 +23,7 @@
 - **LeetCode Link:** [Roman to Integer](https://leetcode.com/problems/roman-to-integer/)
 - **Difficulty:** Easy
 - **Topic(s):** Hash Table, String, Math
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -126,6 +129,7 @@ class Solution:
 - **LeetCode Link:** [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
 - **Difficulty:** Easy
 - **Topic(s):** String, Trie
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -194,6 +198,7 @@ class Solution:
 - **LeetCode Link:** [Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Two Pointers
+- **Company:** Microsoft
 
 ### 🧠 Problem Statement
 
@@ -276,6 +281,7 @@ class Solution:
 - **LeetCode Link:** [Remove Element](https://leetcode.com/problems/remove-element/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Two Pointers
+- **Company:** Apple
 
 ### 🧠 Problem Statement
 
@@ -355,6 +361,7 @@ class Solution:
 - **LeetCode Link:** [Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
 - **Difficulty:** Easy
 - **Topic(s):** Two Pointers, String, String Matching
+- **Company:** Google
 
 ### 🧠 Problem Statement
 
@@ -419,6 +426,7 @@ class Solution:
 - **LeetCode Link:** [Length of Last Word](https://leetcode.com/problems/length-of-last-word/)
 - **Difficulty:** Easy
 - **Topic(s):** String, String Manipulation
+- **Company:** Amazon
 
 ### 🧠 Problem Statement
 
@@ -487,6 +495,7 @@ class Solution:
 - **LeetCode Link:** [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Two Pointers, Sorting
+- **Company:** Meta
 
 ### 🧠 Problem Statement
 
@@ -582,6 +591,7 @@ class Solution:
 - **LeetCode Link:** [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Dynamic Programming
+- **Company:** Amazon
 
 ### 🧠 Problem Statement
 
@@ -660,6 +670,7 @@ class Solution:
 - **LeetCode Link:** [Majority Element](https://leetcode.com/problems/majority-element/)
 - **Difficulty:** Easy
 - **Topic(s):** Array, Hash Table, Divide and Conquer, Counting
+- **Company:** Apple
 
 ### 🧠 Problem Statement
 
@@ -731,3 +742,229 @@ class Solution:
 - Space Complexity: `O(1)`
 
 ---
+
+## 2043. Simple Bank System
+
+- **LeetCode Link:** [Simple Bank System](https://leetcode.com/problems/simple-bank-system/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Array
+- **Company:** Capital One
+
+### 🧠 Problem Statement
+
+You have been tasked with writing a program for a popular bank that will automate all its incoming transactions (transfer, deposit, and withdraw). The bank has `n` accounts numbered from `1` to `n`. The initial balance of each account is stored in a 0-indexed integer array `balance`, with the `(i + 1)th` account having an initial balance of `balance[i]`.
+
+Execute all the valid transactions. A transaction is valid if:
+
+- The given account number(s) are between `1` and `n`, and
+- The amount of money withdrawn or transferred from is less than or equal to the balance of the account.
+
+Implement the `Bank` class:
+
+- `Bank(long[] balance)` Initializes the object with the 0-indexed integer array balance.
+- `boolean transfer(int account1, int account2, long money)` Transfers `money` dollars from the account numbered `account1` to the account numbered `account2`. Return `true` if the transaction was successful, `false` otherwise.
+- `boolean deposit(int account, long money)` Deposit `money` dollars into the account numbered `account`. Return `true` if the transaction was successful, `false` otherwise.
+- `boolean withdraw(int account, long money)` Withdraw `money` dollars from the account numbered `account`. Return `true` if the transaction was successful, `false` otherwise.
+
+Example 1:
+
+```txt
+Input
+["Bank", "withdraw", "transfer", "deposit", "transfer", "withdraw"]
+[[[10, 100, 20, 50, 30]], [3, 10], [5, 1, 20], [5, 20], [3, 4, 15], [10, 50]]
+Output
+[null, true, true, true, false, false]
+
+Explanation
+Bank bank = new Bank([10, 100, 20, 50, 30]);
+bank.withdraw(3, 10);    // return true, account 3 has a balance of $20, so it is valid to withdraw $10.
+                         // Account 3 has $20 - $10 = $10.
+bank.transfer(5, 1, 20); // return true, account 5 has a balance of $30, so it is valid to transfer $20.
+                         // Account 5 has $30 - $20 = $10, and account 1 has $10 + $20 = $30.
+bank.deposit(5, 20);     // return true, it is valid to deposit $20 to account 5.
+                         // Account 5 has $10 + $20 = $30.
+bank.transfer(3, 4, 15); // return false, the current balance of account 3 is $10,
+                         // so it is invalid to transfer $15 from it.
+bank.withdraw(10, 50);   // return false, it is invalid because account 10 does not exist.
+```
+
+### 🧩 Approach
+
+1. Initialize the `Bank` class with the given balances.
+2. Implement the `transfer` method to check for valid accounts and sufficient balance before transferring money.
+3. Implement the `deposit` method to add money to the specified account if valid.
+4. Implement the `withdraw` method to deduct money from the specified account if valid.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class Bank:
+
+    def __init__(self, balance: List[int]):
+        """
+        Initialize the Bank with the given balances.
+
+        Args:
+            balance (List[int]): The initial balances of the accounts.
+        """
+        self.balance: List[int] = balance
+
+    def transfer(self, account1: int, account2: int, money: int) -> bool:
+        """
+        Transfer money from account1 to account2 if valid.
+
+        Args:
+            account1 (int): The account number to transfer money from.
+            account2 (int): The account number to transfer money to.
+            money (int): The amount of money to transfer.
+
+        Returns:
+            bool: True if the transfer was successful, False otherwise.
+        """
+        if (
+            account1 > len(self.balance)
+            or account2 > len(self.balance)
+            or self.balance[account1 - 1] < money
+        ):
+            return False
+        self.balance[account1 - 1] -= money
+        self.balance[account2 - 1] += money
+        return True
+
+    def deposit(self, account: int, money: int) -> bool:
+        """
+        Deposit money into the specified account if valid.
+
+        Args:
+            account (int): The account number to deposit money into.
+            money (int): The amount of money to deposit.
+
+        Returns:
+            bool: True if the deposit was successful, False otherwise.
+        """
+        if account > len(self.balance):
+            return False
+
+        self.balance[account - 1] += money
+        return True
+
+    def withdraw(self, account: int, money: int) -> bool:
+        """
+        Withdraw money from the specified account if valid.
+
+        Args:
+            account (int): The account number to withdraw money from.
+            money (int): The amount of money to withdraw.
+
+        Returns:
+            bool: True if the withdrawal was successful, False otherwise.
+        """
+        if account > len(self.balance) or self.balance[account - 1] < money:
+            return False
+
+        self.balance[account - 1] -= money
+        return True
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(1)`
+- Space Complexity: `O(1)`
+
+---
+
+## 2672. Number of Adjacent Elements With the Same Color
+
+- **LeetCode Link:** [Number of Adjacent Elements With the Same Color](https://leetcode.com/problems/number-of-adjacent-elements-with-the-same-color/)
+- **Difficulty:** Easy
+- **Topic(s):** Array, Simulation
+- **Company:** Capital One
+
+### 🧠 Problem Statement
+
+> You are given an integer `n` representing an `array` colors of length `n` where all elements are set to 0's meaning uncolored. You are also given a 2D integer array `queries` where `queries[i] = [indexi, colori]`. For the `ith` query:
+>
+> Set `colors[indexi]` to `colori`.
+> Count the number of adjacent pairs in `colors` which have the same color (regardless of `colori`).
+> Return an array `answer` of the same length as `queries` where `answer[i]` is the answer to the `ith` query.
+>
+> Example 1:
+>
+> ```txt
+> Input: n = 4, queries = [[0,2],[1,2],[3,1],[1,1],[2,1]]
+>
+> Output: [0,1,1,0,2]
+>
+> Explanation:
+>
+> Initially array colors = [0,0,0,0], where 0 denotes uncolored elements of the array.
+> After the 1st query colors = [2,0,0,0]. The count of adjacent pairs with the same color is 0.
+> After the 2nd query colors = [2,2,0,0]. The count of adjacent pairs with the same color is 1.
+> After the 3rd query colors = [2,2,0,1]. The count of adjacent pairs with the same color is 1.
+> After the 4th query colors = [2,1,0,1]. The count of adjacent pairs with the same color is 0.
+> After the 5th query colors = [2,1,1,1]. The count of adjacent pairs with the same color is 2.
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: n = 1, queries = [[0,100000]]
+>
+> Output: [0]
+>
+> Explanation:
+>
+> After the 1st query colors = [100000]. The count of adjacent pairs with the same color is 0.
+> ```
+
+### 🧩 Approach
+
+1. Initialize a count variable to keep track of adjacent pairs with the same color.
+2. Create an array `nums` of size `n` initialized to `0` to represent uncolored elements.
+3. For each query:
+   - Check the previous and next elements of the index being colored.
+   - If the current element is already colored and matches the previous or next element, decrement the count.
+   - Update the color of the current index.
+   - If the new color matches the previous or next element, increment the count.
+4. Append the current count to the result list after each query.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class Solution:
+    def colorTheArray(self, n: int, queries: List[List[int]]) -> List[int]:
+        count: int = 0
+        res: List[int] = []
+        nums: List[int] = [0 for _ in range(n)]
+
+        for idx, color in queries:
+            prev: int = nums[idx - 1] if idx > 0 else 0
+            nxt: int = nums[idx + 1] if idx < n - 1 else 0
+
+            if nums[idx] and nums[idx] == prev:
+                count -= 1
+
+            if nums[idx] and nums[idx] == nxt:
+                count -= 1
+
+            nums[idx] = color
+
+            if nums[idx] and nums[idx] == prev:
+                count += 1
+
+            if nums[idx] and nums[idx] == nxt:
+                count += 1
+
+            res.append(count)
+
+        return res
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity: `O(n)`
+- Space Complexity: `O(n)`

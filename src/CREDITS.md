@@ -3,7 +3,7 @@
 This project was developed by **Axel Omar Sánchez Peralta**.
 
 - **Role:** Software Engineering Student at the University of Calgary
-- **Current Position:** Cloud Developer Intern at Aptum
+- **Current Position:** Undergraduate Researcher at the University of Calgary
 
 Feel free to connect with me through the following channels:
 
