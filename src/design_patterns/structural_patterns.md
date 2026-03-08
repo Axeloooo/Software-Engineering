@@ -10,6 +10,8 @@
 - [Composite](#composite)
 - [Facade](#facade)
 
+---
+
 ## Adapter
 
 ### 📖 Definition
