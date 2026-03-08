@@ -39,7 +39,7 @@ If you are opening these notes for the first time, these are good entry points:
 - [Security](./azure/security.md)
 - [Storage](./azure/storage.md)
 
-### 🧩 Design Patterns
+### 🏭 Design Patterns
 
 - [Creational Patterns](./design_patterns/creational_patterns.md)
 - [Structural Patterns](./design_patterns/structural_patterns.md)
