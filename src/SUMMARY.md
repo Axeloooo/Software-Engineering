@@ -22,7 +22,7 @@
 
 ---
 
-# 🧩 Design Patterns
+# 🏭 Design Patterns
 
 - [Creational Patterns](./design_patterns/creational_patterns.md)
 - [Structural Patterns](./design_patterns/structural_patterns.md)
