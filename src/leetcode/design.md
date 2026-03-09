@@ -1565,7 +1565,7 @@ class NestedIterator:
         Returns:
             bool: True if there are still some integers in the nested list, False otherwise.
         """
-        return len(self.stack)
+        return len(self.stack) > 0
 
     def dfs(self, nested: NestedInteger):
         """Performs a depth-first search on the nested list to flatten it and store the integers in the stack.
