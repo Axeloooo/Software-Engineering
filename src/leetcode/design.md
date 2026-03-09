@@ -1507,6 +1507,8 @@ To implement the `NestedIterator`, we can use a depth-first search (DFS) approac
 ### 💡 Solution
 
 ```python
+from typing import List
+
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
