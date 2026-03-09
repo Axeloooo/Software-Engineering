@@ -1529,6 +1529,8 @@ To implement the `NestedIterator`, we can use a depth-first search (DFS) approac
 #        Return None if this NestedInteger holds a single integer
 #        """
 
+from typing import List
+
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
         """Initializes the NestedIterator with the given nested list.
