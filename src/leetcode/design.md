@@ -14,6 +14,7 @@
 - [284. Peeking Iterator](#284-peeking-iterator)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 - [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
+- [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
@@ -1253,6 +1254,198 @@ class NumMatrix:
   - `__init__`: `O(R * C)` for preprocessing the prefix sum matrix.
   - `sumRegion`: `O(1)` for each query after preprocessing.
 - Space Complexity: `O(R * C)` for storing the prefix sum matrix.
+
+---
+
+## 307. Range Sum Query - Mutable
+
+- **LeetCode Link:** [Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Array, Segment Tree, Binary Indexed Tree
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given an integer array `nums`, handle multiple queries of the following types:
+>
+> 1.  **Update** the value of an element in `nums`.
+> 2.  Calculate the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** where `left` <= `right`.
+>
+> Implement the `NumArray` class:
+>
+> - `NumArray(int[] nums)` Initializes the object with the integer array `nums`.
+> - `void update(int index, int val)` **Updates** the value of `nums[index]` to be `val`.
+> - `int sumRange(int left, int right)` Returns the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** (i.e. `nums[left] + nums[left + 1] + ... + nums[right]`).
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["NumArray", "sumRange", "update", "sumRange"]
+> [[[1, 3, 5]], [0, 2], [1, 2], [0, 2]]
+>
+> Output
+> [null, 9, null, 8]
+>
+> Explanation
+> NumArray numArray = new NumArray([1, 3, 5]);
+> numArray.sumRange(0, 2); // return 1 + 3 + 5 = 9
+> numArray.update(1, 2); // nums = [1, 2, 5]
+> numArray.sumRange(0, 2); // return 1 + 2 + 5 = 8
+> ```
+
+### 🧩 Approach
+
+To efficiently handle updates and range sum queries on an array, we can use a Segment Tree data structure. A Segment Tree allows us to perform both update and query operations in logarithmic time. The idea is to build a binary tree where each node represents a segment of the array and stores the sum of that segment. When we need to update an element, we can update the corresponding leaf node and then propagate the changes up the tree. When we need to calculate the sum of a range, we can traverse the tree and combine the sums of the relevant segments.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class Node:
+    def __init__(self, start, end):
+        """Initializes a Node in the Segment Tree with the given start and end indices.
+
+        Args:
+            start (int): The starting index of the segment represented by this node.
+            end (int): The ending index of the segment represented by this node.
+
+        Returns:
+            None
+        """
+        self.start: int = start
+        self.end: int = end
+        self.total: int = 0
+        self.left: Node = None
+        self.right: Node = None
+
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        """Initializes the NumArray object with the given integer array.
+
+        Args:
+            nums (List[int]): The input integer array.
+
+        Returns:
+            None
+        """
+        def createTree(nums: List[int], l: int, r: int) -> Node:
+            """Recursively builds a segment tree from the input array nums between indices l and r.
+
+            Args:
+                nums (List[int]): The input array of integers.
+                l (int): The left index of the current segment.
+                r (int): The right index of the current segment.
+
+            Returns:
+                Node: The root node of the segment tree for the current segment.
+            """
+            if l > r:
+                return None
+
+            if l == r:
+                n: Node = Node(l, r)
+                n.total = nums[l]
+                return n
+
+            mid: int = (l + r) // 2
+            root: Node = Node(l, r)
+
+            root.left = createTree(nums, l, mid)
+            root.right = createTree(nums, mid + 1, r)
+
+            root.total = root.left.total + root.right.total
+
+            return root
+
+        self.root: Node = createTree(nums, 0, len(nums) - 1)
+
+    def update(self, index: int, val: int) -> None:
+        """Updates the value at the specified index in the array and updates the segment tree accordingly.
+
+        Args:
+            index (int): The index of the element to be updated.
+            val (int): The new value to be set at the specified index.
+
+        Returns:
+            None
+        """
+        def updateVal(root: Node, i: int, val: int) -> int:
+            """Recursively updates the value at index i in the segment tree rooted at root and updates the total values of the affected nodes.
+
+            Args:
+                root (Node): The current node in the segment tree.
+                i (int): The index of the element to be updated.
+                val (int): The new value to be set at the specified index.
+
+            Returns:
+                int: The updated total value of the current node after the update.
+            """
+            if root.left == root.right:
+                root.total = val
+                return val
+
+            mid: int = (root.start + root.end) // 2
+
+            if i <= mid:
+                updateVal(root.left, i, val)
+            else:
+                updateVal(root.right, i, val)
+
+            root.total = root.left.total + root.right.total
+
+            return root.total
+
+        return updateVal(self.root, index, val)
+
+    def sumRange(self, left: int, right: int) -> int:
+        """Returns the sum of the elements of the array between indices left and right inclusive.
+
+        Args:
+            left (int): The starting index of the range.
+            right (int): The ending index of the range.
+
+        Returns:
+            int: The sum of the elements in the specified range.
+        """
+        def rangeSum(root: Node, i: int, j: int) -> int:
+            """Recursively calculates the sum of the elements in the range [i, j] in the segment tree rooted at root.
+
+            Args:
+                root (Node): The current node in the segment tree.
+                i (int): The starting index of the range.
+                j (int): The ending index of the range.
+
+            Returns:
+                int: The sum of the elements in the specified range.
+            """
+            if root.start == i and root.end == j:
+                return root.total
+
+            mid: int = (root.start + root.end) // 2
+
+            if j <= mid:
+                return rangeSum(root.left, i, j)
+
+            elif i >= mid + 1:
+                return rangeSum(root.right, i, j)
+
+            else:
+                return rangeSum(root.left, i, mid) + rangeSum(root.right, mid + 1, j)
+
+        return rangeSum(self.root, left, right)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(n)` for building the segment tree.
+  - `update`: `O(log n)` for updating an element in the segment tree.
+  - `sumRange`: `O(log n)` for querying the sum of a range in the segment tree.
+- Space Complexity: `O(n)` for storing the segment tree.
 
 ---
 
