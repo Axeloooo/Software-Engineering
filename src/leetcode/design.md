@@ -15,6 +15,7 @@
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 - [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
 - [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
+- [341. Flatten Nested List Iterator](#341-flatten-nested-list-iterator)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
@@ -1446,6 +1447,148 @@ class NumArray:
   - `update`: `O(log n)` for updating an element in the segment tree.
   - `sumRange`: `O(log n)` for querying the sum of a range in the segment tree.
 - Space Complexity: `O(n)` for storing the segment tree.
+
+---
+
+## 341. Flatten Nested List Iterator
+
+- **LeetCode Link:** [Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Stack, Iterator
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> You are given a nested list of integers `nestedList`. Each element is either an integer or a list whose elements may also be integers or other lists. Implement an iterator to flatten it.
+>
+> Implement the `NestedIterator` class:
+>
+> - `NestedIterator(List<NestedInteger> nestedList)`: Initializes the iterator with the nested list `nestedList`.
+> - `int next()`: Returns the next integer in the nested list.
+> - `boolean hasNext()`: Returns `true` if there are still some integers in the nested list and `false` otherwise.
+>
+> Your code will be tested with the following pseudocode:
+>
+> ```txt
+> initialize iterator with nestedList
+> res = []
+> while iterator.hasNext()
+> append iterator.next() to the end of res
+> return res
+> ```
+>
+> If `res` matches the expected flattened list, then your code will be judged as correct.
+>
+> Example 1:
+>
+> ```txt
+> Input: nestedList = [[1,1],2,[1,1]]
+>
+> Output: [1,1,2,1,1]
+>
+> Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nestedList = [1,[4,[6]]]
+>
+> Output: [1,4,6]
+>
+> Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
+> ```
+
+### 🧩 Approach
+
+To implement the `NestedIterator`, we can use a depth-first search (DFS) approach to flatten the nested list of integers. We can maintain a stack to store the integers in the order they should be returned. During the initialization, we can perform a DFS on the input nested list and push all the integers onto the stack. After the DFS is complete, we can reverse the stack to ensure that the integers are in the correct order for iteration. The `next()` method will simply pop an integer from the stack, and the `hasNext()` method will check if there are any integers left in the stack.
+
+### 💡 Solution
+
+```python
+# """
+# This is the interface that allows for creating nested lists.
+# You should not implement it, or speculate about its implementation
+# """
+#class NestedInteger:
+#    def isInteger(self) -> bool:
+#        """
+#        @return True if this NestedInteger holds a single integer, rather than a nested list.
+#        """
+#
+#    def getInteger(self) -> int:
+#        """
+#        @return the single integer that this NestedInteger holds, if it holds a single integer
+#        Return None if this NestedInteger holds a nested list
+#        """
+#
+#    def getList(self) -> [NestedInteger]:
+#        """
+#        @return the nested list that this NestedInteger holds, if it holds a nested list
+#        Return None if this NestedInteger holds a single integer
+#        """
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        """Initializes the NestedIterator with the given nested list.
+
+        Args:
+            nestedList (List[NestedInteger]): The input nested list of integers.
+
+        Returns:
+            None
+        """
+        self.stack: List[int] = []
+        self.dfs(nestedList)
+        self.stack.reverse()
+
+
+    def next(self) -> int:
+        """Returns the next integer in the nested list.
+
+        Args:
+            None
+
+        Returns:
+            int: The next integer in the nested list.
+        """
+        return self.stack.pop()
+
+
+    def hasNext(self) -> bool:
+        """Returns true if there are still some integers in the nested list and false otherwise.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if there are still some integers in the nested list, False otherwise.
+        """
+        return len(self.stack)
+
+    def dfs(self, nested: NestedInteger):
+        """Performs a depth-first search on the nested list to flatten it and store the integers in the stack.
+
+        Args:
+            nested (NestedInteger): The current nested list or integer to be processed.
+
+        Returns:
+            None
+        """
+        for n in nested:
+            if n.isInteger():
+                self.stack.append(n.getInteger())
+            else:
+                self.dfs(n.getList())
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(n)` for flattening the nested list, where `n` is the total number of integers in the nested list.
+  - `next`: `O(1)` for returning the next integer.
+  - `hasNext`: `O(1)` for checking if there are more integers to return.
+- Space Complexity: `O(n)` for storing the flattened integers in the stack.
 
 ---
 
