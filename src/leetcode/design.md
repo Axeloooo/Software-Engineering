@@ -16,6 +16,7 @@
 - [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
 - [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
 - [341. Flatten Nested List Iterator](#341-flatten-nested-list-iterator)
+- [355. Design Twitter](#355-design-twitter)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
@@ -1589,6 +1590,163 @@ class NestedIterator:
   - `next`: `O(1)` for returning the next integer.
   - `hasNext`: `O(1)` for checking if there are more integers to return.
 - Space Complexity: `O(n)` for storing the flattened integers in the stack.
+
+---
+
+## 355. Design Twitter
+
+- **LeetCode Link:** [Design Twitter](https://leetcode.com/problems/design-twitter/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Hash Table, Heap, Priority Queue
+
+### 🧠 Problem Statement
+
+> Design a simplified version of `Twitter` where users can post tweets, follow/unfollow another user, and is able to see the `10` most recent tweets in the user's news feed.
+>
+> Implement the `Twitter` class:
+>
+> - `Twitter()` Initializes your twitter object.
+> - `void postTweet(int userId, int tweetId)` Composes a new tweet with ID `tweetId` by the user with ID `userId`. Each call to this function will be made with a unique `tweetId`.
+> - `List<Integer> getNewsFeed(int userId)` Retrieves the `10` most recent tweet IDs in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user themself. Tweets must be ordered from most recent to least recent.
+> - `void follow(int followerId, int followeeId)` The user with ID `followerId` started following the user with ID `followeeId`.
+> - `void unfollow(int followerId, int followeeId)` The user with ID `followerId` started unfollowing the user with ID `followeeId`.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["Twitter", "postTweet", "getNewsFeed", "follow", "postTweet", "getNewsFeed", "unfollow", "getNewsFeed"]
+> [[], [1, 5], [1], [1, 2], [2, 6], [1], [1, 2], [1]]
+>
+> Output
+> [null, null, [5], null, null, [6, 5], null, [5]]
+>
+> Explanation
+> Twitter twitter = new Twitter();
+> twitter.postTweet(1, 5); // User 1 posts a new tweet (id = 5).
+> twitter.getNewsFeed(1); // User 1's news feed should return a list with 1 tweet id -> [5]. return [5]
+> twitter.follow(1, 2); // User 1 follows user 2.
+> twitter.postTweet(2, 6); // User 2 posts a new tweet (id = 6).
+> twitter.getNewsFeed(1); // User 1's news feed should return a list with 2 tweet ids -> [6, 5]. Tweet id 6 should precede tweet id 5 because it is posted after tweet id 5.
+> twitter.unfollow(1, 2); // User 1 unfollows user 2.
+> twitter.getNewsFeed(1); // User 1's news feed should return a list with 1 tweet id -> [5], since user 1 is no longer following user 2.
+> ```
+
+### 🧩 Approach
+
+To design the `Twitter` class, we can use a combination of hash maps and a min-heap (priority queue) to efficiently manage tweets and follow relationships. We will maintain a mapping of user IDs to their tweets, as well as a mapping of user IDs to the set of users they follow. When retrieving the news feed for a user, we can use a min-heap to merge the most recent tweets from the user and their followees, ensuring that we return the 10 most recent tweets in the correct order.
+
+### 💡 Solution
+
+```python
+import heapq
+from collections import defaultdict
+from typing import Dict, List, Set
+
+
+class Twitter:
+    """A simplified Twitter-like social media system.
+
+    Supports posting tweets, following/unfollowing users,
+    and retrieving a user's news feed of the 10 most recent tweets
+    from themselves and the users they follow.
+
+    Attributes:
+        count (int): A counter used to order tweets by recency (decrements on each post).
+        tweetMap (Dict[int, List[List[int]]]): Maps each userId to a list of [count, tweetId] pairs.
+        followMap (Dict[int, Set[int]]): Maps each userId to the set of followeeIds they follow.
+    """
+
+    def __init__(self) -> None:
+        """Initializes the Twitter system with empty tweet and follow maps."""
+        self.count: int = 0
+        self.tweetMap: Dict[int, List[List[int]]] = defaultdict(list)
+        self.followMap: Dict[int, Set[int]] = defaultdict(set)
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        """Posts a new tweet for the given user.
+
+        Args:
+            userId (int): The ID of the user posting the tweet.
+            tweetId (int): The ID of the tweet being posted.
+        """
+        self.tweetMap[userId].append([self.count, tweetId])
+        self.count -= 1
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        """Retrieves the 10 most recent tweet IDs from the user's news feed.
+
+        The feed includes tweets from the user themselves and all users they follow,
+        sorted in descending order of recency (most recent first).
+
+        Args:
+            userId (int): The ID of the user requesting the news feed.
+
+        Returns:
+            List[int]: A list of up to 10 tweet IDs, ordered from most recent to least recent.
+        """
+        res: List[int] = []
+        # Min-heap entries are: [count, tweetId, followeeId, index]
+        # 'count' is negative so lower values = more recent tweets (min-heap acts as max-heap)
+        minHeap: List[List[int]] = []
+
+        # Ensure the user sees their own tweets by adding themselves to their follow set
+        self.followMap[userId].add(userId)
+
+        # Seed the heap with the most recent tweet from each followee
+        for followeeId in self.followMap[userId]:
+            if followeeId in self.tweetMap:
+                # Start from the last (most recent) tweet in the followee's list
+                index: int = len(self.tweetMap[followeeId]) - 1
+                count, tweetId = self.tweetMap[followeeId][index]
+                # Push [count, tweetId, followeeId, next_index] so we can walk backwards later
+                minHeap.append([count, tweetId, followeeId, index - 1])
+
+        # Transform the list into a valid heap in O(n)
+        heapq.heapify(minHeap)
+
+        # Pop the most recent tweet globally, then push the previous tweet from the same user
+        while minHeap and len(res) < 10:
+            count, tweetId, followeeId, index = heapq.heappop(minHeap)
+
+            # Add the popped tweet to results
+            res.append(tweetId)
+
+            # If this followee has older tweets remaining, push the next one onto the heap
+            if index >= 0:
+                count, tweetId = self.tweetMap[followeeId][index]
+                heapq.heappush(minHeap, [count, tweetId, followeeId, index - 1])
+
+        return res
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        """Makes a user follow another user.
+
+        Args:
+            followerId (int): The ID of the user who wants to follow.
+            followeeId (int): The ID of the user to be followed.
+        """
+        self.followMap[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        """Makes a user unfollow another user.
+
+        Args:
+            followerId (int): The ID of the user who wants to unfollow.
+            followeeId (int): The ID of the user to be unfollowed.
+        """
+        if followeeId in self.followMap[followerId]:
+            self.followMap[followerId].remove(followeeId)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `postTweet`: `O(1)` for appending a new tweet.
+  - `getNewsFeed`: `O(k log n)` where k is the number of followees (including self) and n is the average number of tweets per followee, due to heap operations.
+  - `follow`: `O(1)` for adding a followee.
+  - `unfollow`: `O(1)` for removing a followee.
+- Space Complexity: `O(u + t)` where u is the number of users and t is the total number of tweets, due to storing follow relationships and tweets.
 
 ---
 
