@@ -1401,7 +1401,7 @@ class NumArray:
 
             return root.total
 
-        return updateVal(self.root, index, val)
+        updateVal(self.root, index, val)
 
     def sumRange(self, left: int, right: int) -> int:
         """Returns the sum of the elements of the array between indices left and right inclusive.
