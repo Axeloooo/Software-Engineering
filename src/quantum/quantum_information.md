@@ -257,10 +257,10 @@ Left circular:
 |L\rangle = \frac{1}{\sqrt{2}}
 \begin{bmatrix}
 1 \\\\
-
 - i
-  \end{bmatrix}
-  \\]
+\end{bmatrix}
+\\]
+
 
 - Circular polarization arises from a **phase difference of \\(\pm \frac{\pi}{2}\\)**
 
