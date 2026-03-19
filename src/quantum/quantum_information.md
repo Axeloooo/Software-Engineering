@@ -257,16 +257,15 @@ Left circular:
 |L\rangle = \frac{1}{\sqrt{2}}
 \begin{bmatrix}
 1 \\\\
-- i
+\-i
 \end{bmatrix}
 \\]
-
 
 - Circular polarization arises from a **phase difference of \\(\pm \frac{\pi}{2}\\)**
 
 ### Polarizing Beam Splitter (PBS)
 
-A PBS performs a measurement:
+An optical element that separates light into two orthogonal polarizations:
 
 - Transmits \\(|H\rangle\\)
 - Reflects \\(|V\rangle\\)
