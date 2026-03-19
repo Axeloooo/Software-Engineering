@@ -160,7 +160,204 @@ Blocking a path removes interference because only one amplitude remains.
 
 ## Polarization and Wave Plates
 
-Coming soon!
+### Polarization as a Qubit
+
+Photon polarization is a two-level quantum system:
+
+\\[
+|H\rangle =
+\begin{bmatrix}
+1 \\\\
+0
+\end{bmatrix}, \quad
+|V\rangle =
+\begin{bmatrix}
+0 \\\\
+1
+\end{bmatrix}
+\\]
+
+General state:
+
+\\[
+|\psi\rangle = \alpha |H\rangle + \beta |V\rangle
+\\]
+
+with normalization:
+
+\\[
+|\alpha|^2 + |\beta|^2 = 1
+\\]
+
+### Jones Vector Representation
+
+Polarization is represented as:
+
+\\[
+\begin{bmatrix}
+E_x \\\\
+E_y
+\end{bmatrix}
+\\]
+
+This encodes:
+
+- Amplitude
+- Relative phase
+
+### Linear Polarization
+
+At angle \\(\theta\\):
+
+\\[
+|\theta\rangle =
+\begin{bmatrix}
+\cos\theta \\\\
+\sin\theta
+\end{bmatrix}
+\\]
+
+### Special Polarization States
+
+Diagonal:
+
+\\[
+|D\rangle = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 \\\\
+1
+\end{bmatrix}
+\\]
+
+Anti-diagonal:
+
+\\[
+|A\rangle = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 \\\\
+-1
+\end{bmatrix}
+\\]
+
+### Circular Polarization
+
+Right circular:
+
+\\[
+|R\rangle = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 \\\\
+i
+\end{bmatrix}
+\\]
+
+Left circular:
+
+\\[
+|L\rangle = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 \\\\
+\-i
+\end{bmatrix}
+\\]
+
+- Circular polarization arises from a **phase difference of \\(\pm \frac{\pi}{2}\\)**
+
+### Polarizing Beam Splitter (PBS)
+
+An optical element that separates light into two orthogonal polarizations:
+
+- Transmits \\(|H\rangle\\)
+- Reflects \\(|V\rangle\\)
+
+Measurement probabilities:
+
+\\[
+P(H) = |\alpha|^2, \quad P(V) = |\beta|^2
+\\]
+
+After measurement, the state collapses to one basis state.
+
+### Half-Wave Plate (HWP)
+
+A half-wave plate introduces a phase shift between orthogonal components.
+
+Matrix form:
+
+\\[
+HWP(\theta) =
+\begin{bmatrix}
+\cos 2\theta & \sin 2\theta \\\\
+\sin 2\theta & -\cos 2\theta
+\end{bmatrix}
+\\]
+
+### Important Cases
+
+#### \\(\theta = 0^\circ\\)
+
+\\[
+HWP =
+\begin{bmatrix}
+1 & 0 \\\\
+0 & -1
+\end{bmatrix}
+\\]
+
+- Leaves \\(|H\rangle\\) unchanged
+- Adds phase \\(-1\\) to \\(|V\rangle\\)
+
+#### \\(\theta = 45^\circ\\)
+
+\\[
+HWP =
+\begin{bmatrix}
+0 & 1 \\\\
+1 & 0
+\end{bmatrix}
+\\]
+
+- Swaps \\(|H\rangle \leftrightarrow |V\rangle\\)
+
+#### \\(\theta = 22.5^\circ\\)
+
+\\[
+HWP =
+\frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 & 1 \\\\
+1 & -1
+\end{bmatrix}
+\\]
+
+- Equivalent to the **Hadamard transformation**
+
+\\[
+|H\rangle \rightarrow |D\rangle, \quad |V\rangle \rightarrow |A\rangle
+\\]
+
+### Physical Interpretation of HWP
+
+A half-wave plate:
+
+1. Splits the polarization into two orthogonal components
+2. Introduces a phase difference of \\(\pi\\)
+3. Recombines the components
+
+This results in a rotation of polarization.
+
+### Key Observations
+
+- The transformation depends on **\\(2\theta\\)**, not \\(\theta\\)
+- Wave plates perform **unitary operations**
+- They act as quantum gates on polarization states
+
+### Conceptual Takeaways
+
+- Polarization is a quantum two-level system
+- Phase determines the difference between linear and circular states
+- Measurement projects onto a basis and destroys superposition
+- Wave plates implement controlled transformations of quantum states
 
 ---
 
