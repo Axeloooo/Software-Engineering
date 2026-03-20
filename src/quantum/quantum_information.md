@@ -623,7 +623,255 @@ Still limited by linear optics constraints.
 
 ## Quantum Teleportation
 
-Coming soon!
+### Overview
+
+Quantum teleportation is a protocol that transfers an **unknown quantum state** from one location to another using:
+
+- Entanglement
+- Classical communication
+
+Key idea:
+
+- The quantum state is **not copied**
+- The original is **destroyed**
+- The state is **reconstructed** at the destination
+
+### The Problem
+
+Given an unknown qubit:
+
+\\[
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle
+\\]
+
+Goal:
+
+\\[
+|\psi\rangle_A \rightarrow |\psi\rangle_B
+\\]
+
+Naively, one might try:
+
+\\[
+|\psi\rangle |0\rangle \rightarrow |\psi\rangle |\psi\rangle
+\\]
+
+This is **impossible**.
+
+### No-Cloning Theorem
+
+Unknown quantum states cannot be copied.
+
+Reason:
+
+Linearity implies:
+
+\\[
+C(\alpha|0\rangle + \beta|1\rangle)
+= \alpha C|0\rangle + \beta C|1\rangle
+\\]
+
+But cloning would require:
+
+\\[
+(\alpha|0\rangle + \beta|1\rangle)(\alpha|0\rangle + \beta|1\rangle)
+\\]
+
+These expressions are not equal for general \\( \\alpha, \\beta \\).
+
+Conclusion:
+
+- Cloning is impossible
+- State must be **transferred**, not duplicated
+
+### Initial Setup
+
+Three qubits:
+
+- Qubit 1: unknown state \\( |\\psi\\rangle \\) (Alice)
+- Qubit 2: entangled (Alice)
+- Qubit 3: entangled (Bob)
+
+Shared Bell state:
+
+\\[
+|\Phi^+\rangle\_{23} =
+\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+\\]
+
+Ownership:
+
+- Alice → qubits 1 and 2
+- Bob → qubit 3
+
+### Total Initial State
+
+\\[
+|\Psi\rangle =
+|\psi\rangle*1 \otimes |\Phi^+\rangle*{23}
+\\]
+
+\\[
+= (\alpha|0\rangle + \beta|1\rangle)
+\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+\\]
+
+This is a **three-qubit system**.
+
+### Bell States
+
+\\[
+|\Phi^\pm\rangle =
+\frac{1}{\sqrt{2}}(|00\rangle \pm |11\rangle)
+\\]
+
+\\[
+|\Psi^\pm\rangle =
+\frac{1}{\sqrt{2}}(|01\rangle \pm |10\rangle)
+\\]
+
+These form a complete basis for two qubits.
+
+### Bell Basis Expansion
+
+The total state can be rewritten as:
+
+\\[
+|\Psi\rangle =
+\frac{1}{2} \Big(|\Phi^+\rangle\_{12} (\alpha|0\rangle + \beta|1\rangle)\_3
++|\Phi^-\rangle\_{12} (\alpha|0\rangle - \beta|1\rangle)\_3
++|\Psi^+\rangle\_{12} (\alpha|1\rangle + \beta|0\rangle)\_3
++|\Psi^-\rangle\_{12} (\alpha|1\rangle - \beta|0\rangle)\_3\Big)
+\\]
+
+Key insight:
+
+- Alice’s measurement outcome determines Bob’s state
+
+### Measurement by Alice
+
+Alice performs a **Bell-state measurement** on qubits 1 and 2.
+
+Result:
+
+- One of four Bell states
+- Produces **2 classical bits**
+
+After measurement:
+
+- Original state is destroyed
+- Bob’s qubit collapses into a related state
+
+### Conditional States at Bob
+
+| Alice Outcome           | Bob’s State                                |
+| ----------------------- | ------------------------------------------ |
+| \\( \|\Phi^+\rangle \\) | \\( \alpha\|0\rangle + \beta\|1\rangle \\) |
+| \\( \|\Phi^-\rangle \\) | \\( \alpha\|0\rangle - \beta\|1\rangle \\) |
+| \\( \|\Psi^+\rangle \\) | \\( \alpha\|1\rangle + \beta\|0\rangle \\) |
+| \\( \|\Psi^-\rangle \\) | \\( \alpha\|1\rangle - \beta\|0\rangle \\) |
+
+Bob has a **modified version** of \\( |\\psi\\rangle \\).
+
+### Classical Communication
+
+Alice sends **2 classical bits** to Bob.
+
+Important:
+
+- Without this, Bob cannot recover the state
+- No faster-than-light communication
+
+### Correction by Bob
+
+Bob applies an operation depending on Alice’s result:
+
+| Bits | Operation  |
+| ---- | ---------- |
+| 00   | \\( I \\)  |
+| 01   | \\( Z \\)  |
+| 10   | \\( X \\)  |
+| 11   | \\( XZ \\) |
+
+After correction:
+
+\\[
+|\psi\rangle_B = \alpha|0\rangle + \beta|1\rangle
+\\]
+
+### Final Result
+
+- Bob obtains the original quantum state
+- Alice’s state is destroyed
+
+\\[
+|\psi\rangle_A \rightarrow |\psi\rangle_B
+\\]
+
+No duplication occurs.
+
+### Physical Implementation (Optical Systems)
+
+Qubits represented by polarization:
+
+- \\( |H\\rangle \\) = horizontal
+- \\( |V\\rangle \\) = vertical
+
+Components:
+
+- Beam splitter (BS)
+- Polarizing beam splitters (PBS)
+- Detectors
+
+Bell-state analyzer:
+
+- Can distinguish only some Bell states
+
+### Practical Limitation
+
+Linear optics can distinguish:
+
+\\[
+|\Psi^+\rangle, \quad |\Psi^-\rangle
+\\]
+
+But not:
+
+\\[
+|\Phi^+\rangle, \quad |\Phi^-\rangle
+\\]
+
+Result:
+
+\\[
+P\_{\text{success}} = \frac{1}{2}
+\\]
+
+Teleportation is probabilistic in practice.
+
+### Conceptual Flow
+
+1. Entanglement shared
+2. Alice entangles unknown with Bell pair
+3. Alice measures (destroys original state)
+4. Classical bits sent to Bob
+5. Bob applies correction
+6. State reconstructed
+
+### Conceptual Takeaways
+
+- Quantum information cannot be copied
+- Entanglement enables state transfer
+- Classical communication is required
+- Information is transferred, not particles
+- Measurement redistributes quantum information
+
+### Common Misconceptions
+
+- Teleportation does not move matter
+- Entanglement alone does not transmit information
+- The state does not exist in two places
+- Classical communication is essential
 
 ---
 

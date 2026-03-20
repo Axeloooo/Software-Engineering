@@ -1,35 +1,36 @@
 # ------------------------------------------------------------------------------
-#  Install the notebook
+#  Install the mdbook toolchain
 # ------------------------------------------------------------------------------
 .PHONY: install
 install: 
 	cargo install mdbook
+	cargo install mdbook-tabs
 
 
 # ------------------------------------------------------------------------------
-#  Uninstall the notebook
+#  Uninstall the mdbook toolchain
 # ------------------------------------------------------------------------------
 .PHONY: uninstall
 uninstall: 
 	cargo uninstall mdbook
-
+	cargo uninstall mdbook-tabs
 
 # ------------------------------------------------------------------------------
-#  Build the notebook
+#  Build the mdbook
 # ------------------------------------------------------------------------------
 .PHONY: build
 build: 
 	mdbook build
 
 # ------------------------------------------------------------------------------
-#  Run the notebook
+#  Run the mdbook
 # ------------------------------------------------------------------------------
 .PHONY: run
 run: 
 	mdbook serve --open
 
 # ------------------------------------------------------------------------------
-#  Clean the notebook
+#  Clean the mdbook
 # ------------------------------------------------------------------------------
 .PHONY: clean
 clean: 
