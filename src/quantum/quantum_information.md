@@ -844,7 +844,7 @@ But not:
 Result:
 
 \\[
-P\_{\text{success}} = \frac{1}{2}
+P_{\text{success}} = \frac{1}{2}
 \\]
 
 Teleportation is probabilistic in practice.
