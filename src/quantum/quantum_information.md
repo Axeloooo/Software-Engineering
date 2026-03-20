@@ -738,10 +738,10 @@ The total state can be rewritten as:
 
 \\[
 |\Psi\rangle =
-\frac{1}{2} \Big(|\Phi^+\rangle\_{12} (\alpha|0\rangle + \beta|1\rangle)\_3
-+|\Phi^-\rangle\_{12} (\alpha|0\rangle - \beta|1\rangle)\_3
-+|\Psi^+\rangle\_{12} (\alpha|1\rangle + \beta|0\rangle)\_3
-+|\Psi^-\rangle\_{12} (\alpha|1\rangle - \beta|0\rangle)\_3\Big)
+\frac{1}{2} \Big(|\Phi^+\rangle_{12} (\alpha|0\rangle + \beta|1\rangle)_3
++|\Phi^-\rangle_{12} (\alpha|0\rangle - \beta|1\rangle)_3
++|\Psi^+\rangle_{12} (\alpha|1\rangle + \beta|0\rangle)_3
++|\Psi^-\rangle_{12} (\alpha|1\rangle - \beta|0\rangle)_3\Big)
 \\]
 
 Key insight:
