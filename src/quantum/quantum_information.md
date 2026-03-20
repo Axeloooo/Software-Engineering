@@ -708,7 +708,7 @@ Ownership:
 
 \\[
 |\Psi\rangle =
-|\psi\rangle*1 \otimes |\Phi^+\rangle*{23}
+|\psi\rangle_1 \otimes |\Phi^+\rangle_{23}
 \\]
 
 \\[
