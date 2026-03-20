@@ -695,7 +695,7 @@ Three qubits:
 Shared Bell state:
 
 \\[
-|\Phi^+\rangle\_{23} =
+|\Phi^+\rangle_{23} =
 \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
 \\]
 
