@@ -49,19 +49,19 @@ src/
 
 The `mdbook-tabs` plugin enables tabbed content via preprocessor directives:
 
-````markdown
+```markdown
 {{#tabs}}
 
 {{#tab name="Tab 1"}}
 Content for tab 1.
-{{/tab}}
+{{/endtab}}
 
 {{#tab name="Tab 2"}}
 Content for tab 2.
-{{/tab}}
+{{/endtab}}
 
-{{/tabs}}
-````
+{{/endtabs}}
+```
 
 ## Math Rendering
 
