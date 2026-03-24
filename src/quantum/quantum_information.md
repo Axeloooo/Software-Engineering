@@ -1086,9 +1086,9 @@ The **one-time pad** provides perfect secrecy:
 C = M \oplus K
 \\]
 
-- \( M \): message
-- \( K \): secret key
-- \( C \): ciphertext
+- \\( M \\): message
+- \\( K \\): secret key
+- \\( C \\): ciphertext
 
 Problem:
 
@@ -1227,8 +1227,8 @@ B92 is a simplified QKD protocol using:
 
 Alice sends:
 
-- Bit 0 → \( |H\rangle \)
-- Bit 1 → \( |D\rangle \)
+- Bit 0 → \\( |H\rangle \\)
+- Bit 1 → \\( |D\rangle \\)
 
 These states are not orthogonal:
 
@@ -1245,12 +1245,12 @@ Bob randomly measures in:
 
 ### Measurement Behavior
 
-#### If Alice sends \( |H\rangle \)
+#### If Alice sends \\( |H\\rangle \\)
 
 - H/V → always H
 - D/A → random
 
-#### If Alice sends \( |D\rangle \)
+#### If Alice sends \\( |D\\rangle \\)
 
 - D/A → always D
 - H/V → random
@@ -1261,8 +1261,8 @@ A result is **conclusive** if it rules out one possibility.
 
 #### Conclusive Results
 
-- Detect V → must be \( |D\rangle \) → bit = 1
-- Detect A → must be \( |H\rangle \) → bit = 0
+- Detect V → must be \\( |D\\rangle \\) → bit = 1
+- Detect A → must be \\( |H\\rangle \\) → bit = 0
 
 #### Inconclusive Results
 
