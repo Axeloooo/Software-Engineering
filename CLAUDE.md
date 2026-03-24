@@ -16,6 +16,7 @@ make clean      # Remove the ./book build artifact
 ```
 
 Raw alternatives if `make` is unavailable:
+
 ```bash
 mdbook build
 mdbook serve --open
@@ -46,21 +47,26 @@ src/
 
 ## Tabbed Content Syntax
 
-The `mdbook-tabs` plugin enables tabbed code blocks:
+The `mdbook-tabs` plugin enables tabbed content using `{{#tabs}}` / `{{#tab name="..."}}` directives (this matches the syntax used under `src/design_patterns/`):
 
-````markdown
-```tabs
-[[Tab Title 1]]
+```markdown
+{{#tabs}}
+
+{{#tab name="Tab Title 1"}}
 Content for tab 1
+{{/endtab}}
 
-[[Tab Title 2]]
+{{#tab name="Tab Title 2"}}
 Content for tab 2
+{{/endtab}}
+
+{{/endtabs}}
 ```
-````
 
 ## Math Rendering
 
 MathJax is enabled. Use standard LaTeX delimiters:
+
 - Inline: `\\( expression \\)`
 - Block: `\\[ expression \\]`
 

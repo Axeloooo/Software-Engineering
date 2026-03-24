@@ -47,17 +47,21 @@ src/
 
 ## Tabbed Content Syntax
 
-The `mdbook-tabs` plugin enables tabbed code blocks:
+The `mdbook-tabs` plugin enables tabbed content via preprocessor directives:
 
-````markdown
-```tabs
-[[Tab Title 1]]
-Content for tab 1
+```markdown
+{{#tabs}}
 
-[[Tab Title 2]]
-Content for tab 2
+{{#tab name="Tab 1"}}
+Content for tab 1.
+{{/endtab}}
+
+{{#tab name="Tab 2"}}
+Content for tab 2.
+{{/endtab}}
+
+{{/endtabs}}
 ```
-````
 
 ## Math Rendering
 
