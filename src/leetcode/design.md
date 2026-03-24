@@ -14,6 +14,9 @@
 - [284. Peeking Iterator](#284-peeking-iterator)
 - [303. Range Sum Query - Immutable](#303-range-sum-query---immutable)
 - [304. Range Sum Query 2D - Immutable](#304-range-sum-query-2d---immutable)
+- [307. Range Sum Query - Mutable](#307-range-sum-query---mutable)
+- [341. Flatten Nested List Iterator](#341-flatten-nested-list-iterator)
+- [355. Design Twitter](#355-design-twitter)
 - [703. Kth Largest Element in a Stream](#703-kth-largest-element-in-a-stream)
 - [705. Design HashSet](#705-design-hashset)
 - [706. Design HashMap](#706-design-hashmap)
@@ -1253,6 +1256,499 @@ class NumMatrix:
   - `__init__`: `O(R * C)` for preprocessing the prefix sum matrix.
   - `sumRegion`: `O(1)` for each query after preprocessing.
 - Space Complexity: `O(R * C)` for storing the prefix sum matrix.
+
+---
+
+## 307. Range Sum Query - Mutable
+
+- **LeetCode Link:** [Range Sum Query - Mutable](https://leetcode.com/problems/range-sum-query-mutable/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Array, Segment Tree, Binary Indexed Tree
+- **Company:** Amazon
+
+### 🧠 Problem Statement
+
+> Given an integer array `nums`, handle multiple queries of the following types:
+>
+> 1.  **Update** the value of an element in `nums`.
+> 2.  Calculate the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** where `left` <= `right`.
+>
+> Implement the `NumArray` class:
+>
+> - `NumArray(int[] nums)` Initializes the object with the integer array `nums`.
+> - `void update(int index, int val)` **Updates** the value of `nums[index]` to be `val`.
+> - `int sumRange(int left, int right)` Returns the **sum** of the elements of `nums` between indices `left` and `right` **inclusive** (i.e. `nums[left] + nums[left + 1] + ... + nums[right]`).
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["NumArray", "sumRange", "update", "sumRange"]
+> [[[1, 3, 5]], [0, 2], [1, 2], [0, 2]]
+>
+> Output
+> [null, 9, null, 8]
+>
+> Explanation
+> NumArray numArray = new NumArray([1, 3, 5]);
+> numArray.sumRange(0, 2); // return 1 + 3 + 5 = 9
+> numArray.update(1, 2); // nums = [1, 2, 5]
+> numArray.sumRange(0, 2); // return 1 + 2 + 5 = 8
+> ```
+
+### 🧩 Approach
+
+To efficiently handle updates and range sum queries on an array, we can use a Segment Tree data structure. A Segment Tree allows us to perform both update and query operations in logarithmic time. The idea is to build a binary tree where each node represents a segment of the array and stores the sum of that segment. When we need to update an element, we can update the corresponding leaf node and then propagate the changes up the tree. When we need to calculate the sum of a range, we can traverse the tree and combine the sums of the relevant segments.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+class Node:
+    def __init__(self, start, end):
+        """Initializes a Node in the Segment Tree with the given start and end indices.
+
+        Args:
+            start (int): The starting index of the segment represented by this node.
+            end (int): The ending index of the segment represented by this node.
+
+        Returns:
+            None
+        """
+        self.start: int = start
+        self.end: int = end
+        self.total: int = 0
+        self.left: Node = None
+        self.right: Node = None
+
+
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        """Initializes the NumArray object with the given integer array.
+
+        Args:
+            nums (List[int]): The input integer array.
+
+        Returns:
+            None
+        """
+        def createTree(nums: List[int], l: int, r: int) -> Node:
+            """Recursively builds a segment tree from the input array nums between indices l and r.
+
+            Args:
+                nums (List[int]): The input array of integers.
+                l (int): The left index of the current segment.
+                r (int): The right index of the current segment.
+
+            Returns:
+                Node: The root node of the segment tree for the current segment.
+            """
+            if l > r:
+                return None
+
+            if l == r:
+                n: Node = Node(l, r)
+                n.total = nums[l]
+                return n
+
+            mid: int = (l + r) // 2
+            root: Node = Node(l, r)
+
+            root.left = createTree(nums, l, mid)
+            root.right = createTree(nums, mid + 1, r)
+
+            root.total = root.left.total + root.right.total
+
+            return root
+
+        self.root: Node = createTree(nums, 0, len(nums) - 1)
+
+    def update(self, index: int, val: int) -> None:
+        """Updates the value at the specified index in the array and updates the segment tree accordingly.
+
+        Args:
+            index (int): The index of the element to be updated.
+            val (int): The new value to be set at the specified index.
+
+        Returns:
+            None
+        """
+        def updateVal(root: Node, i: int, val: int) -> int:
+            """Recursively updates the value at index i in the segment tree rooted at root and updates the total values of the affected nodes.
+
+            Args:
+                root (Node): The current node in the segment tree.
+                i (int): The index of the element to be updated.
+                val (int): The new value to be set at the specified index.
+
+            Returns:
+                int: The updated total value of the current node after the update.
+            """
+            if root.left == root.right:
+                root.total = val
+                return val
+
+            mid: int = (root.start + root.end) // 2
+
+            if i <= mid:
+                updateVal(root.left, i, val)
+            else:
+                updateVal(root.right, i, val)
+
+            root.total = root.left.total + root.right.total
+
+            return root.total
+
+        updateVal(self.root, index, val)
+
+    def sumRange(self, left: int, right: int) -> int:
+        """Returns the sum of the elements of the array between indices left and right inclusive.
+
+        Args:
+            left (int): The starting index of the range.
+            right (int): The ending index of the range.
+
+        Returns:
+            int: The sum of the elements in the specified range.
+        """
+        def rangeSum(root: Node, i: int, j: int) -> int:
+            """Recursively calculates the sum of the elements in the range [i, j] in the segment tree rooted at root.
+
+            Args:
+                root (Node): The current node in the segment tree.
+                i (int): The starting index of the range.
+                j (int): The ending index of the range.
+
+            Returns:
+                int: The sum of the elements in the specified range.
+            """
+            if root.start == i and root.end == j:
+                return root.total
+
+            mid: int = (root.start + root.end) // 2
+
+            if j <= mid:
+                return rangeSum(root.left, i, j)
+
+            elif i >= mid + 1:
+                return rangeSum(root.right, i, j)
+
+            else:
+                return rangeSum(root.left, i, mid) + rangeSum(root.right, mid + 1, j)
+
+        return rangeSum(self.root, left, right)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(n)` for building the segment tree.
+  - `update`: `O(log n)` for updating an element in the segment tree.
+  - `sumRange`: `O(log n)` for querying the sum of a range in the segment tree.
+- Space Complexity: `O(n)` for storing the segment tree.
+
+---
+
+## 341. Flatten Nested List Iterator
+
+- **LeetCode Link:** [Flatten Nested List Iterator](https://leetcode.com/problems/flatten-nested-list-iterator/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Stack, Iterator
+- **Company:** Google
+
+### 🧠 Problem Statement
+
+> You are given a nested list of integers `nestedList`. Each element is either an integer or a list whose elements may also be integers or other lists. Implement an iterator to flatten it.
+>
+> Implement the `NestedIterator` class:
+>
+> - `NestedIterator(List<NestedInteger> nestedList)`: Initializes the iterator with the nested list `nestedList`.
+> - `int next()`: Returns the next integer in the nested list.
+> - `boolean hasNext()`: Returns `true` if there are still some integers in the nested list and `false` otherwise.
+>
+> Your code will be tested with the following pseudocode:
+>
+> ```txt
+> initialize iterator with nestedList
+> res = []
+> while iterator.hasNext()
+> append iterator.next() to the end of res
+> return res
+> ```
+>
+> If `res` matches the expected flattened list, then your code will be judged as correct.
+>
+> Example 1:
+>
+> ```txt
+> Input: nestedList = [[1,1],2,[1,1]]
+>
+> Output: [1,1,2,1,1]
+>
+> Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,1,2,1,1].
+> ```
+>
+> Example 2:
+>
+> ```txt
+> Input: nestedList = [1,[4,[6]]]
+>
+> Output: [1,4,6]
+>
+> Explanation: By calling next repeatedly until hasNext returns false, the order of elements returned by next should be: [1,4,6].
+> ```
+
+### 🧩 Approach
+
+To implement the `NestedIterator`, we can use a depth-first search (DFS) approach to flatten the nested list of integers. We can maintain a stack to store the integers in the order they should be returned. During the initialization, we can perform a DFS on the input nested list and push all the integers onto the stack. After the DFS is complete, we can reverse the stack to ensure that the integers are in the correct order for iteration. The `next()` method will simply pop an integer from the stack, and the `hasNext()` method will check if there are any integers left in the stack.
+
+### 💡 Solution
+
+```python
+from typing import List
+
+# """
+# This is the interface that allows for creating nested lists.
+# You should not implement it, or speculate about its implementation
+# """
+#class NestedInteger:
+#    def isInteger(self) -> bool:
+#        """
+#        @return True if this NestedInteger holds a single integer, rather than a nested list.
+#        """
+#
+#    def getInteger(self) -> int:
+#        """
+#        @return the single integer that this NestedInteger holds, if it holds a single integer
+#        Return None if this NestedInteger holds a nested list
+#        """
+#
+#    def getList(self) -> [NestedInteger]:
+#        """
+#        @return the nested list that this NestedInteger holds, if it holds a nested list
+#        Return None if this NestedInteger holds a single integer
+#        """
+
+class NestedIterator:
+    def __init__(self, nestedList: [NestedInteger]):
+        """Initializes the NestedIterator with the given nested list.
+
+        Args:
+            nestedList (List[NestedInteger]): The input nested list of integers.
+
+        Returns:
+            None
+        """
+        self.stack: List[int] = []
+        self.dfs(nestedList)
+        self.stack.reverse()
+
+
+    def next(self) -> int:
+        """Returns the next integer in the nested list.
+
+        Args:
+            None
+
+        Returns:
+            int: The next integer in the nested list.
+        """
+        return self.stack.pop()
+
+
+    def hasNext(self) -> bool:
+        """Returns true if there are still some integers in the nested list and false otherwise.
+
+        Args:
+            None
+
+        Returns:
+            bool: True if there are still some integers in the nested list, False otherwise.
+        """
+        return len(self.stack) > 0
+
+    def dfs(self, nested: NestedInteger):
+        """Performs a depth-first search on the nested list to flatten it and store the integers in the stack.
+
+        Args:
+            nested (NestedInteger): The current nested list or integer to be processed.
+
+        Returns:
+            None
+        """
+        for n in nested:
+            if n.isInteger():
+                self.stack.append(n.getInteger())
+            else:
+                self.dfs(n.getList())
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `__init__`: `O(n)` for flattening the nested list, where `n` is the total number of integers in the nested list.
+  - `next`: `O(1)` for returning the next integer.
+  - `hasNext`: `O(1)` for checking if there are more integers to return.
+- Space Complexity: `O(n)` for storing the flattened integers in the stack.
+
+---
+
+## 355. Design Twitter
+
+- **LeetCode Link:** [Design Twitter](https://leetcode.com/problems/design-twitter/)
+- **Difficulty:** Medium
+- **Topic(s):** Design, Hash Table, Heap, Priority Queue
+
+### 🧠 Problem Statement
+
+> Design a simplified version of `Twitter` where users can post tweets, follow/unfollow another user, and is able to see the `10` most recent tweets in the user's news feed.
+>
+> Implement the `Twitter` class:
+>
+> - `Twitter()` Initializes your twitter object.
+> - `void postTweet(int userId, int tweetId)` Composes a new tweet with ID `tweetId` by the user with ID `userId`. Each call to this function will be made with a unique `tweetId`.
+> - `List<Integer> getNewsFeed(int userId)` Retrieves the `10` most recent tweet IDs in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user themself. Tweets must be ordered from most recent to least recent.
+> - `void follow(int followerId, int followeeId)` The user with ID `followerId` started following the user with ID `followeeId`.
+> - `void unfollow(int followerId, int followeeId)` The user with ID `followerId` started unfollowing the user with ID `followeeId`.
+>
+> Example 1:
+>
+> ```txt
+> Input
+> ["Twitter", "postTweet", "getNewsFeed", "follow", "postTweet", "getNewsFeed", "unfollow", "getNewsFeed"]
+> [[], [1, 5], [1], [1, 2], [2, 6], [1], [1, 2], [1]]
+>
+> Output
+> [null, null, [5], null, null, [6, 5], null, [5]]
+>
+> Explanation
+> Twitter twitter = new Twitter();
+> twitter.postTweet(1, 5); // User 1 posts a new tweet (id = 5).
+> twitter.getNewsFeed(1); // User 1's news feed should return a list with 1 tweet id -> [5]. return [5]
+> twitter.follow(1, 2); // User 1 follows user 2.
+> twitter.postTweet(2, 6); // User 2 posts a new tweet (id = 6).
+> twitter.getNewsFeed(1); // User 1's news feed should return a list with 2 tweet ids -> [6, 5]. Tweet id 6 should precede tweet id 5 because it is posted after tweet id 5.
+> twitter.unfollow(1, 2); // User 1 unfollows user 2.
+> twitter.getNewsFeed(1); // User 1's news feed should return a list with 1 tweet id -> [5], since user 1 is no longer following user 2.
+> ```
+
+### 🧩 Approach
+
+To design the `Twitter` class, we can use a combination of hash maps and a min-heap (priority queue) to efficiently manage tweets and follow relationships. We will maintain a mapping of user IDs to their tweets, as well as a mapping of user IDs to the set of users they follow. When retrieving the news feed for a user, we can use a min-heap to merge the most recent tweets from the user and their followees, ensuring that we return the 10 most recent tweets in the correct order.
+
+### 💡 Solution
+
+```python
+import heapq
+from collections import defaultdict
+from typing import Dict, List, Set
+
+
+class Twitter:
+    """A simplified Twitter-like social media system.
+
+    Supports posting tweets, following/unfollowing users,
+    and retrieving a user's news feed of the 10 most recent tweets
+    from themselves and the users they follow.
+
+    Attributes:
+        count (int): A counter used to order tweets by recency (decrements on each post).
+        tweetMap (Dict[int, List[List[int]]]): Maps each userId to a list of [count, tweetId] pairs.
+        followMap (Dict[int, Set[int]]): Maps each userId to the set of followeeIds they follow.
+    """
+
+    def __init__(self) -> None:
+        """Initializes the Twitter system with empty tweet and follow maps."""
+        self.count: int = 0
+        self.tweetMap: Dict[int, List[List[int]]] = defaultdict(list)
+        self.followMap: Dict[int, Set[int]] = defaultdict(set)
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        """Posts a new tweet for the given user.
+
+        Args:
+            userId (int): The ID of the user posting the tweet.
+            tweetId (int): The ID of the tweet being posted.
+        """
+        self.tweetMap[userId].append([self.count, tweetId])
+        self.count -= 1
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        """Retrieves the 10 most recent tweet IDs from the user's news feed.
+
+        The feed includes tweets from the user themselves and all users they follow,
+        sorted in descending order of recency (most recent first).
+
+        Args:
+            userId (int): The ID of the user requesting the news feed.
+
+        Returns:
+            List[int]: A list of up to 10 tweet IDs, ordered from most recent to least recent.
+        """
+        res: List[int] = []
+        # Min-heap entries are: [count, tweetId, followeeId, index]
+        # 'count' is negative so lower values = more recent tweets (min-heap acts as max-heap)
+        minHeap: List[List[int]] = []
+
+        # Ensure the user sees their own tweets by adding themselves to their follow set
+        self.followMap[userId].add(userId)
+
+        # Seed the heap with the most recent tweet from each followee
+        for followeeId in self.followMap[userId]:
+            if followeeId in self.tweetMap:
+                # Start from the last (most recent) tweet in the followee's list
+                index: int = len(self.tweetMap[followeeId]) - 1
+                count, tweetId = self.tweetMap[followeeId][index]
+                # Push [count, tweetId, followeeId, next_index] so we can walk backwards later
+                minHeap.append([count, tweetId, followeeId, index - 1])
+
+        # Transform the list into a valid heap in O(n)
+        heapq.heapify(minHeap)
+
+        # Pop the most recent tweet globally, then push the previous tweet from the same user
+        while minHeap and len(res) < 10:
+            count, tweetId, followeeId, index = heapq.heappop(minHeap)
+
+            # Add the popped tweet to results
+            res.append(tweetId)
+
+            # If this followee has older tweets remaining, push the next one onto the heap
+            if index >= 0:
+                count, tweetId = self.tweetMap[followeeId][index]
+                heapq.heappush(minHeap, [count, tweetId, followeeId, index - 1])
+
+        return res
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        """Makes a user follow another user.
+
+        Args:
+            followerId (int): The ID of the user who wants to follow.
+            followeeId (int): The ID of the user to be followed.
+        """
+        self.followMap[followerId].add(followeeId)
+
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        """Makes a user unfollow another user.
+
+        Args:
+            followerId (int): The ID of the user who wants to unfollow.
+            followeeId (int): The ID of the user to be unfollowed.
+        """
+        if followeeId in self.followMap[followerId]:
+            self.followMap[followerId].remove(followeeId)
+```
+
+### 🧮 Complexity Analysis
+
+- Time Complexity:
+  - `postTweet`: `O(1)` for appending a new tweet.
+  - `getNewsFeed`: `O(k log n)` where k is the number of followees (including self) and n is the average number of tweets per followee, due to heap operations.
+  - `follow`: `O(1)` for adding a followee.
+  - `unfollow`: `O(1)` for removing a followee.
+- Space Complexity: `O(u + t)` where u is the number of users and t is the total number of tweets, due to storing follow relationships and tweets.
 
 ---
 
