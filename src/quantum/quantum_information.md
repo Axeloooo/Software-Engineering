@@ -940,7 +940,7 @@ Rewrite the total state in terms of Bell states of qubits (2,3):
 
 \\[
 |\Psi\rangle = \frac{1}{2} \Big(
-|\Phi^+\rangle_{23} |\Phi^+\rangle_{14} - |\Phi^-\rangle_{23} |\Phi^-\rangle_{14} - |\Psi^+\rangle_{23} |\Psi^+\rangle_{14} - |\Psi^-\rangle_{23} |\Psi^-\rangle_{14} \Big)
+|\Phi^+\rangle_{23} |\Phi^+\rangle_{14} + |\Phi^-\rangle_{23} |\Phi^-\rangle_{14} + |\Psi^+\rangle_{23} |\Psi^+\rangle_{14} + |\Psi^-\rangle_{23} |\Psi^-\rangle_{14} \Big)
 \\]
 
 Key insight:
