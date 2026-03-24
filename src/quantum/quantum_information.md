@@ -873,7 +873,196 @@ Teleportation is probabilistic in practice.
 
 ## Entanglement Swapping
 
-Coming soon!
+### Overview
+
+Entanglement swapping is a protocol that creates entanglement between two particles that have **never interacted**.
+
+Key idea:
+
+- Two independent entangled pairs are prepared
+- A joint measurement is performed on one particle from each pair
+- This creates entanglement between the remaining two particles
+
+### Initial Setup
+
+Two Bell pairs:
+
+\\[
+|\Phi^+\rangle_{12} = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+\\]
+
+\\[
+|\Phi^+\rangle_{34} = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+\\]
+
+Ownership:
+
+- Alice → qubit 1
+- Bob → qubit 4
+- Middle station → qubits 2 and 3
+
+Initially:
+
+- (1,2) are entangled
+- (3,4) are entangled
+- (1,4) are **not entangled**
+
+### Total Initial State
+
+\\[
+|\Psi\rangle =
+|\Phi^+\rangle_{12} \otimes |\Phi^+\rangle_{34}
+\\]
+
+\\[
+= \frac{1}{2} (|0000\rangle + |0011\rangle + |1100\rangle + |1111\rangle)
+\\]
+
+This is a **four-qubit system**.
+
+### Bell States
+
+\\[
+|\Phi^\pm\rangle =
+\frac{1}{\sqrt{2}}(|00\rangle \pm |11\rangle)
+\\]
+
+\\[
+|\Psi^\pm\rangle =
+\frac{1}{\sqrt{2}}(|01\rangle \pm |10\rangle)
+\\]
+
+These form a complete basis for two qubits.
+
+### Bell Basis Expansion (Key Step)
+
+Rewrite the total state in terms of Bell states of qubits (2,3):
+
+\\[
+|\Psi\rangle = \frac{1}{2} \Big(
+|\Phi^+\rangle_{23} |\Phi^+\rangle_{14} - |\Phi^-\rangle_{23} |\Phi^-\rangle_{14} - |\Psi^+\rangle_{23} |\Psi^+\rangle_{14} - |\Psi^-\rangle_{23} |\Psi^-\rangle_{14} \Big)
+\\]
+
+Key insight:
+
+- The system is a superposition of **correlated Bell states**
+- Each Bell state of (2,3) is paired with the same Bell state of (1,4)
+
+### Measurement at the Middle Station
+
+A **Bell-state measurement** is performed on qubits 2 and 3.
+
+Result:
+
+- One of four Bell states is obtained
+- The system collapses to the corresponding term
+
+After measurement:
+
+- Original entanglement (1–2 and 3–4) is destroyed
+
+### Resulting State of (1,4)
+
+Depending on the measurement outcome:
+
+| Measurement (2,3)        | Resulting State (1,4)    |
+| ------------------------ | ------------------------ |
+| \\( \| \Phi^+\rangle \\) | \\( \| \Phi^+\rangle \\) |
+| \\( \| \Phi^-\rangle \\) | \\( \| \Phi^-\rangle \\) |
+| \\( \| \Psi^+\rangle \\) | \\( \| \Psi^+\rangle \\) |
+| \\( \| \Psi^-\rangle \\) | \\( \| \Psi^-\rangle \\) |
+
+Result:
+
+- Qubits (1,4) become **entangled**
+- Type of entanglement depends on measurement outcome
+
+### Classical Communication (Optional Correction)
+
+If a specific Bell state is required:
+
+- Measurement result must be sent to Alice or Bob
+- A correction operation can be applied
+
+This is similar to teleportation:
+
+- Operations: \\( I, X, Z, XZ \\)
+
+### Final Result
+
+\\[
+(1,2), (3,4) \;\rightarrow\; (1,4)
+\\]
+
+- Entanglement is transferred
+- Qubits 1 and 4 are now entangled
+- They never interacted directly
+
+### Physical Interpretation
+
+- Entanglement is not a local property
+- It is a property of the **global quantum state**
+
+Measurement:
+
+- Does not create entanglement
+- It **selects one correlation pattern** already present
+
+### Physical Implementation (Optical Systems)
+
+Qubits represented by polarization:
+
+- \\( |H\rangle \\), \\( |V\rangle \\)
+
+Procedure:
+
+- Two entangled photon pairs are generated
+- Photons 2 and 3 interfere at a beam splitter
+- A Bell-state measurement is performed
+
+### Practical Limitation
+
+Linear optics:
+
+- Cannot distinguish all Bell states
+
+Typically distinguishable:
+
+\\[
+|\Psi^+\rangle, \quad |\Psi^-\rangle
+\\]
+
+Result:
+
+\\[
+P_{\text{success}} = \frac{1}{2}
+\\]
+
+Entanglement swapping is probabilistic in practice.
+
+### Conceptual Flow
+
+1. Prepare two entangled pairs
+2. Bring qubits (2,3) together
+3. Rewrite system in Bell basis
+4. Perform Bell-state measurement on (2,3)
+5. Collapse system to one term
+6. Qubits (1,4) become entangled
+
+### Conceptual Takeaways
+
+- Entanglement can be created between non-interacting particles
+- Measurement redistributes quantum correlations
+- Entanglement is a global property
+- Basis choice determines how correlations are revealed
+- Essential for quantum communication networks
+
+### Common Misconceptions
+
+- Measurement creates entanglement (it does not)
+- Particles must interact to become entangled
+- Entanglement is stored locally in particles
+- The process transmits information instantly
 
 ---
 
