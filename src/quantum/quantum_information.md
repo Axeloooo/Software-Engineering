@@ -1095,7 +1095,7 @@ Problem:
 - Alice and Bob must already share a **secure key**
 - Key distribution is difficult
 
-QKD solves this problem.
+QKD addresses this problem by enabling Alice and Bob to establish a shared secret key whose security is guaranteed by quantum mechanics, provided they already share an authenticated public classical channel; in other words, QKD reduces the key-distribution problem to authentication rather than eliminating all trust assumptions.
 
 ### Quantum Advantage
 
