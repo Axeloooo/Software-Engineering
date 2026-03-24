@@ -9,7 +9,7 @@
 - [Dense Coding](#dense-coding)
 - [Quantum Teleportation](#quantum-teleportation)
 - [Entanglement Swapping](#entanglement-swapping)
-- [Quantum Key Distribution (QKD): BB84](#quantum-key-distribution-qkd-bb84)
+- [Quantum Key Distribution (QKD)](#quantum-key-distribution)
 
 ---
 
@@ -1066,6 +1066,254 @@ Entanglement swapping is probabilistic in practice.
 
 ---
 
-## Quantum Key Distribution (QKD): BB84
+## Quantum Key Distribution
 
-Coming soon!
+### Overview
+
+Quantum Key Distribution (QKD) is a method for securely sharing a **secret key** between two parties using quantum mechanics.
+
+Key idea:
+
+- Security is based on **physical laws**, not computational hardness
+- Measurement of quantum states **disturbs them**
+- Eavesdropping can be **detected**
+
+### Classical Motivation
+
+The **one-time pad** provides perfect secrecy:
+
+\\[
+C = M \oplus K
+\\]
+
+- \\( M \\): message
+- \\( K \\): secret key
+- \\( C \\): ciphertext
+
+Problem:
+
+- Alice and Bob must already share a **secure key**
+- Key distribution is difficult
+
+QKD addresses this problem by enabling Alice and Bob to establish a shared secret key whose security is guaranteed by quantum mechanics, provided they already share an authenticated public classical channel; in other words, QKD reduces the key-distribution problem to authentication rather than eliminating all trust assumptions.
+
+### Quantum Advantage
+
+Two fundamental principles:
+
+#### No-Cloning Theorem
+
+Unknown quantum states cannot be copied.
+
+#### Measurement Disturbance
+
+Measuring a quantum state generally **changes it**.
+
+Conclusion:
+
+- An eavesdropper cannot observe communication without being detected
+
+### BB84 Protocol
+
+Alice uses two orthogonal bases:
+
+#### Rectilinear Basis (+)
+
+\\[
+|0\rangle = |H\rangle, \quad |1\rangle = |V\rangle
+\\]
+
+#### Diagonal Basis (×)
+
+\\[
+|0\rangle = |D\rangle, \quad |1\rangle = |A\rangle
+\\]
+
+### Basis Relationship
+
+The bases are related by superposition:
+
+\\[
+|D\rangle = \frac{1}{\sqrt{2}}(|H\rangle + |V\rangle)
+\\]
+
+\\[
+|A\rangle = \frac{1}{\sqrt{2}}(|H\rangle - |V\rangle)
+\\]
+
+Key consequence:
+
+- Measuring in the **wrong basis** gives random results
+
+### Protocol Steps
+
+1. Alice generates random bits
+2. Alice randomly chooses a basis (+ or ×)
+3. Alice sends encoded qubits
+4. Bob randomly chooses measurement bases
+5. Bob measures each qubit
+
+### Measurement Outcomes
+
+- Same basis → deterministic result
+- Different basis → random result (50/50)
+
+### Sifting Process
+
+After transmission:
+
+- Alice and Bob publicly announce **bases only**
+- They discard all mismatched cases
+
+Result:
+
+- Remaining bits form the **sifted key**
+
+### Key Efficiency
+
+Approximately:
+
+\\[
+50\% \text{ of bits are discarded}
+\\]
+
+### Eavesdropping (Intercept-Resend Attack)
+
+Eve:
+
+1. Intercepts qubit
+2. Measures in random basis
+3. Resends qubit
+
+### Effect of Eavesdropping
+
+If Eve uses the wrong basis:
+
+- She disturbs the state
+- Bob may receive incorrect value
+
+Even when:
+
+- Alice and Bob use the same basis
+
+This introduces **errors**.
+
+### Error Detection
+
+Alice and Bob:
+
+1. Reveal a subset of bits
+2. Compare results
+
+If error rate is high:
+
+- Eavesdropping is detected
+- Key is discarded
+
+### Key Insight
+
+Security arises because:
+
+- Information gain ⇒ disturbance
+- Disturbance ⇒ detectable errors
+
+### B92 Protocol
+
+B92 is a simplified QKD protocol using:
+
+- Only **two non-orthogonal states**
+
+### Encoding
+
+Alice sends:
+
+- Bit 0 → \\( |H\rangle \\)
+- Bit 1 → \\( |D\rangle \\)
+
+These states are not orthogonal:
+
+\\[
+\langle H | D \rangle \neq 0
+\\]
+
+### Measurement Bases
+
+Bob randomly measures in:
+
+- H/V basis
+- D/A basis
+
+### Measurement Behavior
+
+#### If Alice sends \\( |H\\rangle \\)
+
+- H/V → always H
+- D/A → random
+
+#### If Alice sends \\( |D\\rangle \\)
+
+- D/A → always D
+- H/V → random
+
+### Conclusive vs Inconclusive Results
+
+A result is **conclusive** if it rules out one possibility.
+
+#### Conclusive Results
+
+- Detect V → must be \\( |D\\rangle \\) → bit = 1
+- Detect A → must be \\( |H\\rangle \\) → bit = 0
+
+#### Inconclusive Results
+
+- Detect H or D → cannot determine bit → discard
+
+### Sifting Process
+
+Bob:
+
+- Announces positions of **conclusive results**
+
+Alice:
+
+- Keeps corresponding bits
+
+Result:
+
+- Shared secret key
+
+### Efficiency
+
+- Many measurements are discarded
+- Lower efficiency than BB84
+
+### Key Insight
+
+Security arises from:
+
+- Inability to perfectly distinguish **non-orthogonal states**
+
+### Conceptual Comparison
+
+| Feature        | BB84           | B92               |
+| -------------- | -------------- | ----------------- |
+| States used    | 4              | 2                 |
+| Bases          | 2              | implicit          |
+| Efficiency     | higher         | lower             |
+| Core principle | basis mismatch | non-orthogonality |
+
+### Conceptual Takeaways
+
+- Quantum mechanics enables secure key distribution
+- Measurement disturbs quantum states
+- Eavesdropping introduces detectable errors
+- BB84 uses basis incompatibility
+- B92 uses non-orthogonal states
+- Security is physical, not computational
+
+### Common Misconceptions
+
+- Randomness alone provides security
+- QKD transmits the key directly (it generates it)
+- Eavesdropping can be hidden without errors
+- Non-orthogonal states can be perfectly distinguished
