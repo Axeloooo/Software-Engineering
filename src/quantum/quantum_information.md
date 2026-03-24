@@ -9,7 +9,7 @@
 - [Dense Coding](#dense-coding)
 - [Quantum Teleportation](#quantum-teleportation)
 - [Entanglement Swapping](#entanglement-swapping)
-- [Quantum Key Distribution (QKD)](#quantum-key-distribution-qkd)
+- [Quantum Key Distribution (QKD)](#quantum-key-distribution)
 
 ---
 
