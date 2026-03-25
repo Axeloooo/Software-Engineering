@@ -510,7 +510,7 @@ Superdense coding allows Alice to send **2 classical bits** to Bob by transmitti
 
 This is only possible because of **entanglement as a resource**.
 
-From the lecture (page 2), the protocol works by encoding classical information into quantum states [oai_citation:0‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+The protocol works by encoding classical information into quantum states.
 
 ### Protocol Overview
 
@@ -538,24 +538,22 @@ Result:
 |\Phi^+\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
 \\]
 
-This shared Bell state is distributed between Alice and Bob (page 5) [oai_citation:1‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+This shared Bell state is distributed between Alice and Bob.
 
 ### Step 2: Alice Encoding
 
 Alice encodes **two classical bits** by applying one of four operations to her qubit:
 
-| Bits | Operation | Resulting State |
-| ---- | --------- | --------------- | ---------------- |
-| 00   | \(I\)     | \(              | \Phi^+\rangle \) |
-| 01   | \(X\)     | \(              | \Psi^+\rangle \) |
-| 10   | \(Z\)     | \(              | \Phi^-\rangle \) |
-| 11   | \(Y\)     | \(              | \Psi^-\rangle \) |
+| Bits | Operation | Resulting State         |
+| ---- | --------- | ----------------------- |
+| 00   | \\(I\\)   | \\( \|\Phi^+\rangle \\) |
+| 01   | \\(X\\)   | \\( \|\Psi^+\rangle \\) |
+| 10   | \\(Z\\)   | \\( \|\Phi^-\rangle \\) |
+| 11   | \\(Y\\)   | \\( \|\Psi^-\rangle \\) |
 
-From page 6:
+- Each operation maps the shared state to a **different Bell state**
 
-- Each operation maps the shared state to a **different Bell state** [oai_citation:2‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
-
-👉 Key idea:
+Key idea:
 Alice is not sending bits directly—she is **transforming entanglement**
 
 ### Step 3: Bob Decoding
@@ -580,7 +578,7 @@ This transforms Bell states into computational basis states:
 |\Psi^-\rangle \rightarrow |11\rangle
 \\]
 
-Then Bob measures and recovers the **two classical bits** (page 7) [oai_citation:3‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+Then Bob measures and recovers the **two classical bits**.
 
 ### Bell States and Encoding
 
@@ -618,10 +616,10 @@ Quantum (superdense coding):
 \log_2(4) = 2 \text{ bits}
 \\]
 
-However (page 8):
+However:
 
 - In real systems (e.g., linear optics), not all Bell states are distinguishable
-- Practical limit ≈ 1.58 bits per qubit [oai_citation:4‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+- Practical limit ≈ 1.58 bits per qubit
 
 ### Key Insights
 
