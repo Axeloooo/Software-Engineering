@@ -506,8 +506,147 @@ Bob now has the **exact original state**.
 
 ## Superdense Coding Circuit
 
-Coming soon!
+Superdense coding allows Alice to send **2 classical bits** to Bob by transmitting only **1 qubit**, using shared entanglement.
 
-```
+This is only possible because of **entanglement as a resource**.
 
-```
+From the lecture (page 2), the protocol works by encoding classical information into quantum states [oai_citation:0‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+
+### Protocol Overview
+
+1. Alice and Bob share an entangled Bell pair
+2. Alice encodes 2 classical bits using a quantum gate
+3. Alice sends her qubit to Bob
+4. Bob performs a joint measurement to recover the 2 bits
+
+### Step 1: Entanglement Preparation
+
+Start with:
+
+\\[
+|00\rangle
+\\]
+
+Apply:
+
+- Hadamard on first qubit
+- CNOT (control = first, target = second)
+
+Result:
+
+\\[
+|\Phi^+\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
+\\]
+
+This shared Bell state is distributed between Alice and Bob (page 5) [oai_citation:1‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+
+### Step 2: Alice Encoding
+
+Alice encodes **two classical bits** by applying one of four operations to her qubit:
+
+| Bits | Operation | Resulting State |
+| ---- | --------- | --------------- | ---------------- |
+| 00   | \(I\)     | \(              | \Phi^+\rangle \) |
+| 01   | \(X\)     | \(              | \Psi^+\rangle \) |
+| 10   | \(Z\)     | \(              | \Phi^-\rangle \) |
+| 11   | \(Y\)     | \(              | \Psi^-\rangle \) |
+
+From page 6:
+
+- Each operation maps the shared state to a **different Bell state** [oai_citation:2‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+
+👉 Key idea:
+Alice is not sending bits directly—she is **transforming entanglement**
+
+### Step 3: Bob Decoding
+
+After receiving Alice’s qubit, Bob performs:
+
+1. CNOT
+2. Hadamard (on first qubit)
+
+This transforms Bell states into computational basis states:
+
+\\[
+|\Phi^+\rangle \rightarrow |00\rangle
+\\]
+\\[
+|\Psi^+\rangle \rightarrow |01\rangle
+\\]
+\\[
+|\Phi^-\rangle \rightarrow |10\rangle
+\\]
+\\[
+|\Psi^-\rangle \rightarrow |11\rangle
+\\]
+
+Then Bob measures and recovers the **two classical bits** (page 7) [oai_citation:3‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+
+### Bell States and Encoding
+
+The four Bell states:
+
+\\[
+|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
+\\]
+
+\\[
+|\Phi^-\rangle = \frac{1}{\sqrt{2}}(|00\rangle - |11\rangle)
+\\]
+
+\\[
+|\Psi^+\rangle = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+\\]
+
+\\[
+|\Psi^-\rangle = \frac{1}{\sqrt{2}}(|01\rangle - |10\rangle)
+\\]
+
+Each represents a **distinct global state**.
+
+### Information Gain
+
+Classically:
+
+- 1 bit per bit sent
+
+Quantum (superdense coding):
+
+- 2 bits per qubit
+
+\\[
+\log_2(4) = 2 \text{ bits}
+\\]
+
+However (page 8):
+
+- In real systems (e.g., linear optics), not all Bell states are distinguishable
+- Practical limit ≈ 1.58 bits per qubit [oai_citation:4‡LEC16.pdf](sediment://file_00000000256c71fda014b9090797e36e)
+
+### Key Insights
+
+#### 1. Entanglement Enables Compression
+
+- Information is encoded into **global correlations**
+- Not into a single qubit alone
+
+#### 2. Alice Does Not Send Two Bits Directly
+
+- She modifies her half of an entangled state
+- The message exists in the **joint system**
+
+#### 3. Bob Needs Both Qubits
+
+- Without Alice’s qubit, Bob cannot decode anything
+- Without prior entanglement, protocol fails
+
+#### 4. This is the Reverse of Teleportation
+
+- Teleportation: send 1 qubit using 2 classical bits
+- Superdense coding: send 2 classical bits using 1 qubit
+
+### Conceptual Takeaways
+
+- Quantum information can be **compressed into entanglement**
+- Operations on one qubit affect the entire system
+- Measurement extracts classical information from quantum correlations
