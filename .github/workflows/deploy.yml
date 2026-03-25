@@ -20,7 +20,7 @@ jobs:
     env:
       MDBOOK_VERSION: 0.5.2
       MDBOOK_TABS_VERSION: 0.3.4
-      MDBOOK_MERMAID_VERSION: 0.1.0
+      MDBOOK_MERMAID_VERSION: 0.17.0
     steps:
       - uses: actions/checkout@v4
       - name: Install mdBook toolchain
