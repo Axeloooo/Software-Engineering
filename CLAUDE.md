@@ -9,7 +9,7 @@ This is a curated **mdBook** knowledge base covering software engineering topics
 ## Commands
 
 ```bash
-make install    # Install mdbook and mdbook-tabs via cargo (one-time setup)
+make install    # Install mdbook, mdbook-tabs and mdbook-mermaid via cargo (one-time setup)
 make build      # Compile Markdown into ./book (static HTML)
 make run        # Serve locally at http://localhost:3000 and open browser
 make clean      # Remove the ./book build artifact

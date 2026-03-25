@@ -158,7 +158,7 @@ Multiple gates are applied in sequence:
 U_2 U_1 |\psi\rangle
 \\]
 
-⚠️ Order matters:
+Order matters:
 
 \\[
 ZX|0\rangle \neq XZ|0\rangle
@@ -328,10 +328,186 @@ Special cases:
 
 ## Quantum Teleportation Circuit
 
-Coming soon!
+Quantum teleportation is a protocol that transfers an **unknown quantum state** from Alice to Bob using:
+
+- Entanglement
+- Classical communication
+- Quantum gates
+
+The original qubit is **destroyed**, and the state is **reconstructed** at Bob’s location.
+
+\\[
+|\psi\rangle = \alpha |0\rangle + \beta |1\rangle
+\\]
+
+Goal:
+
+\\[
+|\psi\rangle_A \rightarrow |\psi\rangle_B
+\\]
+
+### Circuit Overview
+
+The teleportation circuit consists of three qubits:
+
+1. Top wire: unknown state \\(|\psi\rangle\\)
+2. Middle wire: Alice’s entangled qubit
+3. Bottom wire: Bob’s entangled qubit
+
+Key stages:
+
+1. Create entanglement (EPR pair)
+2. Perform Bell measurement (Alice)
+3. Send classical bits
+4. Apply correction (Bob)
+
+The protocol uses:
+
+- Hadamard (H)
+- CNOT
+- Measurement
+- Conditional gates (X, Z)
+
+### Step-by-Step Process
+
+#### Step 1: Create Entanglement (EPR Pair)
+
+Alice and Bob share a Bell state:
+
+\\[
+|\Psi^+\rangle = \frac{1}{\sqrt{2}}(|01\rangle + |10\rangle)
+\\]
+
+Created using:
+
+- Hadamard on one qubit
+- CNOT gate
+
+This entanglement is the **resource** that enables teleportation.
+
+#### Step 2: Combine with Unknown State
+
+The full system becomes:
+
+\\[
+|\psi\rangle \otimes |\Psi^+\rangle
+\\]
+
+This expands into a superposition of **Bell states**:
+
+\\[
+|\psi\rangle \otimes |\Psi^+\rangle =
+\frac{1}{2}(
+|00\rangle (\alpha|0\rangle + \beta|1\rangle) +
+|01\rangle (\alpha|1\rangle + \beta|0\rangle) +
+|10\rangle (\alpha|0\rangle - \beta|1\rangle) +
+|11\rangle (\alpha|1\rangle - \beta|0\rangle)
+)
+\\]
+
+Key idea:
+
+- The unknown state is now **distributed across all three qubits**
+
+#### Step 3: Bell Measurement (Alice)
+
+Alice applies:
+
+1. CNOT (between her qubits)
+2. Hadamard
+
+Then measures both qubits.
+
+Result:
+
+\\[
+\frac{1}{2}(
+|00\rangle (\alpha|0\rangle + \beta|1\rangle) +
+|01\rangle (\alpha|1\rangle + \beta|0\rangle) +
+|10\rangle (\alpha|0\rangle - \beta|1\rangle) +
+|11\rangle (\alpha|1\rangle - \beta|0\rangle)
+)
+\\]
+
+Key idea:
+
+- Measurement collapses the system into one of four cases.
+
+### Bell States and Measurement
+
+Alice’s measurement yields:
+
+- \\(|00\rangle\\)
+- \\(|01\rangle\\)
+- \\(|10\rangle\\)
+- \\(|11\rangle\\)
+
+Each corresponds to a different transformation of Bob’s qubit.
+
+**Important:**
+
+Bob’s qubit is already **close to \\(|\psi\rangle\\)** — just modified by a known operation.
+
+### Classical Communication and Correction
+
+Alice sends **2 classical bits** to Bob.
+
+Based on the result, Bob applies:
+
+| Measurement | Operation |
+| ----------- | --------- |
+| 00          | Identity  |
+| 01          | X         |
+| 10          | Z         |
+| 11          | XZ        |
+
+After correction:
+
+\\[
+|\psi\rangle = \alpha|0\rangle + \beta|1\rangle
+\\]
+
+Bob now has the **exact original state**.
+
+### Key Insights
+
+#### 1. No Faster-Than-Light Communication
+
+- Classical bits are required
+- Teleportation is **not instantaneous communication**
+
+#### 2. State is Not Copied
+
+- The original qubit is destroyed during measurement
+- This obeys the **no-cloning theorem**
+
+#### 3. Entanglement is a Resource
+
+- Without entanglement, teleportation is impossible
+- It enables non-local correlations
+
+#### 4. Measurement Drives the Protocol
+
+- Measurement collapses the system
+- Converts quantum information into classical bits
+
+#### 5. Corrections Recover the State
+
+- Bob’s qubit is always one operation away from \\(|\psi\rangle\\)
+- Classical information tells him which one
+
+### Conceptual Takeaways
+
+- Teleportation = **entanglement + measurement + classical control**
+- Information is transferred without moving the particle
+- Quantum states behave as **global systems**, not local objects
 
 ---
 
 ## Superdense Coding Circuit
 
 Coming soon!
+
+```
+
+```

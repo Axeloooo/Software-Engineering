@@ -6,7 +6,10 @@ src = "src"
 
 [preprocessor.tabs]
 
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
 [output.html]
 additional-css = ["theme/tabs.css"]
-additional-js  = ["theme/tabs.js"]
+additional-js  = ["theme/tabs.js", "mermaid.min.js", "mermaid-init.js"]
 mathjax-support = true
