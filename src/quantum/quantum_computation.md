@@ -244,7 +244,19 @@ The Controlled-NOT gate flips the target qubit if the control qubit is 1.
 Swaps two qubits:
 
 \\[
+|00\rangle \rightarrow |00\rangle
+\\]
+
+\\[
+|01\rangle \rightarrow |10\rangle
+\\]
+
+\\[
 |10\rangle \rightarrow |01\rangle
+\\]
+
+\\[
+|11\rangle \rightarrow |11\rangle
 \\]
 
 - Exchanges quantum states
