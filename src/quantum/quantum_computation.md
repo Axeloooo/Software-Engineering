@@ -267,6 +267,18 @@ Swaps two qubits:
 Applies a phase flip when both qubits are 1:
 
 \\[
+|00\rangle \rightarrow |00\rangle
+\\]
+
+\\[
+|01\rangle \rightarrow |01\rangle
+\\]
+
+\\[
+|10\rangle \rightarrow |10\rangle
+\\]
+
+\\[
 |11\rangle \rightarrow -|11\rangle
 \\]
 
