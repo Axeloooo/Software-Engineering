@@ -5,6 +5,7 @@
 install: 
 	cargo install mdbook
 	cargo install mdbook-tabs
+	cargo install mdbook-mermaid
 
 
 # ------------------------------------------------------------------------------
@@ -14,6 +15,7 @@ install:
 uninstall: 
 	cargo uninstall mdbook
 	cargo uninstall mdbook-tabs
+	cargo uninstall mdbook-mermaid
 
 # ------------------------------------------------------------------------------
 #  Build the mdbook

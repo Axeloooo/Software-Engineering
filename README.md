@@ -64,6 +64,7 @@ Install [Rust](https://www.rust-lang.org/tools/install) first so `cargo` is avai
 ```bash
 cargo install mdbook
 cargo install mdbook-tabs
+cargo install mdbook-mermaid
 ```
 
 ### Clone the repository
@@ -89,8 +90,8 @@ Then open the local server shown by `mdbook serve`.
 make build      # Build the book into ./book
 make run        # Serve the book locally and open it in the browser
 make clean      # Remove the generated ./book directory
-make install    # Install mdbook via cargo
-make uninstall  # Uninstall mdbook via cargo
+make install    # Install mdbook, mdbook-tabs and mdbook-mermaid via cargo
+make uninstall  # Uninstall mdbook, mdbook-tabs and mdbook-mermaid via cargo
 ```
 
 ### Raw mdBook commands
