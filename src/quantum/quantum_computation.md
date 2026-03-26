@@ -554,6 +554,7 @@ Alice encodes **two classical bits** by applying one of four operations to her q
 - Each operation maps the shared state to a **different Bell state**
 
 Key idea:
+
 Alice is not sending bits directly—she is **transforming entanglement**
 
 ### Step 3: Bob Decoding
