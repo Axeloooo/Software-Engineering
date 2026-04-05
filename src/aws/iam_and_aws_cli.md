@@ -194,7 +194,7 @@ $ aws s3 ls s3://my-bucket
 
 - AWS Software Develoment Kit (AWS SDK)
 - Language-specific APIs (set of libraries)
-  -= Enables you to access and manage AWS services programmatically
+  - Enables you to access and manage AWS services programmatically
 - Embedded within your application
 - Supports
   - SDKs (JavaScript, Python, PHP, .NET, Ruby, Java, Go, Node.js, C++)
