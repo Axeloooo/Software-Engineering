@@ -104,7 +104,7 @@
 - In AWS, you can setup a password policy:
   - Set a minimum password length
   - Require specific character types:
-    - inlcuding uppercase letters
+    - including uppercase letters
     - lowercase letters
     - numbers
     - non-alphanumeric characters
