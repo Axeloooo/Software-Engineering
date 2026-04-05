@@ -2,6 +2,12 @@
 
 ---
 
+# ☁️ AWS
+
+- [IAM & AWS CLI](./aws/iam_and_aws_cli.md)
+
+---
+
 # ⚛️ Quantum Computing
 
 - [Physics](./quantum/quantum_physics.md)
