@@ -2,9 +2,9 @@
 
 ---
 
-# AWS
+# ☁️ AWS
 
-- [IAM and AWS CLI](./aws/iam_and_aws_cli.md)
+- [IAM & AWS CLI](./aws/iam_and_aws_cli.md)
 
 ---
 
