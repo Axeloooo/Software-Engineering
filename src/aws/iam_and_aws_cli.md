@@ -192,7 +192,7 @@ $ aws s3 ls s3://my-bucket
   </svg>
 </div>
 
-- AWS Software Develoment Kit (AWS SDK)
+- AWS Software Development Kit (AWS SDK)
 - Language-specific APIs (set of libraries)
   - Enables you to access and manage AWS services programmatically
 - Embedded within your application
