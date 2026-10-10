@@ -1,14 +1,14 @@
 # 📓 Big O Notebook
 
-[![Build](https://github.com/Axeloooo/Software-Engineering/actions/workflows/build.yml/badge.svg)](https://github.com/Axeloooo/Software-Engineering/actions/workflows/build.yml)
-[![Deploy](https://github.com/Axeloooo/Software-Engineering/actions/workflows/deploy.yml/badge.svg)](https://github.com/Axeloooo/Software-Engineering/actions/workflows/deploy.yml)
-[![Release](https://github.com/Axeloooo/Software-Engineering/actions/workflows/release.yml/badge.svg)](https://github.com/Axeloooo/Software-Engineering/actions/workflows/release.yml)
-[![GitHub Tag](https://img.shields.io/github/v/tag/Axeloooo/Software-Engineering)](https://github.com/Axeloooo/Software-Engineering/tags)
-[![License](https://img.shields.io/github/license/Axeloooo/Software-Engineering)](./src/LICENSE.md)
-[![Repo Size](https://img.shields.io/github/repo-size/Axeloooo/Software-Engineering)](https://github.com/Axeloooo/Software-Engineering)
-[![Issues](https://img.shields.io/github/issues/Axeloooo/Software-Engineering)](https://github.com/Axeloooo/Software-Engineering/issues)
-[![Pull Requests](https://img.shields.io/github/issues-pr/Axeloooo/Software-Engineering)](https://github.com/Axeloooo/Software-Engineering/pulls)
-[![Contributors](https://img.shields.io/github/contributors/Axeloooo/Software-Engineering)](https://github.com/Axeloooo/Software-Engineering/graphs/contributors)
+[![Build](https://github.com/Axeloooo/big-o-notebook/actions/workflows/build.yml/badge.svg)](https://github.com/Axeloooo/big-o-notebook/actions/workflows/build.yml)
+[![Deploy](https://github.com/Axeloooo/big-o-notebook/actions/workflows/deploy.yml/badge.svg)](https://github.com/Axeloooo/big-o-notebook/actions/workflows/deploy.yml)
+[![Release](https://github.com/Axeloooo/big-o-notebook/actions/workflows/release.yml/badge.svg)](https://github.com/Axeloooo/big-o-notebook/actions/workflows/release.yml)
+[![GitHub Tag](https://img.shields.io/github/v/tag/Axeloooo/big-o-notebook)](https://github.com/Axeloooo/big-o-notebook/tags)
+[![License](https://img.shields.io/github/license/Axeloooo/big-o-notebook)](./src/LICENSE.md)
+[![Repo Size](https://img.shields.io/github/repo-size/Axeloooo/big-o-notebook)](https://github.com/Axeloooo/big-o-notebook)
+[![Issues](https://img.shields.io/github/issues/Axeloooo/big-o-notebook)](https://github.com/Axeloooo/big-o-notebook/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/Axeloooo/big-o-notebook)](https://github.com/Axeloooo/big-o-notebook/pulls)
+[![Contributors](https://img.shields.io/github/contributors/Axeloooo/big-o-notebook)](https://github.com/Axeloooo/big-o-notebook/graphs/contributors)
 
 A curated **mdBook** knowledge base for software engineering topics, interview prep, cloud services, design patterns, and quantum computing notes. The project is built as a personal reference that is also organized well enough to be useful as a public learning resource.
 
@@ -70,8 +70,8 @@ cargo install mdbook-mermaid
 ### Clone the repository
 
 ```bash
-git clone git@github.com:Axeloooo/Software-Engineering.git
-cd Software-Engineering
+git clone git@github.com:Axeloooo/big-o-notebook.git
+cd big-o-notebook
 ```
 
 ### Run the book locally

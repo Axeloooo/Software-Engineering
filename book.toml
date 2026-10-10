@@ -13,5 +13,5 @@ command = "mdbook-mermaid"
 additional-css = ["theme/tabs.css", "theme/reading.css"]
 additional-js  = ["theme/tabs.js", "theme/reading.js", "mermaid.min.js", "mermaid-init.js"]
 mathjax-support = true
-git-repository-url = "https://github.com/Axeloooo/Software-Engineering"
-edit-url-template = "https://github.com/Axeloooo/Software-Engineering/edit/devel/{path}"
+git-repository-url = "https://github.com/Axeloooo/big-o-notebook"
+edit-url-template = "https://github.com/Axeloooo/big-o-notebook/edit/devel/{path}"
