@@ -1,4 +1,4 @@
-# 📘 Software Engineering Documentation
+# 📓 Big O Notebook
 
 [![Build](https://github.com/Axeloooo/Software-Engineering/actions/workflows/build.yml/badge.svg)](https://github.com/Axeloooo/Software-Engineering/actions/workflows/build.yml)
 [![Deploy](https://github.com/Axeloooo/Software-Engineering/actions/workflows/deploy.yml/badge.svg)](https://github.com/Axeloooo/Software-Engineering/actions/workflows/deploy.yml)
