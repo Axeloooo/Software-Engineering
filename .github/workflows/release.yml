@@ -23,7 +23,7 @@ jobs:
       - name: Initialize package.json
         run: npm init -y
       - name: Install dependencies
-        run: npm install -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github
+        run: npm install -D semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
       - name: Run Semantic Release
