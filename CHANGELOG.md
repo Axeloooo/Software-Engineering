@@ -1,5 +1,21 @@
 # Changelog
 
+# [1.11.0](https://github.com/Axeloooo/Software-Engineering/compare/v1.10.0...v1.11.0) (2026-10-10)
+
+
+### Bug Fixes
+
+* clean up code structure and remove redundant changes ([a35934c](https://github.com/Axeloooo/Software-Engineering/commit/a35934cec866c6b72f2580851c2aa2c39e96c9bf))
+* Removed unused AWS icons ([354ad7d](https://github.com/Axeloooo/Software-Engineering/commit/354ad7dee636681ca1499c9e7c2fb63d31f5cacc))
+
+
+### Features
+
+* Add IAM and AWS CLI documentation ([e8d9d71](https://github.com/Axeloooo/Software-Engineering/commit/e8d9d71affe77006b373962e635f074eb725b614))
+* add reading time, progress bar, back-to-top and edit links ([22c0ee8](https://github.com/Axeloooo/Software-Engineering/commit/22c0ee816b4ad34446e6ccc430188c8aa410c86c))
+* Added AWS icons ([831ba3f](https://github.com/Axeloooo/Software-Engineering/commit/831ba3fb4ae56e0500884f79d0786367537576d8))
+* Update AWS documentation and SVG assets ([5866cf9](https://github.com/Axeloooo/Software-Engineering/commit/5866cf9c9d6adec147b401a738fc3bc7d3e19bab))
+
 # [1.10.0](https://github.com/Axeloooo/Software-Engineering/compare/v1.9.0...v1.10.0) (2026-03-26)
 
 
