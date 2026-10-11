@@ -1,4 +1,4 @@
-# 🚀 Software Engineering Notes
+# 📓 Big O Notebook
 
 Welcome to my living collection of software engineering notes.
 
