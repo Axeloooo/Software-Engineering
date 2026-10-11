@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.12.0](https://github.com/Axeloooo/big-o-notebook/compare/v1.11.0...v1.12.0) (2026-10-11)
+
+
+### Features
+
+* rename the book to Big O Notebook ([9cbdb4f](https://github.com/Axeloooo/big-o-notebook/commit/9cbdb4fc5e677f5bce5a4a558be3389d23eb29ef))
+
 # [1.11.0](https://github.com/Axeloooo/Software-Engineering/compare/v1.10.0...v1.11.0) (2026-10-10)
 
 
